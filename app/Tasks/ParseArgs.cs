@@ -14,6 +14,7 @@ namespace Tasks
 
         public class Output
         {
+            public string ReleaseId { get; set; }
             public BumpType BumpType { get; set; }
             public string[] AssemblyInfoFiles { get; set; }
             public string[] NuspecFiles { get; set; }
@@ -21,12 +22,14 @@ namespace Tasks
 
         public override void Execute()
         {
-            var bumpType = Enum.Parse(typeof(BumpType), In.Args[0], true);
+            Out.ReleaseId = In.Args[0];
+
+            var bumpType = Enum.Parse(typeof(BumpType), In.Args[1], true);
             Out.BumpType = (BumpType) bumpType;
 
             var assemblyInfoRegEx = new Regex(@"AssemblyInfo\.cs$");
             var assemblyInfoFiles = new List<string>();
-            for (var i = 1; i < In.Args.Length; i++)
+            for (var i = 2; i < In.Args.Length; i++)
             {
                 var match = assemblyInfoRegEx.Match(In.Args[i]);
                 if (match.Success)
@@ -38,7 +41,7 @@ namespace Tasks
 
             var nuspecRegEx = new Regex(@"\.nuspec$");
             var nuspecFiles = new List<string>();
-            for (var i = 1; i < In.Args.Length; i++)
+            for (var i = 2; i < In.Args.Length; i++)
             {
                 var match = nuspecRegEx.Match(In.Args[i]);
                 if (match.Success)

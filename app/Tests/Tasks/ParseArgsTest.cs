@@ -9,6 +9,7 @@ namespace Tests.Tasks
     {
         private string[] _testArgs = new[]
                                          {
+                                             "SomeRelease",
                                              "patch",
                                              "something",
                                              @"C:\Somewhere\AssemblyInfo.cs",
@@ -21,11 +22,25 @@ namespace Tests.Tasks
                                          };
 
         [Test]
+        public void should_find_release_id()
+        {
+            // Arrange
+            var parse = Task.New<ParseArgs>();
+            parse.In.Args = new[] { "SomeRelease", "patch" };
+
+            // Act
+            parse.Execute();
+
+            // Assert
+            Check.That(parse.Out.ReleaseId == "SomeRelease", "Should have found SomeRelease.");
+        }
+
+        [Test]
         public void should_find_major_bump_type_in_first_arg()
         {
             // Arrange
             var parse = Task.New<ParseArgs>();
-            parse.In.Args = new[] { "major" };
+            parse.In.Args = new[] { "SomeRelease", "major" };
 
             // Act
             parse.Execute();
@@ -39,7 +54,7 @@ namespace Tests.Tasks
         {
             // Arrange
             var parse = Task.New<ParseArgs>();
-            parse.In.Args = new[] { "minor" };
+            parse.In.Args = new[] { "SomeRelease", "minor" };
 
             // Act
             parse.Execute();
@@ -53,7 +68,7 @@ namespace Tests.Tasks
         {
             // Arrange
             var parse = Task.New<ParseArgs>();
-            parse.In.Args = new[] { "patch" };
+            parse.In.Args = new[] { "SomeRelease", "patch" };
 
             // Act
             parse.Execute();
@@ -63,7 +78,7 @@ namespace Tests.Tasks
         }
 
         [Test]
-        public void should_find_AssemblyInfo_files_in_subsequent_args()
+        public void should_find_assembly_info_files_in_subsequent_args()
         {
             // Arrange
             var parse = Task.New<ParseArgs>();
