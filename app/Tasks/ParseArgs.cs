@@ -18,6 +18,7 @@ namespace Tasks
             public BumpType BumpType { get; set; }
             public string[] AssemblyInfoFiles { get; set; }
             public string[] NuspecFiles { get; set; }
+            public string[] OtherFiles { get; set; }
         }
 
         public override void Execute()
@@ -28,28 +29,30 @@ namespace Tasks
             Out.BumpType = (BumpType) bumpType;
 
             var assemblyInfoRegEx = new Regex(@"AssemblyInfo\.cs$");
+            var nuspecRegEx = new Regex(@"\.nuspec$");
             var assemblyInfoFiles = new List<string>();
+            var nuspecFiles = new List<string>();
+            var otherFiles = new List<string>();
             for (var i = 2; i < In.Args.Length; i++)
             {
-                var match = assemblyInfoRegEx.Match(In.Args[i]);
-                if (match.Success)
+                var assemblyInfoMatch = assemblyInfoRegEx.Match(In.Args[i]);
+                var nuspecMatch = nuspecRegEx.Match(In.Args[i]);
+                if (assemblyInfoMatch.Success)
                 {
                     assemblyInfoFiles.Add(In.Args[i]);
                 }
-            }
-            Out.AssemblyInfoFiles = assemblyInfoFiles.ToArray();
-
-            var nuspecRegEx = new Regex(@"\.nuspec$");
-            var nuspecFiles = new List<string>();
-            for (var i = 2; i < In.Args.Length; i++)
-            {
-                var match = nuspecRegEx.Match(In.Args[i]);
-                if (match.Success)
+                else if (nuspecMatch.Success)
                 {
                     nuspecFiles.Add(In.Args[i]);
                 }
+                else
+                {
+                    otherFiles.Add(In.Args[i]);
+                }
             }
+            Out.AssemblyInfoFiles = assemblyInfoFiles.ToArray();
             Out.NuspecFiles = nuspecFiles.ToArray();
+            Out.OtherFiles = otherFiles.ToArray();
         }
     }
 }
