@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Example</id>
+    <version>1.4.5</version>
+    <title>Example</title>
+    <authors>Nobody Knows</authors>
+    <owners>Nobody Knows</owners>
+    <licenseUrl></licenseUrl>
+    <projectUrl></projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is just an example release.</description>
+    <summary>This is just an example release.</summary>
+    <releaseNotes>This is just an example release.</releaseNotes>
+    <language>en-US</language>
+  </metadata>
+</package>

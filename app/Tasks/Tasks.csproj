@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BumpNuspec.cs" />
     <Compile Include="BumpType.cs" />
     <Compile Include="ParseArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
