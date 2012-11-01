@@ -10,7 +10,6 @@ namespace Tests.Tasks
         readonly string[] _testArgs =
             new[]
                 {
-                    "SomeRelease",
                     "patch",
                     @"scriptA",
                     @"C:\Somewhere\AssemblyInfo.cs",
@@ -22,25 +21,11 @@ namespace Tests.Tasks
                 };
 
         [Test]
-        public void should_find_release_id()
-        {
-            // Arrange
-            var parse = Task.New<ParseArgs>();
-            parse.In.Args = new[] { "SomeRelease", "patch" };
-
-            // Act
-            parse.Execute();
-
-            // Assert
-            Check.That(parse.Out.ReleaseId == "SomeRelease", "Should have found SomeRelease.");
-        }
-
-        [Test]
         public void should_find_major_bump_type_in_first_arg()
         {
             // Arrange
             var parse = Task.New<ParseArgs>();
-            parse.In.Args = new[] { "SomeRelease", "major" };
+            parse.In.Args = new[] { "major" };
 
             // Act
             parse.Execute();
@@ -54,7 +39,7 @@ namespace Tests.Tasks
         {
             // Arrange
             var parse = Task.New<ParseArgs>();
-            parse.In.Args = new[] { "SomeRelease", "minor" };
+            parse.In.Args = new[] { "minor" };
 
             // Act
             parse.Execute();
@@ -68,7 +53,7 @@ namespace Tests.Tasks
         {
             // Arrange
             var parse = Task.New<ParseArgs>();
-            parse.In.Args = new[] { "SomeRelease", "patch" };
+            parse.In.Args = new[] { "patch" };
 
             // Act
             parse.Execute();
