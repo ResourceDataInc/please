@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Simpler;
 
-namespace Tasks
+namespace Library.Tasks
 {
     public class BumpAssemblyInfo : InTask<BumpAssemblyInfo.Input>
     {

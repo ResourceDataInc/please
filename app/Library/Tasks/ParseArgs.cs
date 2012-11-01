@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Simpler;
 
-namespace Tasks
+namespace Library.Tasks
 {
     public class ParseArgs : InOutTask<ParseArgs.Input, ParseArgs.Output>
     {

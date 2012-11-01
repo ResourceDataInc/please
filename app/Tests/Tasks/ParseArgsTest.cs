@@ -1,4 +1,5 @@
-﻿using Tasks;
+﻿using Library;
+using Library.Tasks;
 using NUnit.Framework;
 using Simpler;
 

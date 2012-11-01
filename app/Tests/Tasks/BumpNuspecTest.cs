@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using Library;
+using Library.Tasks;
 using NUnit.Framework;
 using Simpler;
-using Tasks;
 
 namespace Tests.Tasks
 {

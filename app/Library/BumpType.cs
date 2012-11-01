@@ -1,4 +1,4 @@
-﻿namespace Tasks
+﻿namespace Library
 {
     public enum BumpType
     {
