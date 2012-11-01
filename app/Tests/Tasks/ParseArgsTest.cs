@@ -110,7 +110,7 @@ namespace Tests.Tasks
         }
 
         [Test]
-        public void should_find_other_files_in_subsequent_args()
+        public void should_find_script_files_in_subsequent_args()
         {
             // Arrange
             var parse = Task.New<ParseArgs>();
@@ -120,10 +120,10 @@ namespace Tests.Tasks
             parse.Execute();
 
             // Assert
-            Check.That(parse.Out.OtherFiles.Length == 3, "Should have found 3 other files.");
-            Check.That(parse.Out.OtherFiles[0] == @"scriptA", "Should have found first .nuspec file.");
-            Check.That(parse.Out.OtherFiles[1] == @"\.scriptB.bat", "Should have found second .nuspec file.");
-            Check.That(parse.Out.OtherFiles[2] == @"C:\SomewhereElse\scriptC.exe", "Should have found second .nuspec file.");
+            Check.That(parse.Out.ScriptFiles.Length == 3, "Should have found 3 script files.");
+            Check.That(parse.Out.ScriptFiles[0] == @"scriptA", "Should have found first script file.");
+            Check.That(parse.Out.ScriptFiles[1] == @"\.scriptB.bat", "Should have found second script file.");
+            Check.That(parse.Out.ScriptFiles[2] == @"C:\SomewhereElse\scriptC.exe", "Should have found third script file.");
         }
     }
 }

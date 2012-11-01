@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="Tasks\BumpNuspecTest.cs" />
     <Compile Include="Tasks\BumpAssemblyInfoTest.cs" />
+    <Compile Include="Tasks\BumpScriptTest.cs" />
     <Compile Include="Tasks\ParseArgsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -80,6 +81,18 @@
     <None Include="Files\Nuspec_Before.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Files\Script_MajorBumped.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Script_MinorBumped.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Script_PatchBumped.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Files\Script_Before.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

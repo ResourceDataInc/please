@@ -5,7 +5,7 @@ using Simpler;
 
 namespace Tasks
 {
-    public class BumpAssemblyInfo : InTask<BumpAssemblyInfo.Input>
+    public class BumpScript : InTask<BumpScript.Input>
     {
         public class Input
         {
@@ -16,11 +16,11 @@ namespace Tasks
         public override void Execute()
         {
             var fileContents = File.ReadAllText(In.FileName);
-            const string pattern = @"Version\(""(?<Major>\d+)[.](?<Minor>\d+)[.](?<Patch>\d+)";
+            const string pattern = @"\.(?<Major>\d+)[.](?<Minor>\d+)[.](?<Patch>\d+).nupkg";
 
             var matches = Regex.Matches(fileContents, pattern);
-            Check.That(matches.Count >= 1, "Expected to find at least one version reference in the {0} file.", In.FileName);
-            Check.That(matches[0].Groups.Count == 4, "Expected to find at least one version reference in the format of X.X.X in {0} file.", In.FileName);
+            Check.That(matches.Count >= 1, "Expected to find at least one .nupkg reference in the {0} file.", In.FileName);
+            Check.That(matches[0].Groups.Count == 4, "Expected to find at least one reference of format X.X.X.nupkg in {0} file.", In.FileName);
 
             var major = Int32.Parse(matches[0].Groups[1].Value);
             var minor = Int32.Parse(matches[0].Groups[2].Value);
@@ -39,7 +39,7 @@ namespace Tasks
                     break;
             }
 
-            var newVersion = String.Format(@"Version(""{0}.{1}.{2}", major, minor, patch);
+            var newVersion = String.Format(@".{0}.{1}.{2}.nupkg", major, minor, patch);
             var newFileContents = Regex.Replace(fileContents, pattern, match => newVersion);
             File.WriteAllText(In.FileName, newFileContents);
         }

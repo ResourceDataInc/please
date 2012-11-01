@@ -26,6 +26,14 @@ namespace Bump
                 bumpAssemblyInfo.In.FileName = file;
                 bumpAssemblyInfo.Execute();
             }
+
+            var bumpScript = Task.New<BumpScript>();
+            bumpScript.In.BumpType = parse.Out.BumpType;
+            foreach (var file in parse.Out.ScriptFiles)
+            {
+                bumpScript.In.FileName = file;
+                bumpScript.Execute();
+            }
         }
     }
 }

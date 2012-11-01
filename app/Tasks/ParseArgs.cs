@@ -18,7 +18,7 @@ namespace Tasks
             public BumpType BumpType { get; set; }
             public string[] AssemblyInfoFiles { get; set; }
             public string[] NuspecFiles { get; set; }
-            public string[] OtherFiles { get; set; }
+            public string[] ScriptFiles { get; set; }
         }
 
         public override void Execute()
@@ -30,9 +30,11 @@ namespace Tasks
 
             var assemblyInfoRegEx = new Regex(@"AssemblyInfo\.cs$");
             var nuspecRegEx = new Regex(@"\.nuspec$");
+
             var assemblyInfoFiles = new List<string>();
             var nuspecFiles = new List<string>();
-            var otherFiles = new List<string>();
+            var scriptFiles = new List<string>();
+
             for (var i = 2; i < In.Args.Length; i++)
             {
                 var assemblyInfoMatch = assemblyInfoRegEx.Match(In.Args[i]);
@@ -47,12 +49,13 @@ namespace Tasks
                 }
                 else
                 {
-                    otherFiles.Add(In.Args[i]);
+                    scriptFiles.Add(In.Args[i]);
                 }
             }
+
             Out.AssemblyInfoFiles = assemblyInfoFiles.ToArray();
             Out.NuspecFiles = nuspecFiles.ToArray();
-            Out.OtherFiles = otherFiles.ToArray();
+            Out.ScriptFiles = scriptFiles.ToArray();
         }
     }
 }
