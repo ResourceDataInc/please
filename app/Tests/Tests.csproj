@@ -50,7 +50,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Files\AssemblyInfo_Before.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Files\AssemblyInfo_MajorBumped.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Files\AssemblyInfo_MinorBumped.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Files\AssemblyInfo_PatchBumped.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Tasks\BumpNuspecTest.cs" />
+    <Compile Include="Tasks\BumpAssemblyInfoTest.cs" />
     <Compile Include="Tasks\ParseArgsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

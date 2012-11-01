@@ -13,11 +13,18 @@ namespace Bump
 
             var bumpNuspec = Task.New<BumpNuspec>();
             bumpNuspec.In.BumpType = parse.Out.BumpType;
-
-            foreach (var nuspecFile in parse.Out.NuspecFiles)
+            foreach (var file in parse.Out.NuspecFiles)
             {
-                bumpNuspec.In.FileName = nuspecFile;
+                bumpNuspec.In.FileName = file;
                 bumpNuspec.Execute();
+            }
+
+            var bumpAssemblyInfo = Task.New<BumpAssemblyInfo>();
+            bumpAssemblyInfo.In.BumpType = parse.Out.BumpType;
+            foreach (var file in parse.Out.AssemblyInfoFiles)
+            {
+                bumpAssemblyInfo.In.FileName = file;
+                bumpAssemblyInfo.Execute();
             }
         }
     }

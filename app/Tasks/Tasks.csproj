@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BumpNuspec.cs" />
     <Compile Include="BumpType.cs" />
+    <Compile Include="BumpAssemblyInfo.cs" />
     <Compile Include="ParseArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
