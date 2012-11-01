@@ -53,7 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Library\Library.csproj">
+    <ProjectReference Include="..\Library\Library.csproj">
       <Project>{1E9E5E06-CD2A-4484-846D-6E6B21526482}</Project>
       <Name>Library</Name>
     </ProjectReference>
