@@ -30,9 +30,12 @@ namespace Library.Tasks
             {
                 case BumpType.Major:
                     major++;
+                    minor = 0;
+                    patch = 0;
                     break;
                 case BumpType.Minor:
                     minor++;
+                    patch = 0;
                     break;
                 case BumpType.Patch:
                     patch++;

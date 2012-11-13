@@ -1,2 +1,2 @@
-release\tools\NuGet.exe push release\output\Example.2.3.5.nupkg
+release\tools\NuGet.exe push release\output\Example.2.0.0.nupkg
 exit /B %ERRORLEVEL%
