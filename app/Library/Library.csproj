@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="BumpType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tasks\Bump.cs" />
     <Compile Include="Tasks\BumpAssemblyInfo.cs" />
     <Compile Include="Tasks\BumpNuspec.cs" />
     <Compile Include="Tasks\BumpScript.cs" />

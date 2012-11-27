@@ -66,6 +66,7 @@
     <Compile Include="Tasks\BumpNuspecTest.cs" />
     <Compile Include="Tasks\BumpAssemblyInfoTest.cs" />
     <Compile Include="Tasks\BumpScriptTest.cs" />
+    <Compile Include="Tasks\BumpTest.cs" />
     <Compile Include="Tasks\ParseArgsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

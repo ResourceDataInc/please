@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bump", "Bump\Bump.csproj", "{EED1A9A6-B789-48CE-83E9-98CD5BFE1CD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simpler", "..\..\Simpler\app\Simpler\Simpler.csproj", "{6A2F45F9-172C-4B48-9344-B64646958AFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{EED1A9A6-B789-48CE-83E9-98CD5BFE1CD1}.Release|Mixed Platforms.Build.0 = Release|x86
 		{EED1A9A6-B789-48CE-83E9-98CD5BFE1CD1}.Release|x86.ActiveCfg = Release|x86
 		{EED1A9A6-B789-48CE-83E9-98CD5BFE1CD1}.Release|x86.Build.0 = Release|x86
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6A2F45F9-172C-4B48-9344-B64646958AFC}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
