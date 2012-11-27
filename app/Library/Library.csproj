@@ -34,8 +34,9 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Simpler">
-      <HintPath>..\packages\Simpler.2.0.0\lib\Simpler.dll</HintPath>
+    <Reference Include="Simpler, Version=2.3.0.12324, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Simpler.2.3.0\lib\Simpler.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
