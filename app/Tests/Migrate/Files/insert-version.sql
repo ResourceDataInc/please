@@ -1,0 +1,1 @@
+insert into schema_migrations (version) values (1);
