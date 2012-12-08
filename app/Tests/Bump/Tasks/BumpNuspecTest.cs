@@ -1,20 +1,20 @@
 ﻿using System;
 using System.IO;
-using Library;
-using Library.Tasks;
+using Library.Bump;
+using Library.Bump.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Tasks
+namespace Tests.Bump.Tasks
 {
     [TestFixture]
-    public class BumpAssemblyInfoTest
+    public class BumpNuspecTest
     {
-        const string BeforeFile = @".\Files\AssemblyInfo_Before.cs";
-        const string AfterFile = @".\Files\AssemblyInfo_After.cs";
-        const string MajorFile = @".\Files\AssemblyInfo_MajorBumped.cs";
-        const string MinorFile = @".\Files\AssemblyInfo_MinorBumped.cs";
-        const string PatchFile = @".\Files\AssemblyInfo_PatchBumped.cs";
+        const string BeforeFile = @".\Bump\Files\Nuspec_Before.nuspec";
+        const string AfterFile = @".\Bump\Files\Nuspec_After.nuspec";
+        const string MajorFile = @".\Bump\Files\Nuspec_MajorBumped.nuspec";
+        const string MinorFile = @".\Bump\Files\Nuspec_MinorBumped.nuspec";
+        const string PatchFile = @".\Bump\Files\Nuspec_PatchBumped.nuspec";
 
         static void TestBump(BumpType bumpType, string fileContainingExpectedContents)
         {
@@ -22,7 +22,7 @@ namespace Tests.Tasks
             File.Delete(AfterFile);
             File.Copy(BeforeFile, AfterFile);
 
-            var bump = Task.New<BumpAssemblyInfo>();
+            var bump = Task.New<BumpNuspec>();
             bump.In.FileName = AfterFile;
             bump.In.BumpType = bumpType;
 

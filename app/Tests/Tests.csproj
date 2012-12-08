@@ -57,26 +57,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Files\AssemblyInfo_Before.cs">
+    <Compile Include="Bump\Files\AssemblyInfo_Before.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Files\AssemblyInfo_MajorBumped.cs">
+    <Compile Include="Bump\Files\AssemblyInfo_MajorBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Files\AssemblyInfo_MinorBumped.cs">
+    <Compile Include="Bump\Files\AssemblyInfo_MinorBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Files\AssemblyInfo_PatchBumped.cs">
+    <Compile Include="Bump\Files\AssemblyInfo_PatchBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Migrate\Tasks\FetchVersionsTest.cs" />
     <Compile Include="Migrate\Tasks\CreateVersionTableTest.cs" />
     <Compile Include="Migrate\Tasks\RunDbScriptTest.cs" />
-    <Compile Include="Tasks\BumpNuspecTest.cs" />
-    <Compile Include="Tasks\BumpAssemblyInfoTest.cs" />
-    <Compile Include="Tasks\BumpScriptTest.cs" />
-    <Compile Include="Tasks\BumpTest.cs" />
-    <Compile Include="Tasks\ParseArgsTest.cs" />
+    <Compile Include="Bump\Tasks\BumpNuspecTest.cs" />
+    <Compile Include="Bump\Tasks\BumpAssemblyInfoTest.cs" />
+    <Compile Include="Bump\Tasks\BumpScriptTest.cs" />
+    <Compile Include="Bump\Tasks\BumpFilesTest.cs" />
+    <Compile Include="Bump\Tasks\ParseArgsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,28 +84,28 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App.config" />
-    <None Include="Files\Nuspec_MajorBumped.nuspec">
+    <None Include="Bump\Files\Nuspec_MajorBumped.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Files\Nuspec_PatchBumped.nuspec">
+    <None Include="Bump\Files\Nuspec_PatchBumped.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Files\Nuspec_MinorBumped.nuspec">
+    <None Include="Bump\Files\Nuspec_MinorBumped.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Files\Nuspec_Before.nuspec">
+    <None Include="Bump\Files\Nuspec_Before.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Files\Script_MajorBumped.txt">
+    <Content Include="Bump\Files\Script_MajorBumped.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\Script_MinorBumped.txt">
+    <Content Include="Bump\Files\Script_MinorBumped.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\Script_PatchBumped.txt">
+    <Content Include="Bump\Files\Script_PatchBumped.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Files\Script_Before.txt">
+    <Content Include="Bump\Files\Script_Before.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Migrate\Files\empty.db">

@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
-using Library;
-using Library.Tasks;
+using Library.Bump;
+using Library.Bump.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Tasks
+namespace Tests.Bump.Tasks
 {
     [TestFixture]
     public class BumpScriptTest
     {
-        const string BeforeFile = @".\Files\Script_Before.txt";
-        const string AfterFile = @".\Files\Script_After.txt";
-        const string MajorFile = @".\Files\Script_MajorBumped.txt";
-        const string MinorFile = @".\Files\Script_MinorBumped.txt";
-        const string PatchFile = @".\Files\Script_PatchBumped.txt";
+        const string BeforeFile = @".\Bump\Files\Script_Before.txt";
+        const string AfterFile = @".\Bump\Files\Script_After.txt";
+        const string MajorFile = @".\Bump\Files\Script_MajorBumped.txt";
+        const string MinorFile = @".\Bump\Files\Script_MinorBumped.txt";
+        const string PatchFile = @".\Bump\Files\Script_PatchBumped.txt";
 
         static void TestBump(BumpType bumpType, string fileContainingExpectedContents)
         {

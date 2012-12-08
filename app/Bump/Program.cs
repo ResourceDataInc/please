@@ -1,4 +1,5 @@
-﻿using Simpler;
+﻿using Library.Bump.Tasks;
+using Simpler;
 
 namespace Bump
 {
@@ -6,9 +7,9 @@ namespace Bump
     {
         static void Main(string[] args)
         {
-            var bump = Task.New<Library.Tasks.Bump>();
-            bump.In.Args = args;
-            bump.Execute();
+            var bumpFiles = Task.New<BumpFiles>();
+            bumpFiles.In.Args = args;
+            bumpFiles.Execute();
         }
     }
 }

@@ -1,17 +1,17 @@
-﻿using Library.Tasks;
+﻿using Library.Bump.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Tasks
+namespace Tests.Bump.Tasks
 {
     [TestFixture]
-    public class BumpTest
+    public class BumpFilesTest
     {
         [Test]
         public void should_bump_given_nuspec_files()
         {
             // Arrange
-            var bump = Task.New<Bump>();
+            var bump = Task.New<BumpFiles>();
             bump.In.Args =
                 new[]
                     {
@@ -36,7 +36,7 @@ namespace Tests.Tasks
         public void should_bump_given_AssemblyInfo_files()
         {
             // Arrange
-            var bump = Task.New<Bump>();
+            var bump = Task.New<BumpFiles>();
             bump.In.Args =
                 new[]
                     {
@@ -61,7 +61,7 @@ namespace Tests.Tasks
         public void should_bump_given_script_files()
         {
             // Arrange
-            var bump = Task.New<Bump>();
+            var bump = Task.New<BumpFiles>();
             bump.In.Args =
                 new[]
                     {

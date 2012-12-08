@@ -1,9 +1,9 @@
-﻿using Library;
-using Library.Tasks;
+﻿using Library.Bump;
+using Library.Bump.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Tasks
+namespace Tests.Bump.Tasks
 {
     [TestFixture]
     public class ParseArgsTest
