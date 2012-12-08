@@ -1,3 +1,3 @@
-build\tools\MSBuild.exe app\Bump.sln /p:Configuration=Debug
+build\tools\MSBuild.exe app\Please.sln /p:Configuration=Debug
 
 exit /B %ERRORLEVEL%
