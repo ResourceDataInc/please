@@ -8,10 +8,10 @@ using Simpler.Data;
 namespace Tests.Migrate.Tasks
 {
     [TestFixture]
-    public class RunDbScriptText
+    public class RunMigrationTest
     {
         [Test]
-        public void should_run_given_script()
+        public void should_run_given_migration_script()
         {
             // Arrange
             File.Delete(@"Migrate\Files\test.db");
@@ -21,12 +21,12 @@ namespace Tests.Migrate.Tasks
             createVersionTable.In.ConnectionName = "Test";
             createVersionTable.Execute();
 
-            var runDbScript = Task.New<RunDbScript>();
-            runDbScript.In.ConnectionName = "Test";
-            runDbScript.In.FileName = @"Migrate\Files\insert-version.sql";
+            var runMigration = Task.New<RunMigration>();
+            runMigration.In.ConnectionName = "Test";
+            runMigration.In.FileName = @"Migrate\Files\insert-version.sql";
 
             // Act
-            runDbScript.Execute();
+            runMigration.Execute();
 
             // Assert
             using (var connection = Db.Connect("Test"))

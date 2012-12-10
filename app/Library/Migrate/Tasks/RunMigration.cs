@@ -4,7 +4,7 @@ using Simpler.Data;
 
 namespace Library.Migrate.Tasks
 {
-    public class RunDbScript : InOutTask<RunDbScript.Input, RunDbScript.Output>
+    public class RunMigration : InOutTask<RunMigration.Input, RunMigration.Output>
     {
         public class Input
         {

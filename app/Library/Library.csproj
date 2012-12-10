@@ -50,7 +50,7 @@
     <Compile Include="Migrate\Model\Version.cs" />
     <Compile Include="Migrate\Tasks\FetchVersions.cs" />
     <Compile Include="Migrate\Tasks\CreateVersionTable.cs" />
-    <Compile Include="Migrate\Tasks\RunDbScript.cs" />
+    <Compile Include="Migrate\Tasks\RunMigration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Bump\Tasks\BumpFiles.cs" />
     <Compile Include="Bump\Tasks\BumpAssemblyInfo.cs" />
