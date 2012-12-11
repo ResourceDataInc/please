@@ -17,14 +17,14 @@ namespace Library.Migrate.Tasks
 
         public override void Execute()
         {
-            foreach (var migrationVersion in In.Migrations
-                .OrderBy(m => m.VersionNumber)
-                .Select(m => m.VersionNumber).Distinct())
+            foreach (var versionId in In.Migrations
+                .OrderBy(m => m.VersionId)
+                .Select(m => m.VersionId).Distinct())
             {
-                if (In.InstalledVersions.All(installed => installed.Number != migrationVersion))
+                if (In.InstalledVersions.All(installed => installed.Id != versionId))
                 {
                     foreach (var migration in In.Migrations
-                        .Where(m => m.VersionNumber == migrationVersion)
+                        .Where(m => m.VersionId == versionId)
                         .OrderBy(m => m.FileName))
                     {
                         RunMigration.In.ConnectionName = In.ConnectionName;

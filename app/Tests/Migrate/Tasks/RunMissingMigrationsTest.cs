@@ -12,8 +12,8 @@ namespace Tests.Migrate.Tasks
         readonly Migration[] _testMigrations =
             new[]
                 {
-                    new Migration {VersionNumber = "001", FileName = "001_first"},
-                    new Migration {VersionNumber = "002", FileName = "002_second"}
+                    new Migration {VersionId = "001", FileName = "001_first"},
+                    new Migration {VersionId = "002", FileName = "002_second"}
                 };
 
         [Test]

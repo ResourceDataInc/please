@@ -2,6 +2,6 @@
 {
     public class Version
     {
-        public string Number { get; set; }
+        public string Id { get; set; }
     }
 }

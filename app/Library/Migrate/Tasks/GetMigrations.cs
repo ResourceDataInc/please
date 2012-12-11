@@ -34,7 +34,7 @@ namespace Library.Migrate.Tasks
                 migrations.Add(new Migration
                                    {
                                        FileName = fileName,
-                                       VersionNumber = match.Groups[1].Value
+                                       VersionId = match.Groups[1].Value
                                    });
             }
 

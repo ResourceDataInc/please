@@ -18,7 +18,7 @@ namespace Library.Migrate.Tasks
 
         public override void Execute()
         {
-            const string sql = @"SELECT version as Number FROM schema_migrations;";
+            const string sql = @"SELECT version as Id FROM schema_migrations;";
 
             using (var connection = Db.Connect(In.ConnectionName))
             {

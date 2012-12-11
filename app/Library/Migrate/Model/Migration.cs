@@ -2,7 +2,7 @@
 {
     public class Migration
     {
+        public string VersionId { get; set; }
         public string FileName { get; set; }
-        public string VersionNumber { get; set; }
     }
 }

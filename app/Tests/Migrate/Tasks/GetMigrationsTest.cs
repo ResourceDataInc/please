@@ -36,8 +36,8 @@ namespace Tests.Migrate.Tasks
 
             // Assert
             const string version = "000001";
-            Check.That(getMigrations.Out.Migrations[0].VersionNumber == version,
-                "Expected version {0} not {1}", version, getMigrations.Out.Migrations[0].VersionNumber);
+            Check.That(getMigrations.Out.Migrations[0].VersionId == version,
+                "Expected version {0} not {1}", version, getMigrations.Out.Migrations[0].VersionId);
         }
     }
 }
