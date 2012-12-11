@@ -54,6 +54,7 @@
     <Compile Include="Migrate\Tasks\GetMigrationScripts.cs" />
     <Compile Include="Migrate\Tasks\RunMigration.cs" />
     <Compile Include="Migrate\Tasks\RunMissingMigrations.cs" />
+    <Compile Include="Please\Tasks\RunCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Bump\Tasks\BumpFiles.cs" />
     <Compile Include="Bump\Tasks\BumpAssemblyInfo.cs" />
