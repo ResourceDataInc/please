@@ -68,7 +68,7 @@
     <Compile Include="Bump\Files\AssemblyInfo_PatchBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Migrate\Tasks\FetchVersionsTest.cs" />
+    <Compile Include="Migrate\Tasks\FetchInstalledVersions.cs" />
     <Compile Include="Migrate\Tasks\CreateVersionTableTest.cs" />
     <Compile Include="Migrate\Tasks\GetMigrationsTest.cs" />
     <Compile Include="Migrate\Tasks\RunMigrationTest.cs" />

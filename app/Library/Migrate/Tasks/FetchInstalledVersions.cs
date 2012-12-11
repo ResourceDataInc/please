@@ -4,7 +4,7 @@ using Simpler.Data;
 
 namespace Library.Migrate.Tasks
 {
-    public class FetchVersions : InOutTask<FetchVersions.Input, FetchVersions.Output>
+    public class FetchInstalledVersions : InOutTask<FetchInstalledVersions.Input, FetchInstalledVersions.Output>
     {
         public class Input
         {

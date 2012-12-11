@@ -7,7 +7,7 @@ using Simpler;
 namespace Tests.Migrate.Tasks
 {
     [TestFixture]
-    public class FetchVersionsTest
+    public class FetchInstalledVersions
     {
         [Test]
         public void should_fetch_installed_versions()
@@ -25,14 +25,14 @@ namespace Tests.Migrate.Tasks
             runMigration.In.Migration = new Migration {FileName = @"Migrate\Files\insert-version.sql"};
             runMigration.Execute();
 
-            var fetchVersions = Task.New<FetchVersions>();
-            fetchVersions.In.ConnectionName = "Test";
+            var fetchInstalledVersions = Task.New<Library.Migrate.Tasks.FetchInstalledVersions>();
+            fetchInstalledVersions.In.ConnectionName = "Test";
 
             // Act
-            fetchVersions.Execute();
+            fetchInstalledVersions.Execute();
 
             // Assert
-            Check.That(fetchVersions.Out.Versions.Length == 1, "Expected to find 1 version.");
+            Check.That(fetchInstalledVersions.Out.Versions.Length == 1, "Expected to find 1 version.");
         }
     }
 }
