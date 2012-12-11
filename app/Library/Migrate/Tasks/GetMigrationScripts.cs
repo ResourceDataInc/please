@@ -6,7 +6,7 @@ using Simpler;
 
 namespace Library.Migrate.Tasks
 {
-    public class GetMigrations : InOutTask<GetMigrations.Input, GetMigrations.Output>
+    public class GetMigrationScripts : InOutTask<GetMigrationScripts.Input, GetMigrationScripts.Output>
     {
         public class Input
         {

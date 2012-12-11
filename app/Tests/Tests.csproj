@@ -70,7 +70,7 @@
     </Compile>
     <Compile Include="Migrate\Tasks\FetchInstalledVersions.cs" />
     <Compile Include="Migrate\Tasks\CreateVersionTableTest.cs" />
-    <Compile Include="Migrate\Tasks\GetMigrationsTest.cs" />
+    <Compile Include="Migrate\Tasks\GetMigrationScriptsTest.cs" />
     <Compile Include="Migrate\Tasks\RunMigrationTest.cs" />
     <Compile Include="Bump\Tasks\BumpNuspecTest.cs" />
     <Compile Include="Bump\Tasks\BumpAssemblyInfoTest.cs" />
