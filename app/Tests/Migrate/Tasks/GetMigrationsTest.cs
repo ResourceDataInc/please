@@ -23,5 +23,21 @@ namespace Tests.Migrate.Tasks
             Check.That(getMigrations.Out.Migrations[0].FileName == expectedFileName,
                 "Expected fileName of {0} not {1}", expectedFileName, getMigrations.Out.Migrations[0].FileName);
         }
+
+        [Test]
+        public void should_find_version_in_file_names()
+        {
+            // Arrange
+            var getMigrations = Task.New<GetMigrations>();
+            getMigrations.In.Directory = @"Migrate\Files\Migrations";
+
+            // Act
+            getMigrations.Execute();
+
+            // Assert
+            const string version = "000001";
+            Check.That(getMigrations.Out.Migrations[0].VersionNumber == version,
+                "Expected version {0} not {1}", version, getMigrations.Out.Migrations[0].VersionNumber);
+        }
     }
 }

@@ -1,5 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Library.Migrate.Model;
 using Simpler;
 
@@ -19,15 +22,26 @@ namespace Library.Migrate.Tasks
 
         public override void Execute()
         {
+            const string pattern = @"^(?<Version>\d+)[_]";
+            var migrations = new List<Migration>();
             var fileNames = Directory.GetFiles(In.Directory);
 
-            Out.Migrations = fileNames.Select(
-                fileName => new Migration
-                                {
-                                    FileName = Path.GetFileName(fileName),
-                                    FileNameWithPath = fileName
-                                })
-                .ToArray();
+            foreach (var fileName in fileNames)
+            {
+                var fileNameOnly = Path.GetFileName(fileName);
+                var match = Regex.Match(fileNameOnly, pattern);
+                Check.That(match.Groups.Count == 2,
+                    "Expected to find version number at the beginning of file {0}.", fileNameOnly);
+
+                migrations.Add(new Migration
+                                   {
+                                       FileName = fileNameOnly,
+                                       FileNameWithPath = fileName,
+                                       VersionNumber = match.Groups[1].Value
+                                   });
+            }
+
+            Out.Migrations = migrations.ToArray();
         }
     }
 }
