@@ -26,15 +26,14 @@ namespace Library.Migrate.Tasks
 
             foreach (var fileName in fileNames)
             {
-                var fileNameOnly = Path.GetFileName(fileName);
-                var match = Regex.Match(fileNameOnly, pattern);
+                var fileNameWithoutPath = Path.GetFileName(fileName);
+                var match = Regex.Match(fileNameWithoutPath, pattern);
                 Check.That(match.Groups.Count == 2,
-                    "Expected to find version number at the beginning of file {0}.", fileNameOnly);
+                    "Expected to find version number at the beginning of file {0}.", fileNameWithoutPath);
 
                 migrations.Add(new Migration
                                    {
-                                       FileName = fileNameOnly,
-                                       FileNameWithPath = fileName,
+                                       FileName = fileName,
                                        VersionNumber = match.Groups[1].Value
                                    });
             }

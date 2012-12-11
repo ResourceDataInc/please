@@ -24,7 +24,7 @@ namespace Tests.Migrate.Tasks
 
             var runMigration = Task.New<RunMigration>();
             runMigration.In.ConnectionName = "Test";
-            runMigration.In.Migration = new Migration {FileNameWithPath = @"Migrate\Files\insert-version.sql"};
+            runMigration.In.Migration = new Migration {FileName = @"Migrate\Files\insert-version.sql"};
 
             // Act
             runMigration.Execute();

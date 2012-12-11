@@ -20,7 +20,7 @@ namespace Library.Migrate.Tasks
 
         public override void Execute()
         {
-            var sql = File.ReadAllText(In.Migration.FileNameWithPath);
+            var sql = File.ReadAllText(In.Migration.FileName);
 
             using (var connection = Db.Connect(In.ConnectionName))
             {
