@@ -86,6 +86,15 @@
     <Content Include="Migrate\Files\Migrations\000001_create-testing-table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Migrate\Files\Migrations\000002_001.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Migrate\Files\Migrations\000002_002.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Migrate\Files\Migrations\000003_do-something-else.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="App.config" />
     <None Include="Bump\Files\Nuspec_MajorBumped.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
