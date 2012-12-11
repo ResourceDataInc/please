@@ -70,7 +70,8 @@
     </Compile>
     <Compile Include="Migrate\Tasks\FetchVersionsTest.cs" />
     <Compile Include="Migrate\Tasks\CreateVersionTableTest.cs" />
-    <Compile Include="Migrate\Tasks\RunDbScriptTest.cs" />
+    <Compile Include="Migrate\Tasks\GetMigrationsTest.cs" />
+    <Compile Include="Migrate\Tasks\RunMigrationTest.cs" />
     <Compile Include="Bump\Tasks\BumpNuspecTest.cs" />
     <Compile Include="Bump\Tasks\BumpAssemblyInfoTest.cs" />
     <Compile Include="Bump\Tasks\BumpScriptTest.cs" />
@@ -80,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Migrate\Files\insert-version.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Migrate\Files\Migrations\000001_create-testing-table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App.config" />
