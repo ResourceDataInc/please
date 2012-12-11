@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Library.Migrate.Model;
 using Simpler;
 
 namespace Library.Migrate.Tasks

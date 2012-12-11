@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Library.Migrate.Model;
+using Library.Migrate;
 using Library.Migrate.Tasks;
 using NUnit.Framework;
 using Simpler;

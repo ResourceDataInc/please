@@ -1,4 +1,4 @@
-﻿namespace Library.Migrate.Model
+﻿namespace Library.Migrate
 {
     public class Version
     {

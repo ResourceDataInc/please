@@ -47,8 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bump\BumpType.cs" />
-    <Compile Include="Migrate\Model\Migration.cs" />
-    <Compile Include="Migrate\Model\Version.cs" />
+    <Compile Include="Migrate\Migration.cs" />
+    <Compile Include="Migrate\Version.cs" />
     <Compile Include="Migrate\Tasks\FetchInstalledVersions.cs" />
     <Compile Include="Migrate\Tasks\CreateVersionTable.cs" />
     <Compile Include="Migrate\Tasks\GetMigrationScripts.cs" />

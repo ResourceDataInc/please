@@ -1,5 +1,4 @@
-﻿using Library.Migrate.Model;
-using Simpler;
+﻿using Simpler;
 using Simpler.Data;
 
 namespace Library.Migrate.Tasks
