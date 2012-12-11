@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Library.Migrate.Model;
 using Simpler;
 using Simpler.Data;
 
@@ -9,7 +10,7 @@ namespace Library.Migrate.Tasks
         public class Input
         {
             public string ConnectionName { get; set; }
-            public string FileName { get; set; }
+            public Migration Migration { get; set; }
         }
 
         public class Output
@@ -19,7 +20,7 @@ namespace Library.Migrate.Tasks
 
         public override void Execute()
         {
-            var sql = File.ReadAllText(In.FileName);
+            var sql = File.ReadAllText(In.Migration.FileNameWithPath);
 
             using (var connection = Db.Connect(In.ConnectionName))
             {
