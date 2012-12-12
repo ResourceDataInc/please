@@ -20,6 +20,9 @@ namespace Library.Migrate.Tasks
 
             GetMigrationScripts.In.Directory = directory;
             GetMigrationScripts.Execute();
+
+            FetchInstalledVersions.In.ConnectionName = connectionName;
+            FetchInstalledVersions.Execute();
         }
     }
 }

@@ -22,10 +22,10 @@ namespace Tests.Migrate.Tasks
 
             var runMigration = Task.New<RunMigration>();
             runMigration.In.ConnectionName = "Test";
-            runMigration.In.Migration = new Migration {FileName = @"Migrate\Files\insert-version.sql"};
+            runMigration.In.Migration = new Migration { FileName = @"Migrate\Files\insert-version.sql" };
             runMigration.Execute();
 
-            var fetchInstalledVersions = Task.New<Library.Migrate.Tasks.FetchInstalledVersions>();
+            var fetchInstalledVersions = Task.New<FetchInstalledVersions>();
             fetchInstalledVersions.In.ConnectionName = "Test";
 
             // Act
