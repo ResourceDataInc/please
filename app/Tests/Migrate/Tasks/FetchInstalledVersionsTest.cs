@@ -7,7 +7,7 @@ using Simpler;
 namespace Tests.Migrate.Tasks
 {
     [TestFixture]
-    public class FetchInstalledVersions
+    public class FetchInstalledVersionsTest
     {
         [Test]
         public void should_fetch_installed_versions()
