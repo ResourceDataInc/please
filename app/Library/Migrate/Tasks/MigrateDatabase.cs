@@ -23,6 +23,11 @@ namespace Library.Migrate.Tasks
 
             FetchInstalledVersions.In.ConnectionName = connectionName;
             FetchInstalledVersions.Execute();
+
+            RunMissingMigrations.In.ConnectionName = connectionName;
+            RunMissingMigrations.In.Migrations = GetMigrationScripts.Out.Migrations;
+            RunMissingMigrations.In.InstalledVersions = FetchInstalledVersions.Out.Versions;
+            RunMissingMigrations.Execute();
         }
     }
 }
