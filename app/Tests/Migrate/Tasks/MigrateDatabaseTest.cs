@@ -28,6 +28,46 @@ namespace Tests.Migrate.Tasks
                 };
 
         [Test]
+        public void should_create_version_table_if_it_does_not_exist()
+        {
+            // Arrange
+            var migrateDatabase = Task.New<MigrateDatabase>();
+            migrateDatabase.In.Args = new[] { "", "" };
+            migrateDatabase.CheckForVersionTable = Fake.Task<CheckForVersionTable>(cfvt => cfvt.Out.TableExists = false);
+            migrateDatabase.CreateVersionTable = Fake.Task<CreateVersionTable>();
+            migrateDatabase.GetMigrationScripts = Fake.Task<GetMigrationScripts>();
+            migrateDatabase.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
+            migrateDatabase.RunMissingMigrations = Fake.Task<RunMissingMigrations>();
+
+            // Act
+            migrateDatabase.Execute();
+
+            // Assert
+            Check.That(migrateDatabase.CreateVersionTable.Stats.ExecuteCount == 1,
+                "Expected version table to be created.");
+        }
+
+        [Test]
+        public void should_not_create_version_table_if_it_exists()
+        {
+            // Arrange
+            var migrateDatabase = Task.New<MigrateDatabase>();
+            migrateDatabase.In.Args = new[] { "", "" };
+            migrateDatabase.CheckForVersionTable = Fake.Task<CheckForVersionTable>(cfvt => cfvt.Out.TableExists = true);
+            migrateDatabase.CreateVersionTable = Fake.Task<CreateVersionTable>();
+            migrateDatabase.GetMigrationScripts = Fake.Task<GetMigrationScripts>();
+            migrateDatabase.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
+            migrateDatabase.RunMissingMigrations = Fake.Task<RunMissingMigrations>();
+
+            // Act
+            migrateDatabase.Execute();
+
+            // Assert
+            Check.That(migrateDatabase.CreateVersionTable.Stats.ExecuteCount == 0,
+                "Expected version table to be not created.");
+        }
+
+        [Test]
         public void should_get_migration_scripts_using_given_directory()
         {
             // Arrange
@@ -36,6 +76,8 @@ namespace Tests.Migrate.Tasks
 
             var migrateDatabase = Task.New<MigrateDatabase>();
             migrateDatabase.In.Args = new[] { "", directoryArgument };
+            migrateDatabase.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
+            migrateDatabase.CreateVersionTable = Fake.Task<CreateVersionTable>();
             migrateDatabase.GetMigrationScripts =
                 Fake.Task<GetMigrationScripts>(gms => passedDirectory = gms.In.Directory);
             migrateDatabase.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
@@ -45,9 +87,9 @@ namespace Tests.Migrate.Tasks
             migrateDatabase.Execute();
 
             // Assert
-            Check.That(migrateDatabase.GetMigrationScripts.Stats.ExecuteCount == 1, 
+            Check.That(migrateDatabase.GetMigrationScripts.Stats.ExecuteCount == 1,
                 "Expected to get migrations scripts.");
-            Check.That(passedDirectory == directoryArgument, 
+            Check.That(passedDirectory == directoryArgument,
                 "Expected to get migrations scripts from given directory.");
         }
 
@@ -60,6 +102,8 @@ namespace Tests.Migrate.Tasks
 
             var migrateDatabase = Task.New<MigrateDatabase>();
             migrateDatabase.In.Args = new[] { connectionNameArgument, "" };
+            migrateDatabase.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
+            migrateDatabase.CreateVersionTable = Fake.Task<CreateVersionTable>();
             migrateDatabase.GetMigrationScripts = Fake.Task<GetMigrationScripts>();
             migrateDatabase.FetchInstalledVersions =
                 Fake.Task<FetchInstalledVersions>(fiv => passedConnectionName = fiv.In.ConnectionName);
@@ -84,6 +128,8 @@ namespace Tests.Migrate.Tasks
 
             var migrateDatabase = Task.New<MigrateDatabase>();
             migrateDatabase.In.Args = new[] { connectionNameArgument, "" };
+            migrateDatabase.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
+            migrateDatabase.CreateVersionTable = Fake.Task<CreateVersionTable>();
             migrateDatabase.GetMigrationScripts = Fake.Task<GetMigrationScripts>();
             migrateDatabase.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             migrateDatabase.RunMissingMigrations =
@@ -110,6 +156,8 @@ namespace Tests.Migrate.Tasks
 
             var migrateDatabase = Task.New<MigrateDatabase>();
             migrateDatabase.In.Args = new[] { "", "" };
+            migrateDatabase.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
+            migrateDatabase.CreateVersionTable = Fake.Task<CreateVersionTable>();
             migrateDatabase.GetMigrationScripts = 
                 Fake.Task<GetMigrationScripts>(gms => gms.Out.Migrations = migrations);
             migrateDatabase.FetchInstalledVersions = 

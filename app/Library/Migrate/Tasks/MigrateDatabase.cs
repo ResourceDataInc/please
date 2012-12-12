@@ -9,6 +9,8 @@ namespace Library.Migrate.Tasks
             public string[] Args { get; set; }
         }
 
+        public CheckForVersionTable CheckForVersionTable { get; set; }
+        public CreateVersionTable CreateVersionTable { get; set; }
         public GetMigrationScripts GetMigrationScripts { get; set; }
         public FetchInstalledVersions FetchInstalledVersions { get; set; }
         public RunMissingMigrations RunMissingMigrations { get; set; }
@@ -17,6 +19,15 @@ namespace Library.Migrate.Tasks
         {
             var connectionName = In.Args[0];
             var directory = In.Args[1];
+
+            CheckForVersionTable.In.ConnectionName = connectionName;
+            CheckForVersionTable.Execute();
+
+            if (!CheckForVersionTable.Out.TableExists)
+            {
+                CreateVersionTable.In.ConnectionName = connectionName;
+                CreateVersionTable.Execute();
+            }
 
             GetMigrationScripts.In.Directory = directory;
             GetMigrationScripts.Execute();
