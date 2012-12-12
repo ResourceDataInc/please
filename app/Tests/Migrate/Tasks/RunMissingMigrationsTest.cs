@@ -35,6 +35,7 @@ namespace Tests.Migrate.Tasks
             runMissingMigrations.In.InstalledVersions = new Version[0];
             runMissingMigrations.In.Migrations = _testMigrations;
             runMissingMigrations.RunMigration = Fake.Task<RunMigration>();
+            runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
             runMissingMigrations.Execute();
@@ -52,6 +53,7 @@ namespace Tests.Migrate.Tasks
             runMissingMigrations.In.InstalledVersions = _testVersions;
             runMissingMigrations.In.Migrations = _testMigrations;
             runMissingMigrations.RunMigration = Fake.Task<RunMigration>();
+            runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
             runMissingMigrations.Execute();
@@ -65,12 +67,12 @@ namespace Tests.Migrate.Tasks
         public void should_run_all_migrations_for_a_missing_version()
         {
             // Arrange
+            var migrationsRan = new List<string>();
             var runMissingMigrations = Task.New<RunMissingMigrations>();
             runMissingMigrations.In.InstalledVersions = _testVersions.Where(version => version.Id != "002").ToArray();
             runMissingMigrations.In.Migrations = _testMigrations;
-
-            var migrationsRan = new List<string>();
             runMissingMigrations.RunMigration = Fake.Task<RunMigration>(task => migrationsRan.Add(task.In.Migration.VersionId));
+            runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
             runMissingMigrations.Execute();
@@ -82,15 +84,34 @@ namespace Tests.Migrate.Tasks
         }
 
         [Test]
+        public void should_insert_version_for_each_distinct_version_belonging_to_migrations_ran()
+        {
+            // Arrange
+            var migrationsRan = new List<string>();
+            var runMissingMigrations = Task.New<RunMissingMigrations>();
+            runMissingMigrations.In.InstalledVersions = _testVersions.Where(version => version.Id != "002").ToArray();
+            runMissingMigrations.In.Migrations = _testMigrations;
+            runMissingMigrations.RunMigration = Fake.Task<RunMigration>(task => migrationsRan.Add(task.In.Migration.VersionId));
+            runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
+
+            // Act
+            runMissingMigrations.Execute();
+
+            // Assert
+            Check.That(runMissingMigrations.RunMigration.Stats.ExecuteCount == 2, "Expected 2 migration to be ran.");
+            Check.That(runMissingMigrations.InsertInstalledVersion.Stats.ExecuteCount == 1, "Expected 1 version to be inserted.");
+        }
+
+        [Test]
         public void should_run_migrations_in_alphabetical_order()
         {
             // Arrange
+            var migrationsRan = new List<string>();
             var runMissingMigrations = Task.New<RunMissingMigrations>();
             runMissingMigrations.In.InstalledVersions = new Version[0];
             runMissingMigrations.In.Migrations = _testMigrations.Reverse().ToArray();
-
-            var migrationsRan = new List<string>();
             runMissingMigrations.RunMigration = Fake.Task<RunMigration>(task => migrationsRan.Add(task.In.Migration.FileName));
+            runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
             runMissingMigrations.Execute();

@@ -13,6 +13,7 @@ namespace Library.Migrate.Tasks
         }
 
         public RunMigration RunMigration { get; set; }
+        public InsertInstalledVersion InsertInstalledVersion { get; set; }
 
         public override void Execute()
         {
@@ -35,6 +36,10 @@ namespace Library.Migrate.Tasks
                         RunMigration.In.Migration = migration;
                         RunMigration.Execute();
                     }
+
+                    InsertInstalledVersion.In.ConnectionName = In.ConnectionName;
+                    InsertInstalledVersion.In.Version = new Version {Id = missingVersionId};
+                    InsertInstalledVersion.Execute();
                 }
             }
         }
