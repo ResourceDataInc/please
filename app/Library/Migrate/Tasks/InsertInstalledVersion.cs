@@ -19,7 +19,7 @@ namespace Library.Migrate.Tasks
 
         public override void Execute()
         {
-            var sql = @"INSERT INTO schema_migrations (version) VALUES ({0});";
+            var sql = @"INSERT INTO schema_migrations (version) VALUES ('{0}');";
 
             sql = String.Format(sql, In.Version.Id);
 
