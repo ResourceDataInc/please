@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Library.Bump.Tasks;
+using Library.Migrate.Tasks;
 using Simpler;
 
 namespace Library.Please.Tasks
@@ -13,6 +14,7 @@ namespace Library.Please.Tasks
         }
 
         public BumpFiles BumpFiles { get; set; }
+        public MigrateDatabase MigrateDatabase { get; set; }
 
         public override void Execute()
         {
@@ -23,8 +25,8 @@ namespace Library.Please.Tasks
             }
             else if (In.Args[0] == "migrate")
             {
-                // TODO
-                Console.WriteLine("Not Implemented.");
+                MigrateDatabase.In.Args = In.Args.Skip(1).ToArray();
+                MigrateDatabase.Execute();
             }
             else
             {
