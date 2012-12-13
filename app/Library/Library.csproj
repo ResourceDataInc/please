@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Bump\BumpType.cs" />
     <Compile Include="Migrate\Migration.cs" />
+    <Compile Include="Migrate\MigrationException.cs" />
     <Compile Include="Migrate\Tasks\CheckForVersionTable.cs" />
     <Compile Include="Migrate\Tasks\InsertInstalledVersion.cs" />
     <Compile Include="Migrate\Tasks\MigrateDatabase.cs" />

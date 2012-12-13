@@ -18,19 +18,27 @@ namespace Library.Please.Tasks
 
         public override void Execute()
         {
-            if (In.Args[0] == "bump")
+            try
             {
-                BumpFiles.In.Args = In.Args.Skip(1).ToArray();
-                BumpFiles.Execute();
+                if (In.Args[0] == "bump")
+                {
+                    BumpFiles.In.Args = In.Args.Skip(1).ToArray();
+                    BumpFiles.Execute();
+                }
+                else if (In.Args[0] == "migrate")
+                {
+                    MigrateDatabase.In.Args = In.Args.Skip(1).ToArray();
+                    MigrateDatabase.Execute();
+                }
+                else
+                {
+                    Console.WriteLine("What?");
+                }
             }
-            else if (In.Args[0] == "migrate")
+            catch (Exception e)
             {
-                MigrateDatabase.In.Args = In.Args.Skip(1).ToArray();
-                MigrateDatabase.Execute();
-            }
-            else
-            {
-                Console.WriteLine("What?");
+                Console.WriteLine(String.Format("Sorry, but something went wrong."));
+                Console.WriteLine(e.Message);
             }
         }
     }
