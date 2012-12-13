@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Library.Migrate;
 using Library.Migrate.Tasks;
 using NUnit.Framework;
 using Simpler;
+using Version = Library.Migrate.Version;
 
 namespace Tests.Migrate.Tasks
 {
@@ -38,7 +41,11 @@ namespace Tests.Migrate.Tasks
             runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
-            runMissingMigrations.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runMissingMigrations.Execute();
+            }
 
             // Assert
             Check.That(runMissingMigrations.RunMigration.Stats.ExecuteCount == _testMigrations.Length,
@@ -56,7 +63,11 @@ namespace Tests.Migrate.Tasks
             runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
-            runMissingMigrations.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runMissingMigrations.Execute();
+            }
 
             // Assert
             Check.That(runMissingMigrations.RunMigration.Stats.ExecuteCount == 0,
@@ -75,7 +86,11 @@ namespace Tests.Migrate.Tasks
             runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
-            runMissingMigrations.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runMissingMigrations.Execute();
+            }
 
             // Assert
             Check.That(runMissingMigrations.RunMigration.Stats.ExecuteCount == 2, "Expected {0} migration to be ran.", 2);
@@ -95,7 +110,11 @@ namespace Tests.Migrate.Tasks
             runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
-            runMissingMigrations.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runMissingMigrations.Execute();
+            }
 
             // Assert
             Check.That(runMissingMigrations.RunMigration.Stats.ExecuteCount == 2, "Expected 2 migration to be ran.");
@@ -114,13 +133,35 @@ namespace Tests.Migrate.Tasks
             runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
-            runMissingMigrations.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runMissingMigrations.Execute();
+            }
 
             // Assert
             Check.That(migrationsRan[0] == _testMigrations[0].FileName, "{0} should have ran first.", _testMigrations[0].FileName);
             Check.That(migrationsRan[1] == _testMigrations[1].FileName, "{0} should have ran second.", _testMigrations[1].FileName);
             Check.That(migrationsRan[2] == _testMigrations[2].FileName, "{0} should have ran third.", _testMigrations[2].FileName);
             Check.That(migrationsRan[3] == _testMigrations[3].FileName, "{0} should have ran fourth.", _testMigrations[3].FileName);
+        }
+
+        [Test]
+        public void should_throw_if_migration_fails()
+        {
+            // Arrange
+            var runMissingMigrations = Task.New<RunMissingMigrations>();
+            runMissingMigrations.In.InstalledVersions = new Version[0];
+            runMissingMigrations.In.Migrations = _testMigrations.Take(1).ToArray();
+            runMissingMigrations.RunMigration = Fake.Task<RunMigration>(rm => { throw new Exception(); });
+            runMissingMigrations.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
+
+            // Act & Assert
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                Check.Throws<MigrationException>(runMissingMigrations.Execute);
+            }
         }
     }
 }

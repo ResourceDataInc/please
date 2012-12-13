@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using Simpler;
 
 namespace Library.Migrate.Tasks
@@ -26,20 +28,35 @@ namespace Library.Migrate.Tasks
                 if (In.InstalledVersions.All(installed => installed.Id != versionId))
                 {
                     var missingVersionId = versionId;
+                    Console.WriteLine("{0} not installed - running migrations.", missingVersionId);
+
                     var migrationsForMissingVersion = In.Migrations
                         .Where(m => m.VersionId == missingVersionId)
                         .OrderBy(m => m.FileName);
 
                     foreach (var migration in migrationsForMissingVersion)
                     {
-                        RunMigration.In.ConnectionName = In.ConnectionName;
-                        RunMigration.In.Migration = migration;
-                        RunMigration.Execute();
+                        var fileName = Path.GetFileName(migration.FileName);
+                        try
+                        {
+                            RunMigration.In.ConnectionName = In.ConnectionName;
+                            RunMigration.In.Migration = migration;
+                            RunMigration.Execute();
+                            Console.WriteLine("  {0} ran successfully.", fileName);
+                        }
+                        catch (Exception e)
+                        {
+                            throw new MigrationException(String.Format("{0} failed.\n  Message: {1}", fileName, e.Message));
+                        }
                     }
 
                     InsertInstalledVersion.In.ConnectionName = In.ConnectionName;
                     InsertInstalledVersion.In.Version = new Version {Id = missingVersionId};
                     InsertInstalledVersion.Execute();
+                }
+                else
+                {
+                    Console.WriteLine("{0} already installed.", versionId);
                 }
             }
         }
