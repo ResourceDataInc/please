@@ -36,7 +36,7 @@ namespace Library.Migrate.Tasks
                                  };
 
                 if (script.IsVersioned) script.VersionId = match.Groups[1].Value;
-                Check.That(!In.CheckForVersionedFilesOnly || script.IsVersioned,
+                Check.That(!In.CheckForVersionedFilesOnly || (In.CheckForVersionedFilesOnly && script.IsVersioned),
                            "Expected to find version number at the beginning of file {0}.", fileNameWithoutPath);
 
                 sqlScripts.Add(script);

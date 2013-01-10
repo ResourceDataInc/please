@@ -62,14 +62,11 @@ namespace Tests.Migrate.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
-            getSqlScripts.In.Directory = @"Migrate\files\sql\versioned";
+            getSqlScripts.In.Directory = @"Migrate\files\sql\repeatable";
             getSqlScripts.In.CheckForVersionedFilesOnly = true;
 
-            // Act
-            getSqlScripts.Execute();
-
-            // Assert
+            // Act & Assert
             Check.Throws<CheckException>(getSqlScripts.Execute);
-       }
+        }
     }
 }
