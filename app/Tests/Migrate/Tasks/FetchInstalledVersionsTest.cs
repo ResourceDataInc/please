@@ -20,9 +20,9 @@ namespace Tests.Migrate.Tasks
             createVersionTable.In.ConnectionName = "Test";
             createVersionTable.Execute();
 
-            var runMigration = Task.New<RunMigration>();
+            var runMigration = Task.New<RunSqlScript>();
             runMigration.In.ConnectionName = "Test";
-            runMigration.In.Migration = new Migration { FileName = @"Migrate\files\insert-version.sql" };
+            runMigration.In.SqlScript = new SqlScript { FileName = @"Migrate\files\insert-version.sql" };
             runMigration.Execute();
 
             var fetchInstalledVersions = Task.New<FetchInstalledVersions>();

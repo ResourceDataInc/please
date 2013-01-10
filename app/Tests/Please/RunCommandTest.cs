@@ -16,7 +16,7 @@ namespace Tests.Please
             var runCommand = Task.New<RunCommand>();
             runCommand.In.Args = new[] {"bump"};
             runCommand.BumpFiles = Fake.Task<BumpFiles>();
-            runCommand.MigrateDatabase = Fake.Task<MigrateDatabase>();
+            runCommand.RunSql = Fake.Task<RunSql>();
 
             // Act
             runCommand.Execute();
@@ -32,13 +32,13 @@ namespace Tests.Please
             var runCommand = Task.New<RunCommand>();
             runCommand.In.Args = new[] {"migrate"};
             runCommand.BumpFiles = Fake.Task<BumpFiles>();
-            runCommand.MigrateDatabase = Fake.Task<MigrateDatabase>();
+            runCommand.RunSql = Fake.Task<RunSql>();
 
             // Act
             runCommand.Execute();
 
             // Assert
-            Check.That(runCommand.MigrateDatabase.Stats.ExecuteCount == 1, "Expected MigrateDatabase to run.");
+            Check.That(runCommand.RunSql.Stats.ExecuteCount == 1, "Expected MigrateDatabase to run.");
         }
     }
 }

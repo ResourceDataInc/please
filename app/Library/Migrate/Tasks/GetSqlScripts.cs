@@ -5,7 +5,7 @@ using Simpler;
 
 namespace Library.Migrate.Tasks
 {
-    public class GetMigrationScripts : InOutTask<GetMigrationScripts.Input, GetMigrationScripts.Output>
+    public class GetSqlScripts : InOutTask<GetSqlScripts.Input, GetSqlScripts.Output>
     {
         public class Input
         {
@@ -14,13 +14,13 @@ namespace Library.Migrate.Tasks
 
         public class Output 
         {
-            public Migration[] Migrations { get; set; }
+            public SqlScript[] SqlScripts { get; set; }
         }
 
         public override void Execute()
         {
             const string pattern = @"^(?<Version>\d+)[_]";
-            var migrations = new List<Migration>();
+            var sqlScripts = new List<SqlScript>();
             var fileNames = Directory.GetFiles(In.Directory);
 
             foreach (var fileName in fileNames)
@@ -30,14 +30,14 @@ namespace Library.Migrate.Tasks
                 Check.That(match.Groups.Count == 2,
                     "Expected to find version number at the beginning of file {0}.", fileNameWithoutPath);
 
-                migrations.Add(new Migration
+                sqlScripts.Add(new SqlScript
                                    {
                                        FileName = fileName,
                                        VersionId = match.Groups[1].Value
                                    });
             }
 
-            Out.Migrations = migrations.ToArray();
+            Out.SqlScripts = sqlScripts.ToArray();
         }
     }
 }

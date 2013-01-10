@@ -9,7 +9,7 @@ using Simpler.Data;
 namespace Tests.Migrate.Tasks
 {
     [TestFixture]
-    public class RunMigrationTest
+    public class RunSqlScriptTest
     {
         [Test]
         public void should_run_given_migration_script()
@@ -22,12 +22,12 @@ namespace Tests.Migrate.Tasks
             createVersionTable.In.ConnectionName = "Test";
             createVersionTable.Execute();
 
-            var runMigration = Task.New<RunMigration>();
-            runMigration.In.ConnectionName = "Test";
-            runMigration.In.Migration = new Migration {FileName = @"Migrate\files\insert-version.sql"};
+            var runSqlScript = Task.New<RunSqlScript>();
+            runSqlScript.In.ConnectionName = "Test";
+            runSqlScript.In.SqlScript = new SqlScript {FileName = @"Migrate\files\insert-version.sql"};
 
             // Act
-            runMigration.Execute();
+            runSqlScript.Execute();
 
             // Assert
             using (var connection = Db.Connect("Test"))

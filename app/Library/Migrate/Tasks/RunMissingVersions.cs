@@ -5,21 +5,21 @@ using Simpler;
 
 namespace Library.Migrate.Tasks
 {
-    public class RunMissingMigrations : InTask<RunMissingMigrations.Input>
+    public class RunMissingVersions : InTask<RunMissingVersions.Input>
     {
         public class Input
         {
             public string ConnectionName { get; set; }
             public Version[] InstalledVersions { get; set; }
-            public Migration[] Migrations { get; set; }
+            public SqlScript[] SqlScripts { get; set; }
         }
 
-        public RunMigration RunMigration { get; set; }
+        public RunSqlScript RunSqlScript { get; set; }
         public InsertInstalledVersion InsertInstalledVersion { get; set; }
 
         public override void Execute()
         {
-            var allVersionIds = In.Migrations
+            var allVersionIds = In.SqlScripts
                 .OrderBy(m => m.VersionId)
                 .Select(m => m.VersionId).Distinct();
 
@@ -30,7 +30,7 @@ namespace Library.Migrate.Tasks
                     var missingVersionId = versionId;
                     Console.WriteLine("{0} not installed - running migrations.", missingVersionId);
 
-                    var migrationsForMissingVersion = In.Migrations
+                    var migrationsForMissingVersion = In.SqlScripts
                         .Where(m => m.VersionId == missingVersionId)
                         .OrderBy(m => m.FileName);
 
@@ -39,14 +39,14 @@ namespace Library.Migrate.Tasks
                         var fileName = Path.GetFileName(migration.FileName);
                         try
                         {
-                            RunMigration.In.ConnectionName = In.ConnectionName;
-                            RunMigration.In.Migration = migration;
-                            RunMigration.Execute();
+                            RunSqlScript.In.ConnectionName = In.ConnectionName;
+                            RunSqlScript.In.SqlScript = migration;
+                            RunSqlScript.Execute();
                             Console.WriteLine("  {0} ran successfully.", fileName);
                         }
                         catch (Exception e)
                         {
-                            throw new MigrationException(String.Format("{0} failed.\n  Message: {1}", fileName, e.Message));
+                            throw new RunSqlException(String.Format("{0} failed.\n  Message: {1}", fileName, e.Message));
                         }
                     }
 

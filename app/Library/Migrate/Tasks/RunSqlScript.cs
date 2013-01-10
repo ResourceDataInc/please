@@ -4,12 +4,12 @@ using Simpler.Data;
 
 namespace Library.Migrate.Tasks
 {
-    public class RunMigration : InOutTask<RunMigration.Input, RunMigration.Output>
+    public class RunSqlScript : InOutTask<RunSqlScript.Input, RunSqlScript.Output>
     {
         public class Input
         {
             public string ConnectionName { get; set; }
-            public Migration Migration { get; set; }
+            public SqlScript SqlScript { get; set; }
         }
 
         public class Output
@@ -19,7 +19,7 @@ namespace Library.Migrate.Tasks
 
         public override void Execute()
         {
-            var sql = File.ReadAllText(In.Migration.FileName);
+            var sql = File.ReadAllText(In.SqlScript.FileName);
 
             using (var connection = Db.Connect(In.ConnectionName))
             {

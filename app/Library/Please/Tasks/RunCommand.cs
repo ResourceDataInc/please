@@ -14,7 +14,7 @@ namespace Library.Please.Tasks
         }
 
         public BumpFiles BumpFiles { get; set; }
-        public MigrateDatabase MigrateDatabase { get; set; }
+        public RunSql RunSql { get; set; }
 
         public override void Execute()
         {
@@ -27,8 +27,8 @@ namespace Library.Please.Tasks
                 }
                 else if (In.Args[0] == "migrate")
                 {
-                    MigrateDatabase.In.Args = In.Args.Skip(1).ToArray();
-                    MigrateDatabase.Execute();
+                    RunSql.In.Args = In.Args.Skip(1).ToArray();
+                    RunSql.Execute();
                 }
                 else
                 {

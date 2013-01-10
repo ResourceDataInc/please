@@ -2,7 +2,7 @@
 
 namespace Library.Migrate.Tasks
 {
-    public class MigrateDatabase : InTask<MigrateDatabase.Input>
+    public class RunSql : InTask<RunSql.Input>
     {
         public class Input
         {
@@ -11,9 +11,9 @@ namespace Library.Migrate.Tasks
 
         public CheckForVersionTable CheckForVersionTable { get; set; }
         public CreateVersionTable CreateVersionTable { get; set; }
-        public GetMigrationScripts GetMigrationScripts { get; set; }
+        public GetSqlScripts GetSqlScripts { get; set; }
         public FetchInstalledVersions FetchInstalledVersions { get; set; }
-        public RunMissingMigrations RunMissingMigrations { get; set; }
+        public RunMissingVersions RunMissingVersions { get; set; }
 
         public override void Execute()
         {
@@ -29,16 +29,16 @@ namespace Library.Migrate.Tasks
                 CreateVersionTable.Execute();
             }
 
-            GetMigrationScripts.In.Directory = directory;
-            GetMigrationScripts.Execute();
+            GetSqlScripts.In.Directory = directory;
+            GetSqlScripts.Execute();
 
             FetchInstalledVersions.In.ConnectionName = connectionName;
             FetchInstalledVersions.Execute();
 
-            RunMissingMigrations.In.ConnectionName = connectionName;
-            RunMissingMigrations.In.Migrations = GetMigrationScripts.Out.Migrations;
-            RunMissingMigrations.In.InstalledVersions = FetchInstalledVersions.Out.Versions;
-            RunMissingMigrations.Execute();
+            RunMissingVersions.In.ConnectionName = connectionName;
+            RunMissingVersions.In.SqlScripts = GetSqlScripts.Out.SqlScripts;
+            RunMissingVersions.In.InstalledVersions = FetchInstalledVersions.Out.Versions;
+            RunMissingVersions.Execute();
         }
     }
 }
