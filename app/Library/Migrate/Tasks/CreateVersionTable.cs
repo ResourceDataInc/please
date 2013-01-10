@@ -17,7 +17,7 @@ namespace Library.Migrate.Tasks
 
         public override void Execute()
         {
-            const string sql = @"CREATE TABLE schema_migrations (version NVARCHAR(255) NOT NULL UNIQUE);";
+            const string sql = @"CREATE TABLE db_version (version NVARCHAR(255) NOT NULL UNIQUE);";
 
             using (var connection = Db.Connect(In.ConnectionName))
             {

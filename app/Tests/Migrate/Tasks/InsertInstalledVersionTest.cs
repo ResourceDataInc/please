@@ -54,7 +54,7 @@ namespace Tests.Migrate.Tasks
             // Assert
             using (var connection = Db.Connect("Test"))
             {
-                var count = Db.GetScalar(connection, "select version from schema_migrations where version = '01';");
+                var count = Db.GetScalar(connection, "select version from db_version where version = '01';");
                 Check.That(Convert.ToInt32(count) == 1, "Expected to find 1 record.");
             }
         }

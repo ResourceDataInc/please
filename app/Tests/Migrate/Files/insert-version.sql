@@ -1,1 +1,1 @@
-insert into schema_migrations (version) values (1);
+insert into db_version (version) values (1);
