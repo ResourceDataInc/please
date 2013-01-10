@@ -1,0 +1,1 @@
+CREATE TABLE testing (awesome NVARCHAR(255) NOT NULL UNIQUE);

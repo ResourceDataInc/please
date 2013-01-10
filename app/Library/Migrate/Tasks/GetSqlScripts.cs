@@ -10,6 +10,7 @@ namespace Library.Migrate.Tasks
         public class Input
         {
             public string Directory { get; set; }
+            public bool CheckForVersionedFilesOnly { get; set; }
         }
 
         public class Output 
@@ -27,14 +28,18 @@ namespace Library.Migrate.Tasks
             {
                 var fileNameWithoutPath = Path.GetFileName(fileName);
                 var match = Regex.Match(fileNameWithoutPath, pattern);
-                Check.That(match.Groups.Count == 2,
-                    "Expected to find version number at the beginning of file {0}.", fileNameWithoutPath);
+                var fileIsVersioned = match.Groups.Count == 2;
+                var script = new SqlScript
+                                 {
+                                     FileName = fileName,
+                                     IsVersioned = fileIsVersioned,                   
+                                 };
 
-                sqlScripts.Add(new SqlScript
-                                   {
-                                       FileName = fileName,
-                                       VersionId = match.Groups[1].Value
-                                   });
+                if (script.IsVersioned) script.VersionId = match.Groups[1].Value;
+                Check.That(!In.CheckForVersionedFilesOnly || script.IsVersioned,
+                           "Expected to find version number at the beginning of file {0}.", fileNameWithoutPath);
+
+                sqlScripts.Add(script);
             }
 
             Out.SqlScripts = sqlScripts.ToArray();

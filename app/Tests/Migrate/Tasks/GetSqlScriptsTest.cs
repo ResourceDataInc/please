@@ -25,7 +25,7 @@ namespace Tests.Migrate.Tasks
         }
 
         [Test]
-        public void should_find_version_in_file_names()
+        public void should_find_versioned_files()
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
@@ -35,9 +35,41 @@ namespace Tests.Migrate.Tasks
             getSqlScripts.Execute();
 
             // Assert
+            var script = getSqlScripts.Out.SqlScripts[0];
             const string version = "000001";
-            Check.That(getSqlScripts.Out.SqlScripts[0].VersionId == version,
-                "Expected version {0} not {1}", version, getSqlScripts.Out.SqlScripts[0].VersionId);
+            Check.That(script.IsVersioned, "Expected script to be versioned.");
+            Check.That(script.VersionId == version,
+                "Expected version {0} not {1}", version, script.VersionId);
         }
+
+        [Test]
+        public void should_find_unversioned_files()
+        {
+            // Arrange
+            var getSqlScripts = Task.New<GetSqlScripts>();
+            getSqlScripts.In.Directory = @"Migrate\files\sql\repeatable";
+
+            // Act
+            getSqlScripts.Execute();
+
+            // Assert
+            var script = getSqlScripts.Out.SqlScripts[0];
+            Check.That(!script.IsVersioned, "Expected script to be unversioned.");
+        }
+
+        [Test]
+        public void should_check_for_versioned_files()
+        {
+            // Arrange
+            var getSqlScripts = Task.New<GetSqlScripts>();
+            getSqlScripts.In.Directory = @"Migrate\files\sql\versioned";
+            getSqlScripts.In.CheckForVersionedFilesOnly = true;
+
+            // Act
+            getSqlScripts.Execute();
+
+            // Assert
+            Check.Throws<CheckException>(getSqlScripts.Execute);
+       }
     }
 }
