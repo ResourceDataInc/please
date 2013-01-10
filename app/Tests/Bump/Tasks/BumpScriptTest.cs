@@ -10,11 +10,11 @@ namespace Tests.Bump.Tasks
     [TestFixture]
     public class BumpScriptTest
     {
-        const string BeforeFile = @".\Bump\Files\Script_Before.txt";
-        const string AfterFile = @".\Bump\Files\Script_After.txt";
-        const string MajorFile = @".\Bump\Files\Script_MajorBumped.txt";
-        const string MinorFile = @".\Bump\Files\Script_MinorBumped.txt";
-        const string PatchFile = @".\Bump\Files\Script_PatchBumped.txt";
+        const string BeforeFile = @".\Bump\files\Script_Before.txt";
+        const string AfterFile = @".\Bump\files\Script_After.txt";
+        const string MajorFile = @".\Bump\files\Script_MajorBumped.txt";
+        const string MinorFile = @".\Bump\files\Script_MinorBumped.txt";
+        const string PatchFile = @".\Bump\files\Script_PatchBumped.txt";
 
         static void TestBump(BumpType bumpType, string fileContainingExpectedContents)
         {

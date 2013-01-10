@@ -10,11 +10,11 @@ namespace Tests.Bump.Tasks
     [TestFixture]
     public class BumpAssemblyInfoTest
     {
-        const string BeforeFile = @".\Bump\Files\AssemblyInfo_Before.cs";
-        const string AfterFile = @".\Bump\Files\AssemblyInfo_After.cs";
-        const string MajorFile = @".\Bump\Files\AssemblyInfo_MajorBumped.cs";
-        const string MinorFile = @".\Bump\Files\AssemblyInfo_MinorBumped.cs";
-        const string PatchFile = @".\Bump\Files\AssemblyInfo_PatchBumped.cs";
+        const string BeforeFile = @".\Bump\files\AssemblyInfo_Before.cs";
+        const string AfterFile = @".\Bump\files\AssemblyInfo_After.cs";
+        const string MajorFile = @".\Bump\files\AssemblyInfo_MajorBumped.cs";
+        const string MinorFile = @".\Bump\files\AssemblyInfo_MinorBumped.cs";
+        const string PatchFile = @".\Bump\files\AssemblyInfo_PatchBumped.cs";
 
         static void TestBump(BumpType bumpType, string fileContainingExpectedContents)
         {

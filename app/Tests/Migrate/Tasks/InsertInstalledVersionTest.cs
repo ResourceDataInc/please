@@ -15,8 +15,8 @@ namespace Tests.Migrate.Tasks
         public void should_insert_version()
         {
             // Arrange
-            File.Delete(@"Migrate\Files\test.db");
-            File.Copy(@"Migrate\Files\empty.db", @"Migrate\Files\test.db");
+            File.Delete(@"Migrate\files\test.db");
+            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -37,8 +37,8 @@ namespace Tests.Migrate.Tasks
         public void should_insert_version_as_string()
         {
             // Arrange
-            File.Delete(@"Migrate\Files\test.db");
-            File.Copy(@"Migrate\Files\empty.db", @"Migrate\Files\test.db");
+            File.Delete(@"Migrate\files\test.db");
+            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";

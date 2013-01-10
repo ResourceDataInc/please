@@ -13,8 +13,8 @@ namespace Tests.Migrate.Tasks
         public void should_fetch_installed_versions()
         {
             // Arrange
-            File.Delete(@"Migrate\Files\test.db");
-            File.Copy(@"Migrate\Files\empty.db", @"Migrate\Files\test.db");
+            File.Delete(@"Migrate\files\test.db");
+            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -22,7 +22,7 @@ namespace Tests.Migrate.Tasks
 
             var runMigration = Task.New<RunMigration>();
             runMigration.In.ConnectionName = "Test";
-            runMigration.In.Migration = new Migration { FileName = @"Migrate\Files\insert-version.sql" };
+            runMigration.In.Migration = new Migration { FileName = @"Migrate\files\insert-version.sql" };
             runMigration.Execute();
 
             var fetchInstalledVersions = Task.New<FetchInstalledVersions>();

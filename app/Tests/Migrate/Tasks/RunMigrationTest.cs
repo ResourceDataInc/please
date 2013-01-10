@@ -15,8 +15,8 @@ namespace Tests.Migrate.Tasks
         public void should_run_given_migration_script()
         {
             // Arrange
-            File.Delete(@"Migrate\Files\test.db");
-            File.Copy(@"Migrate\Files\empty.db", @"Migrate\Files\test.db");
+            File.Delete(@"Migrate\files\test.db");
+            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -24,7 +24,7 @@ namespace Tests.Migrate.Tasks
 
             var runMigration = Task.New<RunMigration>();
             runMigration.In.ConnectionName = "Test";
-            runMigration.In.Migration = new Migration {FileName = @"Migrate\Files\insert-version.sql"};
+            runMigration.In.Migration = new Migration {FileName = @"Migrate\files\insert-version.sql"};
 
             // Act
             runMigration.Execute();

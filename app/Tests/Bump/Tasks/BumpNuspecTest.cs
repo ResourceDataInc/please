@@ -10,11 +10,11 @@ namespace Tests.Bump.Tasks
     [TestFixture]
     public class BumpNuspecTest
     {
-        const string BeforeFile = @".\Bump\Files\Nuspec_Before.nuspec";
-        const string AfterFile = @".\Bump\Files\Nuspec_After.nuspec";
-        const string MajorFile = @".\Bump\Files\Nuspec_MajorBumped.nuspec";
-        const string MinorFile = @".\Bump\Files\Nuspec_MinorBumped.nuspec";
-        const string PatchFile = @".\Bump\Files\Nuspec_PatchBumped.nuspec";
+        const string BeforeFile = @".\Bump\files\Nuspec_Before.nuspec";
+        const string AfterFile = @".\Bump\files\Nuspec_After.nuspec";
+        const string MajorFile = @".\Bump\files\Nuspec_MajorBumped.nuspec";
+        const string MinorFile = @".\Bump\files\Nuspec_MinorBumped.nuspec";
+        const string PatchFile = @".\Bump\files\Nuspec_PatchBumped.nuspec";
 
         static void TestBump(BumpType bumpType, string fileContainingExpectedContents)
         {

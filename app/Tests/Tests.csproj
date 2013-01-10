@@ -56,16 +56,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bump\Files\AssemblyInfo_Before.cs">
+    <Compile Include="Bump\files\AssemblyInfo_Before.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bump\Files\AssemblyInfo_MajorBumped.cs">
+    <Compile Include="Bump\files\AssemblyInfo_MajorBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bump\Files\AssemblyInfo_MinorBumped.cs">
+    <Compile Include="Bump\files\AssemblyInfo_MinorBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Bump\Files\AssemblyInfo_PatchBumped.cs">
+    <Compile Include="Bump\files\AssemblyInfo_PatchBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Migrate\Tasks\CheckForVersionTableTest.cs" />
@@ -85,50 +85,50 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Migrate\Files\insert-version.sql">
+    <Content Include="Migrate\files\insert-version.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\Files\Migrations\000001_create-testing-table.sql">
+    <Content Include="Migrate\files\sql\versioned\000001_create-testing-table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\Files\Migrations\000002_001.sql">
+    <Content Include="Migrate\files\sql\versioned\000002_001.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\Files\Migrations\000002_002.sql">
+    <Content Include="Migrate\files\sql\versioned\000002_002.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\Files\Migrations\000003_do-something-else.sql">
+    <Content Include="Migrate\files\sql\versioned\000003_do-something-else.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App.config" />
-    <None Include="Bump\Files\Nuspec_MajorBumped.nuspec">
+    <None Include="Bump\files\Nuspec_MajorBumped.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Bump\Files\Nuspec_PatchBumped.nuspec">
+    <None Include="Bump\files\Nuspec_PatchBumped.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Bump\Files\Nuspec_MinorBumped.nuspec">
+    <None Include="Bump\files\Nuspec_MinorBumped.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Bump\Files\Nuspec_Before.nuspec">
+    <None Include="Bump\files\Nuspec_Before.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="Bump\Files\Script_MajorBumped.txt">
+    <Content Include="Bump\files\Script_MajorBumped.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bump\Files\Script_MinorBumped.txt">
+    <Content Include="Bump\files\Script_MinorBumped.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bump\Files\Script_PatchBumped.txt">
+    <Content Include="Bump\files\Script_PatchBumped.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Bump\Files\Script_Before.txt">
+    <Content Include="Bump\files\Script_Before.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Migrate\Files\empty.db">
+    <None Include="Migrate\files\empty.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Migrate\Files\test.db">
+    <None Include="Migrate\files\test.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -139,7 +139,9 @@
       <Name>Library</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Migrate\files\sql\repeatable\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
