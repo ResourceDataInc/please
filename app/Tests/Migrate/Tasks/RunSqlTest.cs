@@ -68,7 +68,7 @@ namespace Tests.Migrate.Tasks
         }
 
         [Test]
-        public void should_get_migration_scripts_using_given_directory()
+        public void should_get_sql_scripts_using_from_directory()
         {
             // Arrange
             const string directoryArgument = "SomeDirectory";
