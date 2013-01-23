@@ -28,6 +28,8 @@ namespace Library.Please.Tasks
                 else if (In.Args[0] == "migrate")
                 {
                     RunSql.In.Args = In.Args.Skip(1).ToArray();
+                    // TODO - assume true for now
+                    RunSql.In.WithVersioning = true;
                     RunSql.Execute();
                 }
                 else

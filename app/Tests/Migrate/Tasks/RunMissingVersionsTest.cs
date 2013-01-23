@@ -11,7 +11,7 @@ using Version = Library.Migrate.Version;
 namespace Tests.Migrate.Tasks
 {
     [TestFixture]
-    public class RunMissingVersions
+    public class RunMissingVersionsTest
     {
         readonly Version[] _testVersions =
             new[]
@@ -34,7 +34,7 @@ namespace Tests.Migrate.Tasks
         public void should_run_all_migrations_if_no_versions_exist()
         {
             // Arrange
-            var runMissingVersions = Task.New<Library.Migrate.Tasks.RunMissingVersions>();
+            var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
             runMissingVersions.In.SqlScripts = _testSqlScripts;
             runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>();
@@ -56,7 +56,7 @@ namespace Tests.Migrate.Tasks
         public void should_not_run_any_migrations_if_all_versions_exist()
         {
             // Arrange
-            var runMissingVersions = Task.New<Library.Migrate.Tasks.RunMissingVersions>();
+            var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = _testVersions;
             runMissingVersions.In.SqlScripts = _testSqlScripts;
             runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>();
@@ -79,7 +79,7 @@ namespace Tests.Migrate.Tasks
         {
             // Arrange
             var versions = new List<string>();
-            var runMissingVersions = Task.New<Library.Migrate.Tasks.RunMissingVersions>();
+            var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = _testVersions.Where(version => version.Id != "002").ToArray();
             runMissingVersions.In.SqlScripts = _testSqlScripts;
             runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(task => versions.Add(task.In.SqlScript.VersionId));
@@ -103,7 +103,7 @@ namespace Tests.Migrate.Tasks
         {
             // Arrange
             var versions = new List<string>();
-            var runMissingVersions = Task.New<Library.Migrate.Tasks.RunMissingVersions>();
+            var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = _testVersions.Where(version => version.Id != "002").ToArray();
             runMissingVersions.In.SqlScripts = _testSqlScripts;
             runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(task => versions.Add(task.In.SqlScript.VersionId));
@@ -126,7 +126,7 @@ namespace Tests.Migrate.Tasks
         {
             // Arrange
             var versions = new List<string>();
-            var runMissingVersions = Task.New<Library.Migrate.Tasks.RunMissingVersions>();
+            var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
             runMissingVersions.In.SqlScripts = _testSqlScripts.Reverse().ToArray();
             runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(task => versions.Add(task.In.SqlScript.FileName));
@@ -150,7 +150,7 @@ namespace Tests.Migrate.Tasks
         public void should_throw_if_migration_fails()
         {
             // Arrange
-            var runMissingVersions = Task.New<Library.Migrate.Tasks.RunMissingVersions>();
+            var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
             runMissingVersions.In.SqlScripts = _testSqlScripts.Take(1).ToArray();
             runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(rm => { throw new Exception(); });

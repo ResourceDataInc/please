@@ -30,17 +30,17 @@ namespace Library.Migrate.Tasks
                     var missingVersionId = versionId;
                     Console.WriteLine("{0} not installed - running migrations.", missingVersionId);
 
-                    var migrationsForMissingVersion = In.SqlScripts
+                    var sqlScriptsForMissingVersion = In.SqlScripts
                         .Where(m => m.VersionId == missingVersionId)
                         .OrderBy(m => m.FileName);
 
-                    foreach (var migration in migrationsForMissingVersion)
+                    foreach (var sqlScript in sqlScriptsForMissingVersion)
                     {
-                        var fileName = Path.GetFileName(migration.FileName);
+                        var fileName = Path.GetFileName(sqlScript.FileName);
                         try
                         {
                             RunSqlScript.In.ConnectionName = In.ConnectionName;
-                            RunSqlScript.In.SqlScript = migration;
+                            RunSqlScript.In.SqlScript = sqlScript;
                             RunSqlScript.Execute();
                             Console.WriteLine("  {0} ran successfully.", fileName);
                         }
