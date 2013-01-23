@@ -82,7 +82,7 @@
     <Compile Include="Bump\Tasks\BumpFilesTest.cs" />
     <Compile Include="Bump\Tasks\ParseArgsTest.cs" />
     <Compile Include="Migrate\Tasks\RunMissingVersionsTest.cs" />
-    <Compile Include="Please\RunCommandTest.cs" />
+    <Compile Include="Models\CommandsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

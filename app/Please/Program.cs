@@ -1,5 +1,5 @@
-﻿using Library.Please.Tasks;
-using Simpler;
+﻿using System;
+using Library.Models;
 
 namespace Please
 {
@@ -7,9 +7,16 @@ namespace Please
     {
         static void Main(string[] args)
         {
-            var runCommand = Task.New<RunCommand>();
-            runCommand.In.Args = args;
-            runCommand.Execute();
+            var commandText = String.Join(" ", args);
+            foreach (var command in Commands.All)
+            {
+                if (commandText.StartsWith(command.Name))
+                {
+                    var options = commandText.Substring(command.Name.Length);
+                    command.Run(options);
+                    break;
+                }
+            }
         }
     }
 }

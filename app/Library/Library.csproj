@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bump\BumpType.cs" />
+    <Compile Include="Models\Command.cs" />
     <Compile Include="Migrate\SqlScript.cs" />
     <Compile Include="Migrate\RunSqlException.cs" />
     <Compile Include="Migrate\Tasks\CheckForVersionTable.cs" />
@@ -59,7 +60,9 @@
     <Compile Include="Migrate\Tasks\GetSqlScripts.cs" />
     <Compile Include="Migrate\Tasks\RunSqlScript.cs" />
     <Compile Include="Migrate\Tasks\RunMissingVersions.cs" />
-    <Compile Include="Please\Tasks\RunCommand.cs" />
+    <Compile Include="Models\Commands.cs" />
+    <Compile Include="Models\ICommand.cs" />
+    <Compile Include="Models\Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Bump\Tasks\BumpFiles.cs" />
     <Compile Include="Bump\Tasks\BumpAssemblyInfo.cs" />
