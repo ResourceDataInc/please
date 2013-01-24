@@ -2,7 +2,7 @@
 using Simpler;
 using Simpler.Data;
 
-namespace Library.Migrate.Tasks
+namespace Library.RunSql.Tasks
 {
     public class InsertInstalledVersion : InOutTask<InsertInstalledVersion.Input, InsertInstalledVersion.Output>
     {

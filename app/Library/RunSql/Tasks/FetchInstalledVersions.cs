@@ -1,7 +1,7 @@
 ﻿using Simpler;
 using Simpler.Data;
 
-namespace Library.Migrate.Tasks
+namespace Library.RunSql.Tasks
 {
     public class FetchInstalledVersions : InOutTask<FetchInstalledVersions.Input, FetchInstalledVersions.Output>
     {

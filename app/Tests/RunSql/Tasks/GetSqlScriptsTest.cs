@@ -1,8 +1,8 @@
-﻿using Library.Migrate.Tasks;
+﻿using Library.RunSql.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Migrate.Tasks
+namespace Tests.RunSql.Tasks
 {
     [TestFixture]
     public class GetSqlScriptsTest
@@ -12,13 +12,13 @@ namespace Tests.Migrate.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
-            getSqlScripts.In.Directory = @"Migrate\files\sql\versioned";
+            getSqlScripts.In.Directory = @"RunSql\files\sql\versioned";
 
             // Act
             getSqlScripts.Execute();
 
             // Assert
-            const string expectedFileName = @"Migrate\files\sql\versioned\000001_create-testing-table.sql";
+            const string expectedFileName = @"RunSql\files\sql\versioned\000001_create-testing-table.sql";
             Check.That(getSqlScripts.Out.SqlScripts.Length == 4, "Expected to find 1 migration.");
             Check.That(getSqlScripts.Out.SqlScripts[0].FileName == expectedFileName,
                 "Expected fileName of {0} not {1}", expectedFileName, getSqlScripts.Out.SqlScripts[0].FileName);
@@ -29,7 +29,7 @@ namespace Tests.Migrate.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
-            getSqlScripts.In.Directory = @"Migrate\files\sql\versioned";
+            getSqlScripts.In.Directory = @"RunSql\files\sql\versioned";
 
             // Act
             getSqlScripts.Execute();
@@ -47,7 +47,7 @@ namespace Tests.Migrate.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
-            getSqlScripts.In.Directory = @"Migrate\files\sql\repeatable";
+            getSqlScripts.In.Directory = @"RunSql\files\sql\repeatable";
 
             // Act
             getSqlScripts.Execute();
@@ -62,7 +62,7 @@ namespace Tests.Migrate.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
-            getSqlScripts.In.Directory = @"Migrate\files\sql\repeatable";
+            getSqlScripts.In.Directory = @"RunSql\files\sql\repeatable";
             getSqlScripts.In.CheckForVersionedFilesOnly = true;
 
             // Act & Assert

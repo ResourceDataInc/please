@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using Library.Migrate.Tasks;
+using Library.RunSql.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Migrate.Tasks
+namespace Tests.RunSql.Tasks
 {
     [TestFixture]
     public class CheckForVersionTableTest
@@ -12,8 +12,8 @@ namespace Tests.Migrate.Tasks
         public void should_find_version_table_if_it_exists()
         {
             // Arrange
-            File.Delete(@"Migrate\files\test.db");
-            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
+            File.Delete(@"RunSql\files\test.db");
+            File.Copy(@"RunSql\files\empty.db", @"RunSql\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -33,8 +33,8 @@ namespace Tests.Migrate.Tasks
         public void should_not_find_version_table_if_it_does_not_exist()
         {
             // Arrange
-            File.Delete(@"Migrate\files\test.db");
-            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
+            File.Delete(@"RunSql\files\test.db");
+            File.Copy(@"RunSql\files\empty.db", @"RunSql\files\test.db");
 
             var checkForVersionTable = Task.New<CheckForVersionTable>();
             checkForVersionTable.In.ConnectionName = "Test";

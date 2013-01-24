@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using Library.Migrate.Tasks;
+using Library.RunSql.Tasks;
 using NUnit.Framework;
 using Simpler;
 using Simpler.Data;
-using Version = Library.Migrate.Version;
+using Version = Library.RunSql.Version;
 
-namespace Tests.Migrate.Tasks
+namespace Tests.RunSql.Tasks
 {
     [TestFixture]
     public class InsertInstalledVersionTest
@@ -15,8 +15,8 @@ namespace Tests.Migrate.Tasks
         public void should_insert_version()
         {
             // Arrange
-            File.Delete(@"Migrate\files\test.db");
-            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
+            File.Delete(@"RunSql\files\test.db");
+            File.Copy(@"RunSql\files\empty.db", @"RunSql\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -37,8 +37,8 @@ namespace Tests.Migrate.Tasks
         public void should_insert_version_as_string()
         {
             // Arrange
-            File.Delete(@"Migrate\files\test.db");
-            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
+            File.Delete(@"RunSql\files\test.db");
+            File.Copy(@"RunSql\files\empty.db", @"RunSql\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";

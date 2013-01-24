@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Library.Migrate;
-using Library.Migrate.Tasks;
+using Library.RunSql;
+using Library.RunSql.Tasks;
 using NUnit.Framework;
 using Simpler;
-using Version = Library.Migrate.Version;
+using Version = Library.RunSql.Version;
 
-namespace Tests.Migrate.Tasks
+namespace Tests.RunSql.Tasks
 {
     [TestFixture]
     public class RunSqlTest
@@ -34,7 +34,7 @@ namespace Tests.Migrate.Tasks
         public void should_not_create_version_table_without_versioning()
         {
             // Arrange
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { "", "" };
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
@@ -58,7 +58,7 @@ namespace Tests.Migrate.Tasks
         public void should_create_version_table_if_it_does_not_exist_with_versioning()
         {
             // Arrange
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { "", "" };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>(cfvt => cfvt.Out.TableExists = false);
@@ -80,7 +80,7 @@ namespace Tests.Migrate.Tasks
         public void should_not_create_version_table_if_it_exists_with_versioning()
         {
             // Arrange
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { "", "" };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>(cfvt => cfvt.Out.TableExists = true);
@@ -105,7 +105,7 @@ namespace Tests.Migrate.Tasks
             const string directoryArgument = "SomeDirectory";
             var passedDirectory = "";
 
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { "", directoryArgument };
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
@@ -141,7 +141,7 @@ namespace Tests.Migrate.Tasks
             const string directoryArgument = "SomeDirectory";
             var passedDirectory = "";
 
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { "", directoryArgument };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
@@ -169,7 +169,7 @@ namespace Tests.Migrate.Tasks
             const string connectionNameArgument = "SomeConnection";
             var passedConnectionName = "";
 
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { connectionNameArgument, "" };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
@@ -197,7 +197,7 @@ namespace Tests.Migrate.Tasks
             const string connectionNameArgument = "SomeConnection";
             var passedConnectionName = "";
 
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { connectionNameArgument, "" };
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
@@ -229,7 +229,7 @@ namespace Tests.Migrate.Tasks
             const string connectionNameArgument = "SomeConnection";
             var passedConnectionName = "";
 
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { connectionNameArgument, "" };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
@@ -259,7 +259,7 @@ namespace Tests.Migrate.Tasks
             var passedMigrations = new SqlScript[0];
             var passedVersions = new Version[0];
 
-            var runSql = Task.New<RunSql>();
+            var runSql = Task.New<Library.RunSql.Tasks.RunSql>();
             runSql.In.Args = new[] { "", "" };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();

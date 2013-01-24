@@ -1,7 +1,7 @@
 ﻿using Simpler;
 using Simpler.Data;
 
-namespace Library.Migrate.Tasks
+namespace Library.RunSql.Tasks
 {
     public class CreateVersionTable : InOutTask<CreateVersionTable.Input, CreateVersionTable.Output>
     {

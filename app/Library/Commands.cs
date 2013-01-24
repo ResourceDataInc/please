@@ -1,8 +1,7 @@
 using Library.Bump;
 using Library.Bump.Tasks;
-using Library.Migrate.Tasks;
 
-namespace Library.Models
+namespace Library
 {
     public class Commands
     {
@@ -61,19 +60,19 @@ namespace Library.Models
                             }
             };
 
-        static readonly Command<RunSql> RunSql =
-            new Command<RunSql>
+        static readonly Command<RunSql.Tasks.RunSql> RunSql =
+            new Command<RunSql.Tasks.RunSql>
             {
                 Name = "run sql",
                 Options =
                     new[]
                             {
-                                new Option<RunSql>
+                                new Option<RunSql.Tasks.RunSql>
                                     {
                                         Pattern = "with versioning",
                                         Action = (task, match) => task.In.WithVersioning = true
                                     },
-                                new Option<RunSql>
+                                new Option<RunSql.Tasks.RunSql>
                                     {
                                         Pattern = @"on (?<ConnectionName>\w+)",
                                         Action = (task, match) =>
@@ -82,7 +81,7 @@ namespace Library.Models
                                                          task.In.Args = new[] {connectionName};
                                                      }
                                     },
-                                new Option<RunSql>
+                                new Option<RunSql.Tasks.RunSql>
                                     {
                                         // TODO - this pattern will need to allow \, /, -, _, etc.
                                         Pattern = @"in (?<Directory>\w+)",

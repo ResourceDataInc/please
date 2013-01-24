@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Library.Models
+namespace Library
 {
     public class Option<TTask>
     {

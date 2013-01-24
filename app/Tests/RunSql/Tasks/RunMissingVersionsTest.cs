@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Migrate;
-using Library.Migrate.Tasks;
+using Library.RunSql;
+using Library.RunSql.Tasks;
 using NUnit.Framework;
 using Simpler;
-using Version = Library.Migrate.Version;
+using Version = Library.RunSql.Version;
 
-namespace Tests.Migrate.Tasks
+namespace Tests.RunSql.Tasks
 {
     [TestFixture]
     public class RunMissingVersionsTest

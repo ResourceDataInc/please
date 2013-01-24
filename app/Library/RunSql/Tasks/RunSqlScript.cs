@@ -2,7 +2,7 @@
 using Simpler;
 using Simpler.Data;
 
-namespace Library.Migrate.Tasks
+namespace Library.RunSql.Tasks
 {
     public class RunSqlScript : InOutTask<RunSqlScript.Input, RunSqlScript.Output>
     {

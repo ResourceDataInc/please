@@ -68,38 +68,38 @@
     <Compile Include="Bump\files\AssemblyInfo_PatchBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Migrate\Tasks\CheckForVersionTableTest.cs" />
-    <Compile Include="Migrate\Tasks\RunSqlTest.cs" />
-    <Compile Include="Migrate\Tasks\InsertInstalledVersionTest.cs" />
-    <Compile Include="Migrate\Tasks\FetchInstalledVersionsTest.cs" />
-    <Compile Include="Migrate\Tasks\CreateVersionTableTest.cs" />
-    <Compile Include="Migrate\Tasks\GetSqlScriptsTest.cs" />
-    <Compile Include="Migrate\Tasks\RunSqlScriptTest.cs" />
+    <Compile Include="RunSql\Tasks\CheckForVersionTableTest.cs" />
+    <Compile Include="RunSql\Tasks\RunSqlTest.cs" />
+    <Compile Include="RunSql\Tasks\InsertInstalledVersionTest.cs" />
+    <Compile Include="RunSql\Tasks\FetchInstalledVersionsTest.cs" />
+    <Compile Include="RunSql\Tasks\CreateVersionTableTest.cs" />
+    <Compile Include="RunSql\Tasks\GetSqlScriptsTest.cs" />
+    <Compile Include="RunSql\Tasks\RunSqlScriptTest.cs" />
     <Compile Include="Bump\Tasks\BumpNuspecTest.cs" />
     <Compile Include="Bump\Tasks\BumpAssemblyInfoTest.cs" />
     <Compile Include="Bump\Tasks\BumpScriptTest.cs" />
     <Compile Include="Bump\Tasks\BumpFileTest.cs" />
-    <Compile Include="Migrate\Tasks\RunMissingVersionsTest.cs" />
-    <Compile Include="Models\CommandsTests.cs" />
+    <Compile Include="RunSql\Tasks\RunMissingVersionsTest.cs" />
+    <Compile Include="CommandsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Migrate\files\insert-version.sql">
+    <Content Include="RunSql\files\insert-version.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\files\sql\repeatable\create-testing-table.sql">
+    <Content Include="RunSql\files\sql\repeatable\create-testing-table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\files\sql\versioned\000001_create-testing-table.sql">
+    <Content Include="RunSql\files\sql\versioned\000001_create-testing-table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\files\sql\versioned\000002_001.sql">
+    <Content Include="RunSql\files\sql\versioned\000002_001.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\files\sql\versioned\000002_002.sql">
+    <Content Include="RunSql\files\sql\versioned\000002_002.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Migrate\files\sql\versioned\000003_do-something-else.sql">
+    <Content Include="RunSql\files\sql\versioned\000003_do-something-else.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App.config" />
@@ -127,10 +127,10 @@
     <Content Include="Bump\files\Script_Before.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Migrate\files\empty.db">
+    <None Include="RunSql\files\empty.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Migrate\files\test.db">
+    <None Include="RunSql\files\test.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

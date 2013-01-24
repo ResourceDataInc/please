@@ -1,6 +1,6 @@
 using Simpler;
 
-namespace Library.Models
+namespace Library
 {
     public interface ICommand
     {

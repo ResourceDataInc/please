@@ -1,12 +1,11 @@
 ﻿using System.Linq;
+using Library;
 using Library.Bump;
 using Library.Bump.Tasks;
-using Library.Migrate.Tasks;
-using Library.Models;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Models
+namespace Tests
 {
     [TestFixture]
     public class CommandsTests
@@ -83,7 +82,7 @@ namespace Tests.Models
             // Arrange
             var withVersioning = false;
             var runSqlCommand = Commands.All.Single(c => c.Name == "run sql");
-            runSqlCommand.Task = Fake.Task<RunSql>(rs => withVersioning = rs.In.WithVersioning);
+            runSqlCommand.Task = Fake.Task<Library.RunSql.Tasks.RunSql>(rs => withVersioning = rs.In.WithVersioning);
             const string options = "with versioning";
 
             // Act
@@ -99,7 +98,7 @@ namespace Tests.Models
             // Arrange
             var database = "";
             var runSqlCommand = Commands.All.Single(c => c.Name == "run sql");
-            runSqlCommand.Task = Fake.Task<RunSql>(rs => database = rs.In.Args[0]);
+            runSqlCommand.Task = Fake.Task<Library.RunSql.Tasks.RunSql>(rs => database = rs.In.Args[0]);
             const string options = "on DEV";
 
             // Act
@@ -116,7 +115,7 @@ namespace Tests.Models
             var database = "";
             var directory = "";
             var runSqlCommand = Commands.All.Single(c => c.Name == "run sql");
-            runSqlCommand.Task = Fake.Task<RunSql>(rs =>
+            runSqlCommand.Task = Fake.Task<Library.RunSql.Tasks.RunSql>(rs =>
                                                        {
                                                            database = rs.In.Args[0];
                                                            directory = rs.In.Args[1];

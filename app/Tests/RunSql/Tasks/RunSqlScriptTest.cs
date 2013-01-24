@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using Library.Migrate;
-using Library.Migrate.Tasks;
+using Library.RunSql;
+using Library.RunSql.Tasks;
 using NUnit.Framework;
 using Simpler;
 using Simpler.Data;
 
-namespace Tests.Migrate.Tasks
+namespace Tests.RunSql.Tasks
 {
     [TestFixture]
     public class RunSqlScriptTest
@@ -15,8 +15,8 @@ namespace Tests.Migrate.Tasks
         public void should_run_given_migration_script()
         {
             // Arrange
-            File.Delete(@"Migrate\files\test.db");
-            File.Copy(@"Migrate\files\empty.db", @"Migrate\files\test.db");
+            File.Delete(@"RunSql\files\test.db");
+            File.Copy(@"RunSql\files\empty.db", @"RunSql\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -24,7 +24,7 @@ namespace Tests.Migrate.Tasks
 
             var runSqlScript = Task.New<RunSqlScript>();
             runSqlScript.In.ConnectionName = "Test";
-            runSqlScript.In.SqlScript = new SqlScript {FileName = @"Migrate\files\insert-version.sql"};
+            runSqlScript.In.SqlScript = new SqlScript {FileName = @"RunSql\files\insert-version.sql"};
 
             // Act
             runSqlScript.Execute();

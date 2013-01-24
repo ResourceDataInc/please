@@ -1,4 +1,4 @@
-﻿namespace Library.Migrate
+﻿namespace Library.RunSql
 {
     public class SqlScript
     {
