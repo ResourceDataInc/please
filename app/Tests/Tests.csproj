@@ -69,9 +69,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Migrate\Tasks\CheckForVersionTableTest.cs" />
-    <Compile Include="Migrate\Tasks\RunSqlWithVersioningTest.cs" />
-    <Compile Include="Migrate\Tasks\InsertInstalledVersionTest.cs" />
     <Compile Include="Migrate\Tasks\RunSqlTest.cs" />
+    <Compile Include="Migrate\Tasks\InsertInstalledVersionTest.cs" />
     <Compile Include="Migrate\Tasks\FetchInstalledVersionsTest.cs" />
     <Compile Include="Migrate\Tasks\CreateVersionTableTest.cs" />
     <Compile Include="Migrate\Tasks\GetSqlScriptsTest.cs" />
