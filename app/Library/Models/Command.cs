@@ -25,6 +25,7 @@ namespace Library.Models
                 if (match.Success)
                 {
                     option.Action((TTask)Task, match);
+                    options = options.Replace(match.ToString(), "");
                 }
             }
 

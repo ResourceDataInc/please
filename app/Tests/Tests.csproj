@@ -79,8 +79,7 @@
     <Compile Include="Bump\Tasks\BumpNuspecTest.cs" />
     <Compile Include="Bump\Tasks\BumpAssemblyInfoTest.cs" />
     <Compile Include="Bump\Tasks\BumpScriptTest.cs" />
-    <Compile Include="Bump\Tasks\BumpFilesTest.cs" />
-    <Compile Include="Bump\Tasks\ParseArgsTest.cs" />
+    <Compile Include="Bump\Tasks\BumpFileTest.cs" />
     <Compile Include="Migrate\Tasks\RunMissingVersionsTest.cs" />
     <Compile Include="Models\CommandsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
