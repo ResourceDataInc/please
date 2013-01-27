@@ -35,7 +35,6 @@ namespace Tests.Sql.Tasks
         {
             // Arrange
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { "", "" };
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
@@ -59,7 +58,6 @@ namespace Tests.Sql.Tasks
         {
             // Arrange
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { "", "" };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>(cfvt => cfvt.Out.TableExists = false);
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
@@ -81,7 +79,6 @@ namespace Tests.Sql.Tasks
         {
             // Arrange
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { "", "" };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>(cfvt => cfvt.Out.TableExists = true);
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
@@ -106,7 +103,7 @@ namespace Tests.Sql.Tasks
             var passedDirectory = "";
 
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { "", directoryArgument };
+            runSql.In.Directory = directoryArgument;
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
@@ -142,7 +139,7 @@ namespace Tests.Sql.Tasks
             var passedDirectory = "";
 
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { "", directoryArgument };
+            runSql.In.Directory = directoryArgument;
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
@@ -170,7 +167,7 @@ namespace Tests.Sql.Tasks
             var passedConnectionName = "";
 
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { connectionNameArgument, "" };
+            runSql.In.ConnectionName = connectionNameArgument;
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
@@ -198,7 +195,7 @@ namespace Tests.Sql.Tasks
             var passedConnectionName = "";
 
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { connectionNameArgument, "" };
+            runSql.In.ConnectionName = connectionNameArgument;
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
@@ -230,7 +227,7 @@ namespace Tests.Sql.Tasks
             var passedConnectionName = "";
 
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { connectionNameArgument, "" };
+            runSql.In.ConnectionName = connectionNameArgument;
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
@@ -260,7 +257,6 @@ namespace Tests.Sql.Tasks
             var passedVersions = new Version[0];
 
             var runSql = Task.New<RunSql>();
-            runSql.In.Args = new[] { "", "" };
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();

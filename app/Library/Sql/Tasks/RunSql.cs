@@ -8,7 +8,8 @@ namespace Library.Sql.Tasks
     {
         public class Input
         {
-            public string[] Args { get; set; }
+            public string ConnectionName { get; set; }
+            public string Directory { get; set; }
             public bool WithVersioning { get; set; }
         }
 
@@ -21,31 +22,28 @@ namespace Library.Sql.Tasks
 
         public override void Execute()
         {
-            var connectionName = In.Args[0];
-            var directory = In.Args[1];
-
             if (In.WithVersioning)
             {
-                CheckForVersionTable.In.ConnectionName = connectionName;
+                CheckForVersionTable.In.ConnectionName = In.ConnectionName;
                 CheckForVersionTable.Execute();
 
                 if (!CheckForVersionTable.Out.TableExists)
                 {
-                    CreateVersionTable.In.ConnectionName = connectionName;
+                    CreateVersionTable.In.ConnectionName = In.ConnectionName;
                     CreateVersionTable.Execute();
                 }
 
-                FetchInstalledVersions.In.ConnectionName = connectionName;
+                FetchInstalledVersions.In.ConnectionName = In.ConnectionName;
                 FetchInstalledVersions.Execute();
             }
 
-            GetSqlScripts.In.Directory = directory;
+            GetSqlScripts.In.Directory = In.Directory;
             GetSqlScripts.In.CheckForVersionedFilesOnly = In.WithVersioning;
             GetSqlScripts.Execute();
 
             if (In.WithVersioning)
             {
-                RunMissingVersions.In.ConnectionName = connectionName;
+                RunMissingVersions.In.ConnectionName = In.ConnectionName;
                 RunMissingVersions.In.SqlScripts = GetSqlScripts.Out.SqlScripts;
                 RunMissingVersions.In.InstalledVersions = FetchInstalledVersions.Out.Versions;
                 RunMissingVersions.Execute();
@@ -58,7 +56,7 @@ namespace Library.Sql.Tasks
                     var fileName = Path.GetFileName(sqlScript.FileName);
                     try
                     {
-                        RunSqlScript.In.ConnectionName = connectionName;
+                        RunSqlScript.In.ConnectionName = In.ConnectionName;
                         RunSqlScript.In.SqlScript = sqlScript;
                         RunSqlScript.Execute();
                         Console.WriteLine("  {0} ran successfully.", fileName);

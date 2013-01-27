@@ -76,22 +76,13 @@ namespace Library
                                 new Option<RunSql>
                                     {
                                         Pattern = @"on (?<ConnectionName>\w+)",
-                                        Action = (task, match) =>
-                                                     {
-                                                         var connectionName = match.Groups["ConnectionName"].Value;
-                                                         task.In.Args = new[] {connectionName};
-                                                     }
+                                        Action = (task, match) => task.In.ConnectionName = match.Groups["ConnectionName"].Value
                                     },
                                 new Option<RunSql>
                                     {
                                         // TODO - this pattern will need to allow \, /, -, _, etc.
                                         Pattern = @"in (?<Directory>\w+)",
-                                        Action = (task, match) =>
-                                                     {
-                                                         var directory = match.Groups["Directory"].Value;
-                                                         var previousArgs = task.In.Args;
-                                                         task.In.Args = new[] {previousArgs[0], directory};
-                                                     }
+                                        Action = (task, match) => task.In.Directory = match.Groups["Directory"].Value
                                     }
                             }
             };

@@ -57,10 +57,10 @@ namespace Tests
         [Test]
         public void should_run_sql_on_database_in_directory()
         {
-            var runSql = ShouldExecute<RunSql>("run sql on DEV in SomeDirectory");
+            var runSql = ShouldExecute<RunSql>("run sql in SomeDirectory on DEV ");
 
-            Check.That(runSql.In.Args[0] == "DEV", "Expected database to be DEV.");
-            Check.That(runSql.In.Args[1] == "SomeDirectory", "Expected directory to be SomeDirectory.");
+            Check.That(runSql.In.ConnectionName == "DEV", "Expected database to be DEV.");
+            Check.That(runSql.In.Directory == "SomeDirectory", "Expected directory to be SomeDirectory.");
         }
 
         [Test]
@@ -68,7 +68,15 @@ namespace Tests
         {
             var runSql = ShouldExecute<RunSql>("run sql with versioning");
 
-            Check.That(runSql.In.WithVersioning, "Expected with versioning to be set to true.");
+            Check.That(runSql.In.WithVersioning, "Expected with versioning to be true.");
+        }
+
+        [Test]
+        public void should_run_sql_without_versioning()
+        {
+            var runSql = ShouldExecute<RunSql>("run sql");
+
+            Check.That(!runSql.In.WithVersioning, "Expected with versioning to be false.");
         }
     }
 }
