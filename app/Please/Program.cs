@@ -1,5 +1,4 @@
-﻿using System;
-using Library;
+﻿using Simpler;
 
 namespace Please
 {
@@ -7,16 +6,9 @@ namespace Please
     {
         static void Main(string[] args)
         {
-            var commandText = String.Join(" ", args);
-            foreach (var command in Commands.All)
-            {
-                if (commandText.StartsWith(command.Name))
-                {
-                    var options = commandText.Substring(command.Name.Length);
-                    command.Run(options);
-                    break;
-                }
-            }
+            var please = Task.New<Library.Please>();
+            please.In.Args = args;
+            please.Execute();
         }
     }
 }

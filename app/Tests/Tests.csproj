@@ -68,6 +68,7 @@
     <Compile Include="Bump\files\AssemblyInfo_PatchBumped.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="PleaseTests.cs" />
     <Compile Include="RunSql\Tasks\CheckForVersionTableTest.cs" />
     <Compile Include="RunSql\Tasks\RunSqlTest.cs" />
     <Compile Include="RunSql\Tasks\InsertInstalledVersionTest.cs" />
@@ -80,7 +81,6 @@
     <Compile Include="Bump\Tasks\BumpScriptTest.cs" />
     <Compile Include="Bump\Tasks\BumpFileTest.cs" />
     <Compile Include="RunSql\Tasks\RunMissingVersionsTest.cs" />
-    <Compile Include="CommandsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

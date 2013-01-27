@@ -8,12 +8,15 @@ using Simpler;
 namespace Tests
 {
     [TestFixture]
-    public class CommandsTests
+    public class PleaseTests
     {
         [Test]
         public void should_bump_major_in_AssemblyInfo()
         {
             // Arrange
+            var please = Task.New<Please>();
+            please.In.Args = "bump major in AssemblyInfo.cs".Split(' ');
+
             var bumpType = BumpType.Unknown;
             var fileType = FileType.Unknown;
             var bumpCommand = Commands.All.Single(c => c.Name == "bump");
@@ -22,10 +25,9 @@ namespace Tests
                 bumpType = bf.In.BumpType;
                 fileType = bf.In.FileType;
             });
-            const string options = "major in AssemblyInfo.cs";
 
             // Act
-            bumpCommand.Run(options);
+            please.Execute();
 
             // Assert
             Check.That(bumpType == BumpType.Major, "Expected bump type to be major.");
@@ -36,6 +38,9 @@ namespace Tests
         public void should_bump_minor_in_nuspec()
         {
             // Arrange
+            var please = Task.New<Please>();
+            please.In.Args = "bump minor in Something.nuspec".Split(' ');
+
             var bumpType = BumpType.Unknown;
             var fileType = FileType.Unknown;
             var bumpCommand = Commands.All.Single(c => c.Name == "bump");
@@ -44,10 +49,9 @@ namespace Tests
                 bumpType = bf.In.BumpType;
                 fileType = bf.In.FileType;
             });
-            const string options = "minor in Something.nuspec";
 
             // Act
-            bumpCommand.Run(options);
+            please.Execute();
 
             // Assert
             Check.That(bumpType == BumpType.Minor, "Expected bump type to be minor.");
@@ -58,6 +62,9 @@ namespace Tests
         public void should_bump_patch_in_script()
         {
             // Arrange
+            var please = Task.New<Please>();
+            please.In.Args = "bump patch in Whatever.bat".Split(' ');
+
             var bumpType = BumpType.Unknown;
             var fileType = FileType.Unknown;
             var bumpCommand = Commands.All.Single(c => c.Name == "bump");
@@ -66,10 +73,9 @@ namespace Tests
                 bumpType = bf.In.BumpType;
                 fileType = bf.In.FileType;
             });
-            const string options = "patch in Whatever.bat";
-
+ 
             // Act
-            bumpCommand.Run(options);
+            please.Execute();
 
             // Assert
             Check.That(bumpType == BumpType.Patch, "Expected bump type to be patch.");
@@ -77,41 +83,12 @@ namespace Tests
         }
 
         [Test]
-        public void can_run_sql_with_versioning()
+        public void should_run_sql_on_database_in_directory()
         {
             // Arrange
-            var withVersioning = false;
-            var runSqlCommand = Commands.All.Single(c => c.Name == "run sql");
-            runSqlCommand.Task = Fake.Task<Library.RunSql.Tasks.RunSql>(rs => withVersioning = rs.In.WithVersioning);
-            const string options = "with versioning";
+            var please = Task.New<Please>();
+            please.In.Args = "run sql on DEV in SomeDirectory".Split(' ');
 
-            // Act
-            runSqlCommand.Run(options);
-
-            // Assert
-            Check.That(withVersioning, "Expected with versioning to be set to true.");
-        }
-
-        [Test]
-        public void can_run_sql_on_database()
-        {
-            // Arrange
-            var database = "";
-            var runSqlCommand = Commands.All.Single(c => c.Name == "run sql");
-            runSqlCommand.Task = Fake.Task<Library.RunSql.Tasks.RunSql>(rs => database = rs.In.Args[0]);
-            const string options = "on DEV";
-
-            // Act
-            runSqlCommand.Run(options);
-
-            // Assert
-            Check.That(database == "DEV", "Expected database to be DEV.");
-        }
-
-        [Test]
-        public void can_run_sql_on_database_in_directory()
-        {
-            // Arrange
             var database = "";
             var directory = "";
             var runSqlCommand = Commands.All.Single(c => c.Name == "run sql");
@@ -120,14 +97,31 @@ namespace Tests
                                                            database = rs.In.Args[0];
                                                            directory = rs.In.Args[1];
                                                        });
-            const string options = "on DEV in SomeDirectory";
 
             // Act
-            runSqlCommand.Run(options);
+            please.Execute();
 
             // Assert
             Check.That(database == "DEV", "Expected database to be DEV.");
             Check.That(directory == "SomeDirectory", "Expected directory to be SomeDirectory.");
+        }
+
+        [Test]
+        public void should_run_sql_with_versioning()
+        {
+            // Arrange
+            var please = Task.New<Please>();
+            please.In.Args = "run sql with versioning".Split(' ');
+
+            var withVersioning = false;
+            var runSqlCommand = Commands.All.Single(c => c.Name == "run sql");
+            runSqlCommand.Task = Fake.Task<Library.RunSql.Tasks.RunSql>(rs => withVersioning = rs.In.WithVersioning);
+
+            // Act
+            please.Execute();
+
+            // Assert
+            Check.That(withVersioning, "Expected with versioning to be set to true.");
         }
     }
 }

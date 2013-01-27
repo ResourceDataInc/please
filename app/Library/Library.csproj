@@ -51,6 +51,7 @@
     <Compile Include="Bump\FileType.cs" />
     <Compile Include="Bump\Tasks\BumpFile.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Please.cs" />
     <Compile Include="RunSql\SqlScript.cs" />
     <Compile Include="RunSql\RunSqlException.cs" />
     <Compile Include="RunSql\Tasks\CheckForVersionTable.cs" />
