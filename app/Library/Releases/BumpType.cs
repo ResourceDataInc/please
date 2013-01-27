@@ -1,4 +1,4 @@
-﻿namespace Library.Bump
+﻿namespace Library.Releases
 {
     public enum BumpType
     {

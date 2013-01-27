@@ -1,8 +1,8 @@
 ﻿using Simpler;
 
-namespace Library.Bump.Tasks
+namespace Library.Releases.Tasks
 {
-    public class BumpFile : InTask<BumpFile.Input>
+    public class Bump : InTask<Bump.Input>
     {
         public class Input
         {

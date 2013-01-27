@@ -1,7 +1,7 @@
 ﻿using System;
 using Library;
-using Library.Bump;
-using Library.Bump.Tasks;
+using Library.Releases;
+using Library.Releases.Tasks;
 using Library.Sql.Tasks;
 using NUnit.Framework;
 using Simpler;
@@ -30,28 +30,28 @@ namespace Tests
         [Test]
         public void should_bump_major_in_AssemblyInfo()
         {
-            var bumpFile = ShouldExecute<BumpFile>("bump major in AssemblyInfo.cs");
+            var bump = ShouldExecute<Bump>("bump major in AssemblyInfo.cs");
 
-            Check.That(bumpFile.In.BumpType == BumpType.Major, "Expected bump type to be major.");
-            Check.That(bumpFile.In.FileType == FileType.AssemblyInfo, "Expected file type to be AssemblyInfo.");
+            Check.That(bump.In.BumpType == BumpType.Major, "Expected bump type to be major.");
+            Check.That(bump.In.FileType == FileType.AssemblyInfo, "Expected file type to be AssemblyInfo.");
         }
 
         [Test]
         public void should_bump_minor_in_nuspec()
         {
-            var bumpFile = ShouldExecute<BumpFile>("bump minor in Something.nuspec");
+            var bump = ShouldExecute<Bump>("bump minor in Something.nuspec");
 
-            Check.That(bumpFile.In.BumpType == BumpType.Minor, "Expected bump type to be minor.");
-            Check.That(bumpFile.In.FileType == FileType.Nuspec, "Expected file type to be nuspec.");
+            Check.That(bump.In.BumpType == BumpType.Minor, "Expected bump type to be minor.");
+            Check.That(bump.In.FileType == FileType.Nuspec, "Expected file type to be nuspec.");
         }
 
         [Test]
         public void should_bump_patch_in_script()
         {
-            var bumpFile = ShouldExecute<BumpFile>("bump patch in Whatever.bat");
+            var bump = ShouldExecute<Bump>("bump patch in Whatever.bat");
 
-            Check.That(bumpFile.In.BumpType == BumpType.Patch, "Expected bump type to be patch.");
-            Check.That(bumpFile.In.FileType == FileType.Script, "Expected file type to be script.");
+            Check.That(bump.In.BumpType == BumpType.Patch, "Expected bump type to be patch.");
+            Check.That(bump.In.FileType == FileType.Script, "Expected file type to be script.");
         }
 
         [Test]

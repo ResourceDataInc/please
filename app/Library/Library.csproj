@@ -47,9 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bump\BumpType.cs" />
-    <Compile Include="Bump\FileType.cs" />
-    <Compile Include="Bump\Tasks\BumpFile.cs" />
+    <Compile Include="Releases\BumpType.cs" />
+    <Compile Include="Releases\FileType.cs" />
+    <Compile Include="Releases\Tasks\Bump.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Please.cs" />
     <Compile Include="Sql\SqlScript.cs" />
@@ -67,9 +67,9 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Bump\Tasks\BumpAssemblyInfo.cs" />
-    <Compile Include="Bump\Tasks\BumpNuspec.cs" />
-    <Compile Include="Bump\Tasks\BumpScript.cs" />
+    <Compile Include="Releases\Tasks\BumpAssemblyInfo.cs" />
+    <Compile Include="Releases\Tasks\BumpNuspec.cs" />
+    <Compile Include="Releases\Tasks\BumpScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

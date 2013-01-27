@@ -1,34 +1,34 @@
-using Library.Bump;
-using Library.Bump.Tasks;
+using Library.Releases;
+using Library.Releases.Tasks;
 using Library.Sql.Tasks;
 
 namespace Library
 {
     public class Commands
     {
-        static readonly Command<BumpFile> Bump =
-            new Command<BumpFile>
+        static readonly Command<Bump> Bump =
+            new Command<Bump>
             {
                 Name = "bump",
                 Options =
                     new[]
                             {
-                                new Option<BumpFile>
+                                new Option<Bump>
                                     {
                                         Pattern = @"major\s",
                                         Action = (task, match) => task.In.BumpType = BumpType.Major
                                     },
-                                new Option<BumpFile>
+                                new Option<Bump>
                                     {
                                         Pattern = @"minor\s",
                                         Action = (task, match) => task.In.BumpType = BumpType.Minor
                                     },
-                                new Option<BumpFile>
+                                new Option<Bump>
                                     {
                                         Pattern = @"patch\s",
                                         Action = (task, match) => task.In.BumpType = BumpType.Patch
                                     },
-                                new Option<BumpFile>
+                                new Option<Bump>
                                     {
                                         // TODO - this pattern will need to allow \, /, -, _, etc.
                                         Pattern = @"in (?<File>AssemblyInfo\.cs)",
@@ -38,7 +38,7 @@ namespace Library
                                                          task.In.FileName = match.Groups["File"].Value;
                                                      }
                                     },
-                                new Option<BumpFile>
+                                new Option<Bump>
                                     {
                                         // TODO - this pattern will need to allow \, /, -, _, etc.
                                         Pattern = @"in (?<File>\w+\.nuspec)",
@@ -48,7 +48,7 @@ namespace Library
                                                          task.In.FileName = match.Groups["File"].Value;
                                                      }
                                     },
-                                new Option<BumpFile>
+                                new Option<Bump>
                                     {
                                         // TODO - this pattern will need to allow \, /, -, _, etc.
                                         Pattern = @"in (?<File>\w+)",
