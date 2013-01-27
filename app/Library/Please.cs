@@ -3,11 +3,16 @@ using Simpler;
 
 namespace Library
 {
-    public class Please : InTask<Please.Input>
+    public class Please : InOutTask<Please.Input, Please.Output>
     {
         public class Input
         {
             public string[] Args { get; set; }
+        }
+
+        public class Output
+        {
+            public ICommand Command { get; set; }
         }
 
         public override void Execute()
@@ -17,6 +22,8 @@ namespace Library
             {
                 if (commandText.StartsWith(command.Name))
                 {
+                    Out.Command = command;
+
                     var options = commandText.Substring(command.Name.Length);
                     command.Run(options);
                     break;
