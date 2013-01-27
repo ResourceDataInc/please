@@ -15,17 +15,17 @@ namespace Library
                             {
                                 new Option<Bump>
                                     {
-                                        Pattern = @"major\s",
+                                        Pattern = @"major version\s",
                                         Action = (task, match) => task.In.BumpType = BumpType.Major
                                     },
                                 new Option<Bump>
                                     {
-                                        Pattern = @"minor\s",
+                                        Pattern = @"minor version\s",
                                         Action = (task, match) => task.In.BumpType = BumpType.Minor
                                     },
                                 new Option<Bump>
                                     {
-                                        Pattern = @"patch\s",
+                                        Pattern = @"patch version\s",
                                         Action = (task, match) => task.In.BumpType = BumpType.Patch
                                     },
                                 new Option<Bump>

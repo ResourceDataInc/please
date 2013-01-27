@@ -30,7 +30,7 @@ namespace Tests
         [Test]
         public void should_bump_major_in_AssemblyInfo()
         {
-            var bump = ShouldExecute<Bump>("bump major in AssemblyInfo.cs");
+            var bump = ShouldExecute<Bump>("bump major version in AssemblyInfo.cs");
 
             Check.That(bump.In.BumpType == BumpType.Major, "Expected bump type to be major.");
             Check.That(bump.In.FileType == FileType.AssemblyInfo, "Expected file type to be AssemblyInfo.");
@@ -39,7 +39,7 @@ namespace Tests
         [Test]
         public void should_bump_minor_in_nuspec()
         {
-            var bump = ShouldExecute<Bump>("bump minor in Something.nuspec");
+            var bump = ShouldExecute<Bump>("bump minor version in Something.nuspec");
 
             Check.That(bump.In.BumpType == BumpType.Minor, "Expected bump type to be minor.");
             Check.That(bump.In.FileType == FileType.Nuspec, "Expected file type to be nuspec.");
@@ -48,7 +48,7 @@ namespace Tests
         [Test]
         public void should_bump_patch_in_script()
         {
-            var bump = ShouldExecute<Bump>("bump patch in Whatever.bat");
+            var bump = ShouldExecute<Bump>("bump patch version in Whatever.bat");
 
             Check.That(bump.In.BumpType == BumpType.Patch, "Expected bump type to be patch.");
             Check.That(bump.In.FileType == FileType.Script, "Expected file type to be script.");
