@@ -1,4 +1,4 @@
-﻿namespace Library.RunSql
+﻿namespace Library.Sql
 {
     public class Version
     {

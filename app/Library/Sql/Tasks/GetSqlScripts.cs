@@ -3,7 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Simpler;
 
-namespace Library.RunSql.Tasks
+namespace Library.Sql.Tasks
 {
     public class GetSqlScripts : InOutTask<GetSqlScripts.Input, GetSqlScripts.Output>
     {

@@ -69,37 +69,37 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PleaseTests.cs" />
-    <Compile Include="RunSql\Tasks\CheckForVersionTableTest.cs" />
-    <Compile Include="RunSql\Tasks\RunSqlTest.cs" />
-    <Compile Include="RunSql\Tasks\InsertInstalledVersionTest.cs" />
-    <Compile Include="RunSql\Tasks\FetchInstalledVersionsTest.cs" />
-    <Compile Include="RunSql\Tasks\CreateVersionTableTest.cs" />
-    <Compile Include="RunSql\Tasks\GetSqlScriptsTest.cs" />
-    <Compile Include="RunSql\Tasks\RunSqlScriptTest.cs" />
+    <Compile Include="Sql\Tasks\CheckForVersionTableTest.cs" />
+    <Compile Include="Sql\Tasks\RunSqlTest.cs" />
+    <Compile Include="Sql\Tasks\InsertInstalledVersionTest.cs" />
+    <Compile Include="Sql\Tasks\FetchInstalledVersionsTest.cs" />
+    <Compile Include="Sql\Tasks\CreateVersionTableTest.cs" />
+    <Compile Include="Sql\Tasks\GetSqlScriptsTest.cs" />
+    <Compile Include="Sql\Tasks\RunSqlScriptTest.cs" />
     <Compile Include="Bump\Tasks\BumpNuspecTest.cs" />
     <Compile Include="Bump\Tasks\BumpAssemblyInfoTest.cs" />
     <Compile Include="Bump\Tasks\BumpScriptTest.cs" />
     <Compile Include="Bump\Tasks\BumpFileTest.cs" />
-    <Compile Include="RunSql\Tasks\RunMissingVersionsTest.cs" />
+    <Compile Include="Sql\Tasks\RunMissingVersionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RunSql\files\insert-version.sql">
+    <Content Include="Sql\files\insert-version.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="RunSql\files\sql\repeatable\create-testing-table.sql">
+    <Content Include="Sql\files\sql\repeatable\create-testing-table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="RunSql\files\sql\versioned\000001_create-testing-table.sql">
+    <Content Include="Sql\files\sql\versioned\000001_create-testing-table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="RunSql\files\sql\versioned\000002_001.sql">
+    <Content Include="Sql\files\sql\versioned\000002_001.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="RunSql\files\sql\versioned\000002_002.sql">
+    <Content Include="Sql\files\sql\versioned\000002_002.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="RunSql\files\sql\versioned\000003_do-something-else.sql">
+    <Content Include="Sql\files\sql\versioned\000003_do-something-else.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="App.config" />
@@ -127,10 +127,10 @@
     <Content Include="Bump\files\Script_Before.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="RunSql\files\empty.db">
+    <None Include="Sql\files\empty.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="RunSql\files\test.db">
+    <None Include="Sql\files\test.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

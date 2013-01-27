@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Library.RunSql
+namespace Library.Sql
 {
     public class RunSqlException : DbException
     {

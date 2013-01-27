@@ -1,5 +1,6 @@
 using Library.Bump;
 using Library.Bump.Tasks;
+using Library.Sql.Tasks;
 
 namespace Library
 {
@@ -60,19 +61,19 @@ namespace Library
                             }
             };
 
-        static readonly Command<RunSql.Tasks.RunSql> RunSql =
-            new Command<RunSql.Tasks.RunSql>
+        static readonly Command<RunSql> RunSql =
+            new Command<RunSql>
             {
                 Name = "run sql",
                 Options =
                     new[]
                             {
-                                new Option<RunSql.Tasks.RunSql>
+                                new Option<RunSql>
                                     {
                                         Pattern = "with versioning",
                                         Action = (task, match) => task.In.WithVersioning = true
                                     },
-                                new Option<RunSql.Tasks.RunSql>
+                                new Option<RunSql>
                                     {
                                         Pattern = @"on (?<ConnectionName>\w+)",
                                         Action = (task, match) =>
@@ -81,7 +82,7 @@ namespace Library
                                                          task.In.Args = new[] {connectionName};
                                                      }
                                     },
-                                new Option<RunSql.Tasks.RunSql>
+                                new Option<RunSql>
                                     {
                                         // TODO - this pattern will need to allow \, /, -, _, etc.
                                         Pattern = @"in (?<Directory>\w+)",

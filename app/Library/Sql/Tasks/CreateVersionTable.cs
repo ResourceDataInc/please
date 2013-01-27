@@ -1,9 +1,9 @@
 ﻿using Simpler;
 using Simpler.Data;
 
-namespace Library.RunSql.Tasks
+namespace Library.Sql.Tasks
 {
-    public class FetchInstalledVersions : InOutTask<FetchInstalledVersions.Input, FetchInstalledVersions.Output>
+    public class CreateVersionTable : InOutTask<CreateVersionTable.Input, CreateVersionTable.Output>
     {
         public class Input
         {
@@ -12,16 +12,16 @@ namespace Library.RunSql.Tasks
 
         public class Output
         {
-            public Version[] Versions { get; set; }
+            public int RowsAffected { get; set; }
         }
 
         public override void Execute()
         {
-            const string sql = @"SELECT version as Id FROM db_version;";
+            const string sql = @"CREATE TABLE db_version (version NVARCHAR(255) NOT NULL UNIQUE);";
 
             using (var connection = Db.Connect(In.ConnectionName))
             {
-                Out.Versions = Db.GetMany<Version>(connection, sql);
+                Out.RowsAffected = Db.GetResult(connection, sql);
             }
         }
     }

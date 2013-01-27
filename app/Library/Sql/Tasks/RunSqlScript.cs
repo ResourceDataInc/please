@@ -1,13 +1,15 @@
-﻿using Simpler;
+﻿using System.IO;
+using Simpler;
 using Simpler.Data;
 
-namespace Library.RunSql.Tasks
+namespace Library.Sql.Tasks
 {
-    public class CreateVersionTable : InOutTask<CreateVersionTable.Input, CreateVersionTable.Output>
+    public class RunSqlScript : InOutTask<RunSqlScript.Input, RunSqlScript.Output>
     {
         public class Input
         {
             public string ConnectionName { get; set; }
+            public SqlScript SqlScript { get; set; }
         }
 
         public class Output
@@ -17,7 +19,7 @@ namespace Library.RunSql.Tasks
 
         public override void Execute()
         {
-            const string sql = @"CREATE TABLE db_version (version NVARCHAR(255) NOT NULL UNIQUE);";
+            var sql = File.ReadAllText(In.SqlScript.FileName);
 
             using (var connection = Db.Connect(In.ConnectionName))
             {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using Library.RunSql.Tasks;
+using Library.Sql.Tasks;
 using NUnit.Framework;
 using Simpler;
 using Simpler.Data;
 
-namespace Tests.RunSql.Tasks
+namespace Tests.Sql.Tasks
 {
     [TestFixture]
     public class CreateVersionTableTest
@@ -14,8 +14,8 @@ namespace Tests.RunSql.Tasks
         public void should_create_version_table()
         {
             // Arrange
-            File.Delete(@"RunSql\files\test.db");
-            File.Copy(@"RunSql\files\empty.db", @"RunSql\files\test.db");
+            File.Delete(@"Sql\files\test.db");
+            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";

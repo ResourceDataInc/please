@@ -2,7 +2,7 @@
 using System.IO;
 using Simpler;
 
-namespace Library.RunSql.Tasks
+namespace Library.Sql.Tasks
 {
     public class RunSql : InTask<RunSql.Input>
     {

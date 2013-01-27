@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Simpler;
 
-namespace Library.RunSql.Tasks
+namespace Library.Sql.Tasks
 {
     public class RunMissingVersions : InTask<RunMissingVersions.Input>
     {

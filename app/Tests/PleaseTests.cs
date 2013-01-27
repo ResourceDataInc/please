@@ -3,6 +3,7 @@ using System.Linq;
 using Library;
 using Library.Bump;
 using Library.Bump.Tasks;
+using Library.Sql.Tasks;
 using NUnit.Framework;
 using Simpler;
 
@@ -26,17 +27,17 @@ namespace Tests
             return bumpFile;
         }
 
-        static Library.RunSql.Tasks.RunSql PleaseRunSql(string options)
+        static RunSql PleaseRunSql(string options)
         {
             var please = Task.New<Please>();
             please.In.Args = ("run sql " + options).Split(' ');
 
             var runSqlCommand = Commands.All.Single(c => c.Name == "run sql");
-            runSqlCommand.Task = Fake.Task<Library.RunSql.Tasks.RunSql>();
+            runSqlCommand.Task = Fake.Task<RunSql>();
 
             please.Execute();
 
-            var runSql = runSqlCommand.Task as Library.RunSql.Tasks.RunSql;
+            var runSql = runSqlCommand.Task as RunSql;
             if (runSql == null) throw new Exception();
             return runSql;
         }

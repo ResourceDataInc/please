@@ -1,10 +1,10 @@
 ﻿using System.IO;
-using Library.RunSql;
-using Library.RunSql.Tasks;
+using Library.Sql;
+using Library.Sql.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.RunSql.Tasks
+namespace Tests.Sql.Tasks
 {
     [TestFixture]
     public class FetchInstalledVersionsTest
@@ -13,8 +13,8 @@ namespace Tests.RunSql.Tasks
         public void should_fetch_installed_versions()
         {
             // Arrange
-            File.Delete(@"RunSql\files\test.db");
-            File.Copy(@"RunSql\files\empty.db", @"RunSql\files\test.db");
+            File.Delete(@"Sql\files\test.db");
+            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -22,7 +22,7 @@ namespace Tests.RunSql.Tasks
 
             var runMigration = Task.New<RunSqlScript>();
             runMigration.In.ConnectionName = "Test";
-            runMigration.In.SqlScript = new SqlScript { FileName = @"RunSql\files\insert-version.sql" };
+            runMigration.In.SqlScript = new SqlScript { FileName = @"Sql\files\insert-version.sql" };
             runMigration.Execute();
 
             var fetchInstalledVersions = Task.New<FetchInstalledVersions>();

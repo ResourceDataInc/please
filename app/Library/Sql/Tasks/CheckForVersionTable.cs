@@ -2,7 +2,7 @@
 using Simpler;
 using Simpler.Data;
 
-namespace Library.RunSql.Tasks
+namespace Library.Sql.Tasks
 {
     public class CheckForVersionTable : InOutTask<CheckForVersionTable.Input, CheckForVersionTable.Output>
     {
