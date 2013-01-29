@@ -30,38 +30,85 @@ namespace Tests
         [Test]
         public void should_bump_major_in_AssemblyInfo()
         {
-            var bump = ShouldExecute<Bump>("bump major version in AssemblyInfo.cs");
+            var files =
+                new[]
+                    {
+                        @"AssemblyInfo.cs",
+                        @"SomeDirectory\AssemblyInfo.cs",
+                        @".\AssemblyInfo.cs",
+                        @".\Some\Directory\AssemblyInfo.cs",
+                        @"\\AssemblyInfo.cs",
+                        @"\\Some\Directory\AssemblyInfo.cs",
+                        @"c:\AssemblyInfo.cs",
+                        @"c:\Some\Directory\AssemblyInfo.cs"
+                    };
 
-            Check.That(bump.In.BumpType == BumpType.Major, "Expected bump type to be major.");
-            Check.That(bump.In.FileType == FileType.AssemblyInfo, "Expected file type to be AssemblyInfo.");
+            foreach (var file in files)
+            {
+                var commandText = String.Format("bump major version in {0}", file);
+                var bump = ShouldExecute<Bump>(commandText);
+
+                Assert.That(bump.In.BumpType, Is.EqualTo(BumpType.Major));
+                Assert.That(bump.In.FileType, Is.EqualTo(FileType.AssemblyInfo));
+                Assert.That(bump.In.FileName, Is.EqualTo(file));
+            }
         }
 
         [Test]
         public void should_bump_minor_in_nuspec()
         {
-            var bump = ShouldExecute<Bump>("bump minor version in Something.nuspec");
+            var files =
+                new[]
+                    {
+                        @"Something.nuspec",
+                        @"SomeDirectory\Something.nuspec",
+                        @".\Something.nuspec",
+                        @".\Some\Directory\Something.nuspec",
+                        @"\\Something.nuspec",
+                        @"\\Some\Directory\Something.nuspec",
+                        @"c:\Something.nuspec",
+                        @"c:\Some\Directory\Something.nuspec"
+                    };
 
-            Check.That(bump.In.BumpType == BumpType.Minor, "Expected bump type to be minor.");
-            Check.That(bump.In.FileType == FileType.Nuspec, "Expected file type to be nuspec.");
-        }
+
+            foreach (var file in files)
+            {
+                var commandText = String.Format("bump minor version in {0}", file);
+                var bump = ShouldExecute<Bump>(commandText);
+
+                Assert.That(bump.In.BumpType, Is.EqualTo(BumpType.Minor));
+                Assert.That(bump.In.FileType, Is.EqualTo(FileType.Nuspec));
+                Assert.That(bump.In.FileName, Is.EqualTo(file));
+            }
+       }
 
         [Test]
         public void should_bump_patch_in_script()
         {
-            var bump = ShouldExecute<Bump>("bump patch version in Whatever.bat");
+            var files =
+                new[]
+                    {
+                        @"Whatever.bat",
+                        @"SomeDirectory\Whatever.bat",
+                        @".\Whatever.bat",
+                        @".\Some\Directory\Whatever.bat",
+                        @"\\Whatever.bat",
+                        @"\\Some\Directory\Whatever.bat",
+                        @"c:\Whatever.bat",
+                        @"c:\Some\Directory\Whatever.bat"
+                    };
 
-            Check.That(bump.In.BumpType == BumpType.Patch, "Expected bump type to be patch.");
-            Check.That(bump.In.FileType == FileType.Script, "Expected file type to be script.");
-        }
 
-        [Test]
-        public void should_run_sql_on_database_in_directory()
-        {
-            var runSql = ShouldExecute<RunSql>("run sql in SomeDirectory on DEV ");
+            foreach (var file in files)
+            {
+                var commandText = String.Format("bump patch version in {0}", file);
+                var bump = ShouldExecute<Bump>(commandText);
 
-            Check.That(runSql.In.ConnectionName == "DEV", "Expected database to be DEV.");
-            Check.That(runSql.In.Directory == "SomeDirectory", "Expected directory to be SomeDirectory.");
-        }
+                Assert.That(bump.In.BumpType, Is.EqualTo(BumpType.Patch));
+                Assert.That(bump.In.FileType, Is.EqualTo(FileType.Script));
+                Assert.That(bump.In.FileName, Is.EqualTo(file));
+            }
+         }
 
         [Test]
         public void should_run_sql_with_versioning()
@@ -78,5 +125,44 @@ namespace Tests
 
             Check.That(!runSql.In.WithVersioning, "Expected with versioning to be false.");
         }
+
+        [Test]
+        public void should_run_sql_on_database()
+        {
+            var runSql = ShouldExecute<RunSql>("run sql on DEV");
+
+            Check.That(runSql.In.ConnectionName == "DEV", "Expected database to be DEV.");
+        }
+
+        [Test]
+        public void should_run_sql_in_directory()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory",
+                        @"Some\Directory",
+                        @"SomeDirectory\",
+                        @".\SomeDirectory",
+                        @".\Some\Directory\",
+                        @"\\SomeDirectory",
+                        @"\\Some\Directory\",
+                        @"c:\SomeDirectory",
+                        @"c:\Some\Directory\",
+                        @"Some Directory",
+                        @"Some Directory\",
+                        @".\Some Directory",
+                        @"c:\Some Directory"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("run sql in {0} on DEV", directory);
+                var runSql = ShouldExecute<RunSql>(commandText);
+
+                Assert.That(runSql.In.Directory, Is.EqualTo(directory));
+            }
+        }
+
     }
 }

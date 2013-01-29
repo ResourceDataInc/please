@@ -6,6 +6,9 @@ namespace Library
 {
     public class Commands
     {
+        const string Path = @"(?:[a-zA-Z]\:\\|\\\\|\.\\)*([^/?*:;{}\\]+\\)*";
+        const string FileOrDirectory = @"(?:[^/?*:;{}\\]+)";
+
         static readonly Command<Bump> Bump =
             new Command<Bump>
             {
@@ -30,32 +33,29 @@ namespace Library
                                     },
                                 new Option<Bump>
                                     {
-                                        // TODO - this pattern will need to allow \, /, -, _, etc.
-                                        Pattern = @"in (?<File>AssemblyInfo\.cs)",
+                                        Pattern = @"in (?<File>" + Path + @"AssemblyInfo\.cs)",
                                         Action = (task, match) =>
                                                      {
                                                          task.In.FileType = FileType.AssemblyInfo;
-                                                         task.In.FileName = match.Groups["File"].Value;
+                                                         task.In.FileName = match.Groups["File"].Value.Trim();
                                                      }
                                     },
                                 new Option<Bump>
                                     {
-                                        // TODO - this pattern will need to allow \, /, -, _, etc.
-                                        Pattern = @"in (?<File>\w+\.nuspec)",
+                                        Pattern = @"in (?<File>" + Path + FileOrDirectory + @"\.nuspec)",
                                         Action = (task, match) =>
                                                      {
                                                          task.In.FileType = FileType.Nuspec;
-                                                         task.In.FileName = match.Groups["File"].Value;
+                                                         task.In.FileName = match.Groups["File"].Value.Trim();
                                                      }
                                     },
                                 new Option<Bump>
                                     {
-                                        // TODO - this pattern will need to allow \, /, -, _, etc.
-                                        Pattern = @"in (?<File>\w+)",
+                                        Pattern = @"in (?<File>" + Path + FileOrDirectory + ")",
                                         Action = (task, match) =>
                                                      {
                                                          task.In.FileType = FileType.Script;
-                                                         task.In.FileName = match.Groups["File"].Value;
+                                                         task.In.FileName = match.Groups["File"].Value.Trim();
                                                      }
                                     }
                             }
@@ -80,9 +80,8 @@ namespace Library
                                     },
                                 new Option<RunSql>
                                     {
-                                        // TODO - this pattern will need to allow \, /, -, _, etc.
-                                        Pattern = @"in (?<Directory>\w+)",
-                                        Action = (task, match) => task.In.Directory = match.Groups["Directory"].Value
+                                        Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
+                                        Action = (task, match) => task.In.Directory = match.Groups["Directory"].Value.Trim()
                                     }
                             }
             };
