@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="PleaseTests.cs" />
     <Compile Include="Sql\Tasks\CheckForVersionTableTest.cs" />
+    <Compile Include="Sql\Tasks\SplitSqlOnGoTest.cs" />
     <Compile Include="Sql\Tasks\RunSqlTest.cs" />
     <Compile Include="Sql\Tasks\InsertInstalledVersionTest.cs" />
     <Compile Include="Sql\Tasks\FetchInstalledVersionsTest.cs" />
@@ -87,7 +88,7 @@
     <Content Include="Sql\files\insert-version.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\sql\repeatable\create-testing-table.sql">
+    <Content Include="Sql\files\sql\repeatable\create-four-tables.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sql\files\sql\versioned\000001_create-testing-table.sql">
