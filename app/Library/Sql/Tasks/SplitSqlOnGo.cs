@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
 using Simpler;
 
 namespace Library.Sql.Tasks
@@ -22,12 +23,9 @@ namespace Library.Sql.Tasks
             sql = lastGo.Replace(sql, "");
 
             var inlineGo = new Regex("^GO", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            Out.SqlStrings = inlineGo.Split(sql);
+            var sqlStrings = inlineGo.Split(sql);
 
-            for (var i = 0; i < Out.SqlStrings.Length; i++)
-            {
-                Out.SqlStrings[i] = Out.SqlStrings[i].Trim();
-            }
+            Out.SqlStrings = sqlStrings.Select(s => s.Trim()).Where(s => s.Length > 0).ToArray();
         }
     }
 }

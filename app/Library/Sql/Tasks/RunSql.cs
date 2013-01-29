@@ -50,6 +50,7 @@ namespace Library.Sql.Tasks
             }
             else
             {
+                Console.WriteLine("{0} scripts were found in {1}.", GetSqlScripts.Out.SqlScripts.Length, In.Directory);
                 foreach (var sqlScript in GetSqlScripts.Out.SqlScripts)
                 {
                     // TODO - this whole block is repeated in RunMissingVersions

@@ -44,7 +44,11 @@ namespace Tests.Sql.Tasks
             runSql.RunSqlScript = Fake.Task<RunSqlScript>();
 
             // Act
-            runSql.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runSql.Execute();
+            }
 
             // Assert
             Check.That(runSql.CheckForVersionTable.Stats.ExecuteCount == 0,

@@ -34,6 +34,7 @@ namespace Library.Sql.Tasks
                         .Where(m => m.VersionId == missingVersionId)
                         .OrderBy(m => m.FileName);
 
+                    Console.WriteLine("{0} scripts were found for version {1}.", sqlScriptsForMissingVersion.Count(), missingVersionId);
                     foreach (var sqlScript in sqlScriptsForMissingVersion)
                     {
                         var fileName = Path.GetFileName(sqlScript.FileName);

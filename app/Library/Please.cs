@@ -17,17 +17,29 @@ namespace Library
 
         public override void Execute()
         {
-            var commandText = String.Join(" ", In.Args);
-            foreach (var command in Commands.All)
+            try
             {
-                if (commandText.StartsWith(command.Name))
+                var commandText = String.Join(" ", In.Args);
+                foreach (var command in Commands.All)
                 {
-                    Out.Command = command;
+                    if (commandText.StartsWith(command.Name))
+                    {
+                        Out.Command = command;
 
-                    var options = commandText.Substring(command.Name.Length);
-                    command.Run(options);
-                    break;
+                        var options = commandText.Substring(command.Name.Length);
+                        command.Run(options);
+                        break;
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Oops, something went wrong. Error: {0}", e.Message);
+            }
+
+            if (Out.Command == null)
+            {
+                Console.WriteLine("Didn't understand the given command.");
             }
         }
     }
