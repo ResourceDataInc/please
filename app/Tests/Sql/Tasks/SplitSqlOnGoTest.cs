@@ -9,7 +9,7 @@ namespace Tests.Sql.Tasks
     public class SplitSqlOnGoTest
     {
         [Test]
-        public void should_split_script_into_multiple_scripts_based_on_occurrences_of_the_GO_keyword()
+        public void should_split_script_into_multiple_strings_based_on_occurrences_of_the_GO_keyword()
         {
             // Arrange
             var splitScriptOnGo = Task.New<SplitSqlOnGo>();

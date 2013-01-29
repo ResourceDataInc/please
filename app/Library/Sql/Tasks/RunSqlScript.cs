@@ -17,13 +17,22 @@ namespace Library.Sql.Tasks
             public int RowsAffected { get; set; }
         }
 
+        public SplitSqlOnGo SplitSqlOnGo { get; set; }
+
         public override void Execute()
         {
             var sql = File.ReadAllText(In.SqlScript.FileName);
 
+            SplitSqlOnGo.In.Sql = sql;
+            SplitSqlOnGo.Execute();
+            var sqlStrings = SplitSqlOnGo.Out.SqlStrings;
+
             using (var connection = Db.Connect(In.ConnectionName))
             {
-                Out.RowsAffected = Db.GetResult(connection, sql);
+                foreach (var sqlString in sqlStrings)
+                {
+                    Out.RowsAffected += Db.GetResult(connection, sqlString);
+                }
             }
         }
     }
