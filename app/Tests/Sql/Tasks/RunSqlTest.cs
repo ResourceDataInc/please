@@ -41,7 +41,7 @@ namespace Tests.Sql.Tasks
             runSql.GetSqlScripts = Fake.Task<GetSqlScripts>(gss => gss.Out.SqlScripts = new SqlScript[0]);
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>();
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
 
             // Act
             using (var sw = new StringWriter())
@@ -66,7 +66,7 @@ namespace Tests.Sql.Tasks
             runSql.GetSqlScripts = Fake.Task<GetSqlScripts>();
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>();
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
 
             // Act
             runSql.Execute();
@@ -86,7 +86,7 @@ namespace Tests.Sql.Tasks
             runSql.GetSqlScripts = Fake.Task<GetSqlScripts>();
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>();
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
 
             // Act
             runSql.Execute();
@@ -115,7 +115,7 @@ namespace Tests.Sql.Tasks
                 });
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>();
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
 
             // Act
             using (var sw = new StringWriter())
@@ -145,7 +145,7 @@ namespace Tests.Sql.Tasks
                 Fake.Task<GetSqlScripts>(gss => passedDirectory = gss.In.Directory);
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>();
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
 
             // Act
             runSql.Execute();
@@ -171,7 +171,7 @@ namespace Tests.Sql.Tasks
             runSql.FetchInstalledVersions =
                 Fake.Task<FetchInstalledVersions>(fiv => passedConnectionName = fiv.In.ConnectionName);
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>();
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
 
             // Act
             runSql.Execute();
@@ -197,7 +197,7 @@ namespace Tests.Sql.Tasks
                 Fake.Task<GetSqlScripts>(gss => gss.Out.SqlScripts = _testSqlScripts);
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>(rss => passedConnectionName = rss.In.ConnectionName);
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>(rss => passedConnectionName = rss.In.ConnectionName);
 
             // Act
             using (var sw = new StringWriter())
@@ -207,7 +207,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runSql.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(_testSqlScripts.Length));
+            Assert.That(runSql.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
             Assert.That(passedConnectionName, Is.EqualTo(connectionNameArgument));
         }
 
@@ -227,7 +227,7 @@ namespace Tests.Sql.Tasks
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions =
                 Fake.Task<RunMissingVersions>(rmm => passedConnectionName = rmm.In.ConnectionName);
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>();
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
 
             // Act
             runSql.Execute();
@@ -238,12 +238,12 @@ namespace Tests.Sql.Tasks
         }
 
         [Test]
-        public void should_run_missing_sql_scripts_based_on_migrations_and_versions_with_versioning()
+        public void should_run_missing_sql_scripts_based_on_sql_scripts_and_versions_with_versioning()
         {
             // Arrange
-            var migrations = _testSqlScripts.Take(1).ToArray();
+            var sqlScripts = _testSqlScripts.Take(1).ToArray();
             var versions = _testVersions.Take(1).ToArray();
-            var passedMigrations = new SqlScript[0];
+            var passedSqlScripts = new SqlScript[0];
             var passedVersions = new Version[0];
 
             var runSql = Task.New<RunSql>();
@@ -251,23 +251,23 @@ namespace Tests.Sql.Tasks
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
             runSql.GetSqlScripts = 
-                Fake.Task<GetSqlScripts>(gms => gms.Out.SqlScripts = migrations);
+                Fake.Task<GetSqlScripts>(gms => gms.Out.SqlScripts = sqlScripts);
             runSql.FetchInstalledVersions = 
                 Fake.Task<FetchInstalledVersions>(fiv => fiv.Out.Versions = versions);
             runSql.RunMissingVersions =
                 Fake.Task<RunMissingVersions>(rmm =>
                                                     {
-                                                        passedMigrations = rmm.In.SqlScripts;
+                                                        passedSqlScripts = rmm.In.SqlScripts;
                                                         passedVersions = rmm.In.InstalledVersions;
                                                     });
-            runSql.RunSqlScript = Fake.Task<RunSqlScript>();
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
 
             // Act
             runSql.Execute();
 
             // Assert
             Assert.That(runSql.RunMissingVersions.Stats.ExecuteCount, Is.EqualTo(1));
-            Assert.That(passedMigrations, Is.EqualTo(migrations));
+            Assert.That(passedSqlScripts, Is.EqualTo(sqlScripts));
             Assert.That(passedVersions, Is.EqualTo(versions));
         }
     }

@@ -9,10 +9,10 @@ using Simpler.Data;
 namespace Tests.Sql.Tasks
 {
     [TestFixture]
-    public class RunSqlScriptTest
+    public class RunSqlScriptsTest
     {
         [Test]
-        public void should_run_given_sql_script()
+        public void should_run_given_sql_scripts()
         {
             // Arrange
             File.Delete(@"Sql\files\test.db");
@@ -22,12 +22,16 @@ namespace Tests.Sql.Tasks
             createVersionTable.In.ConnectionName = "Test";
             createVersionTable.Execute();
 
-            var runSqlScript = Task.New<RunSqlScript>();
-            runSqlScript.In.ConnectionName = "Test";
-            runSqlScript.In.SqlScript = new SqlScript {FileName = @"Sql\files\insert-version.sql"};
+            var runSqlScripts = Task.New<RunSqlScripts>();
+            runSqlScripts.In.ConnectionName = "Test";
+            runSqlScripts.In.SqlScripts = new[] {new SqlScript {FileName = @"Sql\files\insert-version.sql"}};
 
             // Act
-            runSqlScript.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runSqlScripts.Execute();
+            }
 
             // Assert
             using (var connection = Db.Connect("Test"))
@@ -44,12 +48,16 @@ namespace Tests.Sql.Tasks
             File.Delete(@"Sql\files\test.db");
             File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
 
-            var runSqlScript = Task.New<RunSqlScript>();
-            runSqlScript.In.ConnectionName = "Test";
-            runSqlScript.In.SqlScript = new SqlScript {FileName = @"Sql\files\sql\repeatable\create-four-tables.sql"};
+            var runSqlScripts = Task.New<RunSqlScripts>();
+            runSqlScripts.In.ConnectionName = "Test";
+            runSqlScripts.In.SqlScripts = new[] {new SqlScript{FileName = @"Sql\files\sql\repeatable\create-four-tables.sql"}};
 
             // Act
-            runSqlScript.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runSqlScripts.Execute();
+            }
 
             // Assert
             using (var connection = Db.Connect("Test"))

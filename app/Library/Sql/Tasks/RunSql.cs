@@ -18,7 +18,7 @@ namespace Library.Sql.Tasks
         public GetSqlScripts GetSqlScripts { get; set; }
         public FetchInstalledVersions FetchInstalledVersions { get; set; }
         public RunMissingVersions RunMissingVersions { get; set; }
-        public RunSqlScript RunSqlScript { get; set; }
+        public RunSqlScripts RunSqlScripts { get; set; }
 
         public override void Execute()
         {
@@ -51,22 +51,9 @@ namespace Library.Sql.Tasks
             else
             {
                 Console.WriteLine("{0} scripts were found in {1}.", GetSqlScripts.Out.SqlScripts.Length, In.Directory);
-                foreach (var sqlScript in GetSqlScripts.Out.SqlScripts)
-                {
-                    // TODO - this whole block is repeated in RunMissingVersions
-                    var fileName = Path.GetFileName(sqlScript.FileName);
-                    try
-                    {
-                        RunSqlScript.In.ConnectionName = In.ConnectionName;
-                        RunSqlScript.In.SqlScript = sqlScript;
-                        RunSqlScript.Execute();
-                        Console.WriteLine("  {0} ran successfully.", fileName);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new RunSqlException(String.Format("{0} failed.\n  Message: {1}", fileName, e.Message));
-                    }
-                }
+                RunSqlScripts.In.ConnectionName = In.ConnectionName;
+                RunSqlScripts.In.SqlScripts = GetSqlScripts.Out.SqlScripts;
+                RunSqlScripts.Execute();
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Library.Sql;
 using Library.Sql.Tasks;
 using NUnit.Framework;
@@ -20,10 +21,14 @@ namespace Tests.Sql.Tasks
             createVersionTable.In.ConnectionName = "Test";
             createVersionTable.Execute();
 
-            var runMigration = Task.New<RunSqlScript>();
-            runMigration.In.ConnectionName = "Test";
-            runMigration.In.SqlScript = new SqlScript { FileName = @"Sql\files\insert-version.sql" };
-            runMigration.Execute();
+            var runSqlScripts = Task.New<RunSqlScripts>();
+            runSqlScripts.In.ConnectionName = "Test";
+            runSqlScripts.In.SqlScripts = new[] {new SqlScript {FileName = @"Sql\files\insert-version.sql"}};
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runSqlScripts.Execute();
+            }
 
             var fetchInstalledVersions = Task.New<FetchInstalledVersions>();
             fetchInstalledVersions.In.ConnectionName = "Test";

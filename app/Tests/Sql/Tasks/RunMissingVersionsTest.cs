@@ -31,13 +31,13 @@ namespace Tests.Sql.Tasks
                 };
 
         [Test]
-        public void should_run_all_migrations_if_no_versions_exist()
+        public void should_run_sql_scripts_if_no_versions_exist()
         {
             // Arrange
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
             runMissingVersions.In.SqlScripts = _testSqlScripts;
-            runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>();
+            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>();
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -48,17 +48,17 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(_testSqlScripts.Length));
+            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
         }
 
         [Test]
-        public void should_not_run_any_migrations_if_all_versions_exist()
+        public void should_not_run_any_sql_scripts_if_all_versions_exist()
         {
             // Arrange
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = _testVersions;
             runMissingVersions.In.SqlScripts = _testSqlScripts;
-            runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>();
+            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>();
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -69,18 +69,19 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(0));
+            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
         [Test]
-        public void should_run_all_migrations_for_a_missing_version()
+        public void should_run_all_sql_scripts_for_a_missing_version()
         {
             // Arrange
             var versions = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = _testVersions.Where(version => version.Id != "002").ToArray();
             runMissingVersions.In.SqlScripts = _testSqlScripts;
-            runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(task => versions.Add(task.In.SqlScript.VersionId));
+            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
+                task => versions.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.VersionId)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -91,20 +92,21 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(2));
+            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
             Assert.That(versions[0], Is.EqualTo("002"));
             Assert.That(versions[1], Is.EqualTo("002"));
         }
 
         [Test]
-        public void should_insert_version_for_each_distinct_version_belonging_to_migrations_ran()
+        public void should_insert_version_for_each_distinct_version_belonging_to_sql_scripts_ran()
         {
             // Arrange
             var versions = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = _testVersions.Where(version => version.Id != "002").ToArray();
             runMissingVersions.In.SqlScripts = _testSqlScripts;
-            runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(task => versions.Add(task.In.SqlScript.VersionId));
+            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
+                task => versions.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.VersionId)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -115,19 +117,19 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(2));
             Assert.That(runMissingVersions.InsertInstalledVersion.Stats.ExecuteCount, Is.EqualTo(1));
         }
 
         [Test]
-        public void should_run_migrations_in_alphabetical_order()
+        public void should_run_sql_scripts_in_alphabetical_order()
         {
             // Arrange
             var runOrder = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
             runMissingVersions.In.SqlScripts = _testSqlScripts.Reverse().ToArray();
-            runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(task => runOrder.Add(task.In.SqlScript.FileName));
+            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
+                task => runOrder.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.FileName)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -142,24 +144,6 @@ namespace Tests.Sql.Tasks
             Assert.That(runOrder[1], Is.EqualTo(_testSqlScripts[1].FileName));
             Assert.That(runOrder[2], Is.EqualTo(_testSqlScripts[2].FileName));
             Assert.That(runOrder[3], Is.EqualTo(_testSqlScripts[3].FileName));
-        }
-
-        [Test]
-        public void should_throw_if_migration_fails()
-        {
-            // Arrange
-            var runMissingVersions = Task.New<RunMissingVersions>();
-            runMissingVersions.In.InstalledVersions = new Version[0];
-            runMissingVersions.In.SqlScripts = _testSqlScripts.Take(1).ToArray();
-            runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(rm => { throw new Exception(); });
-            runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
-
-            // Act & Assert
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                Assert.Throws<RunSqlException>(runMissingVersions.Execute);
-            }
         }
     }
 }
