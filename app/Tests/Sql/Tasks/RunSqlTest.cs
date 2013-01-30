@@ -12,8 +12,7 @@ namespace Tests.Sql.Tasks
     [TestFixture]
     public class RunSqlTest
     {
-        // TODO - factor out to shared test data
-        readonly Version[] _testVersions =
+        public static Version[] TestVersions =
             new[]
                 {
                     new Version {Id = "001"},
@@ -21,7 +20,7 @@ namespace Tests.Sql.Tasks
                     new Version {Id = "003"}
                 };
 
-        readonly SqlScript[] _testSqlScripts =
+        public static SqlScript[] TestSqlScripts =
             new[]
                 {
                     new SqlScript {VersionId = "001", FileName = "001_first"},
@@ -111,7 +110,7 @@ namespace Tests.Sql.Tasks
                 Fake.Task<GetSqlScripts>(gss =>
                 {
                     passedDirectory = gss.In.Directory;
-                    gss.Out.SqlScripts = _testSqlScripts;
+                    gss.Out.SqlScripts = TestSqlScripts;
                 });
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
@@ -194,7 +193,7 @@ namespace Tests.Sql.Tasks
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
             runSql.GetSqlScripts =
-                Fake.Task<GetSqlScripts>(gss => gss.Out.SqlScripts = _testSqlScripts);
+                Fake.Task<GetSqlScripts>(gss => gss.Out.SqlScripts = TestSqlScripts);
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
             runSql.RunSqlScripts = Fake.Task<RunSqlScripts>(rss => passedConnectionName = rss.In.ConnectionName);
@@ -241,8 +240,8 @@ namespace Tests.Sql.Tasks
         public void should_run_missing_sql_scripts_based_on_sql_scripts_and_versions_with_versioning()
         {
             // Arrange
-            var sqlScripts = _testSqlScripts.Take(1).ToArray();
-            var versions = _testVersions.Take(1).ToArray();
+            var sqlScripts = TestSqlScripts.Take(1).ToArray();
+            var versions = TestVersions.Take(1).ToArray();
             var passedSqlScripts = new SqlScript[0];
             var passedVersions = new Version[0];
 

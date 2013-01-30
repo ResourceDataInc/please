@@ -13,30 +13,13 @@ namespace Tests.Sql.Tasks
     [TestFixture]
     public class RunMissingVersionsTest
     {
-        readonly Version[] _testVersions =
-            new[]
-                {
-                    new Version {Id = "001"},
-                    new Version {Id = "002"},
-                    new Version {Id = "003"}
-                };
-
-        readonly SqlScript[] _testSqlScripts =
-            new[]
-                {
-                    new SqlScript {VersionId = "001", FileName = "001_first"},
-                    new SqlScript {VersionId = "002", FileName = "002_second"},
-                    new SqlScript {VersionId = "002", FileName = "002_third"},
-                    new SqlScript {VersionId = "003", FileName = "003_fourth"}
-                };
-
         [Test]
         public void should_run_sql_scripts_if_no_versions_exist()
         {
             // Arrange
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
-            runMissingVersions.In.SqlScripts = _testSqlScripts;
+            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts;
             runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>();
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
@@ -56,8 +39,8 @@ namespace Tests.Sql.Tasks
         {
             // Arrange
             var runMissingVersions = Task.New<RunMissingVersions>();
-            runMissingVersions.In.InstalledVersions = _testVersions;
-            runMissingVersions.In.SqlScripts = _testSqlScripts;
+            runMissingVersions.In.InstalledVersions = RunSqlTest.TestVersions;
+            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts;
             runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>();
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
@@ -78,8 +61,8 @@ namespace Tests.Sql.Tasks
             // Arrange
             var versions = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
-            runMissingVersions.In.InstalledVersions = _testVersions.Where(version => version.Id != "002").ToArray();
-            runMissingVersions.In.SqlScripts = _testSqlScripts;
+            runMissingVersions.In.InstalledVersions = RunSqlTest.TestVersions.Where(version => version.Id != "002").ToArray();
+            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts;
             runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
                 task => versions.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.VersionId)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
@@ -103,8 +86,8 @@ namespace Tests.Sql.Tasks
             // Arrange
             var versions = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
-            runMissingVersions.In.InstalledVersions = _testVersions.Where(version => version.Id != "002").ToArray();
-            runMissingVersions.In.SqlScripts = _testSqlScripts;
+            runMissingVersions.In.InstalledVersions = RunSqlTest.TestVersions.Where(version => version.Id != "002").ToArray();
+            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts;
             runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
                 task => versions.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.VersionId)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
@@ -127,7 +110,7 @@ namespace Tests.Sql.Tasks
             var runOrder = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
-            runMissingVersions.In.SqlScripts = _testSqlScripts.Reverse().ToArray();
+            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts.Reverse().ToArray();
             runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
                 task => runOrder.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.FileName)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
@@ -140,10 +123,10 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runOrder[0], Is.EqualTo(_testSqlScripts[0].FileName));
-            Assert.That(runOrder[1], Is.EqualTo(_testSqlScripts[1].FileName));
-            Assert.That(runOrder[2], Is.EqualTo(_testSqlScripts[2].FileName));
-            Assert.That(runOrder[3], Is.EqualTo(_testSqlScripts[3].FileName));
+            Assert.That(runOrder[0], Is.EqualTo(RunSqlTest.TestSqlScripts[0].FileName));
+            Assert.That(runOrder[1], Is.EqualTo(RunSqlTest.TestSqlScripts[1].FileName));
+            Assert.That(runOrder[2], Is.EqualTo(RunSqlTest.TestSqlScripts[2].FileName));
+            Assert.That(runOrder[3], Is.EqualTo(RunSqlTest.TestSqlScripts[3].FileName));
         }
     }
 }
