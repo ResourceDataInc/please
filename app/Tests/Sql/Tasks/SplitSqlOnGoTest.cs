@@ -19,7 +19,7 @@ namespace Tests.Sql.Tasks
             splitScriptOnGo.Execute();
 
             // Assert
-            Check.That(splitScriptOnGo.Out.SqlStrings.Length == 4, "Expected 4 scripts.");
+            Assert.That(splitScriptOnGo.Out.SqlStrings.Length, Is.EqualTo(4));
             Assert.That(splitScriptOnGo.Out.SqlStrings[0].Contains("table1"));
             Assert.That(splitScriptOnGo.Out.SqlStrings[1].Contains("table2"));
             Assert.That(splitScriptOnGo.Out.SqlStrings[2].Contains("table3"));

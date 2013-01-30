@@ -33,7 +33,7 @@ namespace Tests.Sql.Tasks
             using (var connection = Db.Connect("Test"))
             {
                 var count = Db.GetScalar(connection, "select count(1) from db_version;");
-                Check.That(Convert.ToInt32(count) == 1, "Expected to find one version record in the database not {0}.", count);
+                Assert.That(Convert.ToInt32(count), Is.EqualTo(1));
             }
         }
 
@@ -55,16 +55,16 @@ namespace Tests.Sql.Tasks
             using (var connection = Db.Connect("Test"))
             {
                 var count1 = Db.GetScalar(connection, "select count(1) from sqlite_master where name = 'table1';");
-                Check.That(Convert.ToInt32(count1) == 1, "Expected to table1.");
+                Assert.That(Convert.ToInt32(count1), Is.EqualTo(1));
 
                 var count2 = Db.GetScalar(connection, "select count(1) from sqlite_master where name = 'table2';");
-                Check.That(Convert.ToInt32(count2) == 1, "Expected to table2.");
+                Assert.That(Convert.ToInt32(count2), Is.EqualTo(1));
 
                 var count3 = Db.GetScalar(connection, "select count(1) from sqlite_master where name = 'table3';");
-                Check.That(Convert.ToInt32(count3) == 1, "Expected to table3.");
+                Assert.That(Convert.ToInt32(count3), Is.EqualTo(1));
 
                 var count4 = Db.GetScalar(connection, "select count(1) from sqlite_master where name = 'table4';");
-                Check.That(Convert.ToInt32(count4) == 1, "Expected to table4.");
+                Assert.That(Convert.ToInt32(count4), Is.EqualTo(1));
             }
         }
     }

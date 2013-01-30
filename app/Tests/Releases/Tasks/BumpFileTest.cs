@@ -24,9 +24,9 @@ namespace Tests.Releases.Tasks
             bump.Execute();
 
             // Assert
-            Check.That(bump.BumpNuspec.Stats.ExecuteCount == 1, "Should have bumped the .nuspec file.");
-            Check.That(bump.BumpAssemblyInfo.Stats.ExecuteCount == 0, "AssemblyInfo file was not provided.");
-            Check.That(bump.BumpScript.Stats.ExecuteCount == 0, "Script file was not provided.");
+            Assert.That(bump.BumpNuspec.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(bump.BumpAssemblyInfo.Stats.ExecuteCount, Is.EqualTo(0));
+            Assert.That(bump.BumpScript.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -45,9 +45,9 @@ namespace Tests.Releases.Tasks
             bump.Execute();
 
             // Assert
-            Check.That(bump.BumpAssemblyInfo.Stats.ExecuteCount == 1, "Should have bumped 2 AssemblyInfo files.");
-            Check.That(bump.BumpNuspec.Stats.ExecuteCount == 0, ".nuspec files was not provided.");
-            Check.That(bump.BumpScript.Stats.ExecuteCount == 0, "Script files was not provided.");
+            Assert.That(bump.BumpAssemblyInfo.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(bump.BumpNuspec.Stats.ExecuteCount, Is.EqualTo(0));
+            Assert.That(bump.BumpScript.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -66,9 +66,9 @@ namespace Tests.Releases.Tasks
             bump.Execute();
 
             // Assert
-            Check.That(bump.BumpScript.Stats.ExecuteCount == 1, "Should have bumped the script file.");
-            Check.That(bump.BumpNuspec.Stats.ExecuteCount == 0, ".nuspec files was not provided.");
-            Check.That(bump.BumpAssemblyInfo.Stats.ExecuteCount == 0, "AssemblyInfo files was not provided.");
+            Assert.That(bump.BumpScript.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(bump.BumpNuspec.Stats.ExecuteCount, Is.EqualTo(0));
+            Assert.That(bump.BumpAssemblyInfo.Stats.ExecuteCount, Is.EqualTo(0));
         }
     }
 }

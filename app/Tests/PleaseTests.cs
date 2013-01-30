@@ -115,7 +115,7 @@ namespace Tests
         {
             var runSql = ShouldExecute<RunSql>("run sql with versioning");
 
-            Check.That(runSql.In.WithVersioning, "Expected with versioning to be true.");
+            Assert.That(runSql.In.WithVersioning, "Expected with versioning to be true.");
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace Tests
         {
             var runSql = ShouldExecute<RunSql>("run sql");
 
-            Check.That(!runSql.In.WithVersioning, "Expected with versioning to be false.");
+            Assert.That(!runSql.In.WithVersioning, "Expected with versioning to be false.");
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace Tests
         {
             var runSql = ShouldExecute<RunSql>("run sql on DEV");
 
-            Check.That(runSql.In.ConnectionName == "DEV", "Expected database to be DEV.");
+            Assert.That(runSql.In.ConnectionName, Is.EqualTo("DEV"));
         }
 
         [Test]

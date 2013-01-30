@@ -30,7 +30,7 @@ namespace Tests.Sql.Tasks
             insertInstalledVersion.Execute();
 
             // Assert
-            Check.That(insertInstalledVersion.Out.RowsAffected == 1, "Expected to insert 1 version.");
+            Assert.That(insertInstalledVersion.Out.RowsAffected, Is.EqualTo(1));
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Tests.Sql.Tasks
             using (var connection = Db.Connect("Test"))
             {
                 var count = Db.GetScalar(connection, "select version from db_version where version = '01';");
-                Check.That(Convert.ToInt32(count) == 1, "Expected to find 1 record.");
+                Assert.That(Convert.ToInt32(count), Is.EqualTo(1));
             }
         }
     }

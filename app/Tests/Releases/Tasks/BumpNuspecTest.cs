@@ -32,7 +32,7 @@ namespace Tests.Releases.Tasks
             // Assert
             var afterContents = File.ReadAllText(AfterFile);
             var expectedContents = File.ReadAllText(fileContainingExpectedContents);
-            Check.That(String.Compare(afterContents, expectedContents) == 0, "Version was not bumped correctly.");
+            Assert.That(afterContents, Is.EqualTo(expectedContents));
         }
 
         [Test]

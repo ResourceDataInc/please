@@ -51,10 +51,8 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Check.That(runSql.CheckForVersionTable.Stats.ExecuteCount == 0,
-                "Should not have checked for version table.");
-            Check.That(runSql.CreateVersionTable.Stats.ExecuteCount == 0,
-                "Expected version table to be not created.");
+            Assert.That(runSql.CheckForVersionTable.Stats.ExecuteCount, Is.EqualTo(0));
+            Assert.That(runSql.CreateVersionTable.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -74,8 +72,7 @@ namespace Tests.Sql.Tasks
             runSql.Execute();
 
             // Assert
-            Check.That(runSql.CreateVersionTable.Stats.ExecuteCount == 1,
-                "Expected version table to be created.");
+            Assert.That(runSql.CreateVersionTable.Stats.ExecuteCount, Is.EqualTo(1));
         }
 
         [Test]
@@ -95,8 +92,7 @@ namespace Tests.Sql.Tasks
             runSql.Execute();
 
             // Assert
-            Check.That(runSql.CreateVersionTable.Stats.ExecuteCount == 0,
-                "Expected version table to be not created.");
+            Assert.That(runSql.CreateVersionTable.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -129,10 +125,8 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Check.That(runSql.GetSqlScripts.Stats.ExecuteCount == 1,
-                "Expected to get migrations scripts.");
-            Check.That(passedDirectory == directoryArgument,
-                "Expected to get migrations scripts from given directory.");
+            Assert.That(runSql.GetSqlScripts.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(passedDirectory, Is.EqualTo(directoryArgument));
         }
 
         [Test]
@@ -157,10 +151,8 @@ namespace Tests.Sql.Tasks
             runSql.Execute();
 
             // Assert
-            Check.That(runSql.GetSqlScripts.Stats.ExecuteCount == 1,
-                "Expected to get migrations scripts.");
-            Check.That(passedDirectory == directoryArgument,
-                "Expected to get migrations scripts from given directory.");
+            Assert.That(runSql.GetSqlScripts.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(passedDirectory, Is.EqualTo(directoryArgument));
         }
 
         [Test]
@@ -185,10 +177,8 @@ namespace Tests.Sql.Tasks
             runSql.Execute();
 
             // Assert
-            Check.That(runSql.FetchInstalledVersions.Stats.ExecuteCount == 1,
-                "Expected to fetch installed versions.");
-            Check.That(passedConnectionName == connectionNameArgument,
-                "Expected to fetch installed versions using given connection name.");
+            Assert.That(runSql.FetchInstalledVersions.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(passedConnectionName, Is.EqualTo(connectionNameArgument));
         }
 
         [Test]
@@ -217,10 +207,8 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Check.That(runSql.RunSqlScript.Stats.ExecuteCount == _testSqlScripts.Length,
-                "Expected to run missing migrations.");
-            Check.That(passedConnectionName == connectionNameArgument,
-                "Expected to run missing migrations using given connection name.");
+            Assert.That(runSql.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(_testSqlScripts.Length));
+            Assert.That(passedConnectionName, Is.EqualTo(connectionNameArgument));
         }
 
         [Test]
@@ -245,10 +233,8 @@ namespace Tests.Sql.Tasks
             runSql.Execute();
 
             // Assert
-            Check.That(runSql.RunMissingVersions.Stats.ExecuteCount == 1,
-                "Expected to run missing migrations.");
-            Check.That(passedConnectionName == connectionNameArgument,
-                "Expected to run missing migrations using given connection name.");
+            Assert.That(runSql.RunMissingVersions.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(passedConnectionName, Is.EqualTo(connectionNameArgument));
         }
 
         [Test]
@@ -280,12 +266,9 @@ namespace Tests.Sql.Tasks
             runSql.Execute();
 
             // Assert
-            Check.That(runSql.RunMissingVersions.Stats.ExecuteCount == 1,
-                "Expected to run missing migrations.");
-            Check.That(passedMigrations == migrations,
-                "Expected to run missing migrations using migrations found.");
-            Check.That(passedVersions == versions,
-                "Expected to run missing migrations using versions found.");
+            Assert.That(runSql.RunMissingVersions.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(passedMigrations, Is.EqualTo(migrations));
+            Assert.That(passedVersions, Is.EqualTo(versions));
         }
     }
 }

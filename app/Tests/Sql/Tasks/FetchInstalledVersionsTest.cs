@@ -32,7 +32,7 @@ namespace Tests.Sql.Tasks
             fetchInstalledVersions.Execute();
 
             // Assert
-            Check.That(fetchInstalledVersions.Out.Versions.Length == 1, "Expected to find 1 version.");
+            Assert.That(fetchInstalledVersions.Out.Versions.Length, Is.EqualTo(1));
         }
     }
 }

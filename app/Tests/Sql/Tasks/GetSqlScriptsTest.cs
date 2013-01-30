@@ -19,9 +19,8 @@ namespace Tests.Sql.Tasks
 
             // Assert
             const string expectedFileName = @"Sql\files\sql\versioned\000001_create-testing-table.sql";
-            Check.That(getSqlScripts.Out.SqlScripts.Length == 4, "Expected to find 1 migration.");
-            Check.That(getSqlScripts.Out.SqlScripts[0].FileName == expectedFileName,
-                "Expected fileName of {0} not {1}", expectedFileName, getSqlScripts.Out.SqlScripts[0].FileName);
+            Assert.That(getSqlScripts.Out.SqlScripts.Length, Is.EqualTo(4));
+            Assert.That(getSqlScripts.Out.SqlScripts[0].FileName, Is.EqualTo(expectedFileName));
         }
 
         [Test]
@@ -37,9 +36,8 @@ namespace Tests.Sql.Tasks
             // Assert
             var script = getSqlScripts.Out.SqlScripts[0];
             const string version = "000001";
-            Check.That(script.IsVersioned, "Expected script to be versioned.");
-            Check.That(script.VersionId == version,
-                "Expected version {0} not {1}", version, script.VersionId);
+            Assert.That(script.IsVersioned, "Expected script to be versioned.");
+            Assert.That(script.VersionId, Is.EqualTo(version));
         }
 
         [Test]
@@ -54,7 +52,7 @@ namespace Tests.Sql.Tasks
 
             // Assert
             var script = getSqlScripts.Out.SqlScripts[0];
-            Check.That(!script.IsVersioned, "Expected script to be unversioned.");
+            Assert.That(!script.IsVersioned, "Expected script to be unversioned.");
         }
 
         [Test]
@@ -66,7 +64,7 @@ namespace Tests.Sql.Tasks
             getSqlScripts.In.CheckForVersionedFilesOnly = true;
 
             // Act & Assert
-            Check.Throws<CheckException>(getSqlScripts.Execute);
+            Assert.Throws<CheckException>(getSqlScripts.Execute);
         }
     }
 }

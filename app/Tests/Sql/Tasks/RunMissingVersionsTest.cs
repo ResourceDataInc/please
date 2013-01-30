@@ -48,8 +48,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Check.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount == _testSqlScripts.Length,
-                "Expected {0} migration to be ran.", _testSqlScripts.Length);
+            Assert.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(_testSqlScripts.Length));
         }
 
         [Test]
@@ -70,8 +69,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Check.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount == 0,
-                "Didn't expect any migration to be ran.");
+            Assert.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -93,9 +91,9 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Check.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount == 2, "Expected {0} migration to be ran.", 2);
-            Check.That(versions[0] == "002", "First migration should have been for version 002");
-            Check.That(versions[1] == "002", "Second migration should have been for version 002");
+            Assert.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(2));
+            Assert.That(versions[0], Is.EqualTo("002"));
+            Assert.That(versions[1], Is.EqualTo("002"));
         }
 
         [Test]
@@ -117,19 +115,19 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Check.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount == 2, "Expected 2 migration to be ran.");
-            Check.That(runMissingVersions.InsertInstalledVersion.Stats.ExecuteCount == 1, "Expected 1 version to be inserted.");
+            Assert.That(runMissingVersions.RunSqlScript.Stats.ExecuteCount, Is.EqualTo(2));
+            Assert.That(runMissingVersions.InsertInstalledVersion.Stats.ExecuteCount, Is.EqualTo(1));
         }
 
         [Test]
         public void should_run_migrations_in_alphabetical_order()
         {
             // Arrange
-            var versions = new List<string>();
+            var runOrder = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
             runMissingVersions.In.SqlScripts = _testSqlScripts.Reverse().ToArray();
-            runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(task => versions.Add(task.In.SqlScript.FileName));
+            runMissingVersions.RunSqlScript = Fake.Task<RunSqlScript>(task => runOrder.Add(task.In.SqlScript.FileName));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -140,10 +138,10 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Check.That(versions[0] == _testSqlScripts[0].FileName, "{0} should have ran first.", _testSqlScripts[0].FileName);
-            Check.That(versions[1] == _testSqlScripts[1].FileName, "{0} should have ran second.", _testSqlScripts[1].FileName);
-            Check.That(versions[2] == _testSqlScripts[2].FileName, "{0} should have ran third.", _testSqlScripts[2].FileName);
-            Check.That(versions[3] == _testSqlScripts[3].FileName, "{0} should have ran fourth.", _testSqlScripts[3].FileName);
+            Assert.That(runOrder[0], Is.EqualTo(_testSqlScripts[0].FileName));
+            Assert.That(runOrder[1], Is.EqualTo(_testSqlScripts[1].FileName));
+            Assert.That(runOrder[2], Is.EqualTo(_testSqlScripts[2].FileName));
+            Assert.That(runOrder[3], Is.EqualTo(_testSqlScripts[3].FileName));
         }
 
         [Test]
@@ -160,7 +158,7 @@ namespace Tests.Sql.Tasks
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                Check.Throws<RunSqlException>(runMissingVersions.Execute);
+                Assert.Throws<RunSqlException>(runMissingVersions.Execute);
             }
         }
     }

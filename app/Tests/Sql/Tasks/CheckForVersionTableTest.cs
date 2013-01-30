@@ -26,7 +26,7 @@ namespace Tests.Sql.Tasks
             checkForVersionTable.Execute();
 
             // Assert
-            Check.That(checkForVersionTable.Out.TableExists, "Expected to find version table.");
+            Assert.That(checkForVersionTable.Out.TableExists, "Expected to find version table.");
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Tests.Sql.Tasks
             checkForVersionTable.Execute();
 
             // Assert
-            Check.That(!checkForVersionTable.Out.TableExists, "Expected to not find version table.");
+            Assert.That(!checkForVersionTable.Out.TableExists, "Expected to not find version table.");
         }
     }
 }

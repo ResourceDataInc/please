@@ -27,7 +27,7 @@ namespace Tests.Sql.Tasks
             using (var connection = Db.Connect("Test"))
             {
                 var count = Db.GetScalar(connection, "select count(1) from sqlite_master where type = 'table';");
-                Check.That(Convert.ToInt32(count) == 1, "Expected to find one table in the database not {0}.", count);
+                Assert.That(Convert.ToInt32(count), Is.EqualTo(1));
             }
         }
     }
