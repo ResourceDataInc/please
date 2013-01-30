@@ -12,9 +12,9 @@ Command for bumping version numbers in files (usually for releasing a NuGet pack
 See release\bump.bat for an example.
 
 ### Options
-* `major` will cause the major version to be bumped
-* `minor` will cause the minor version to be bumped
-* `patch` will cause the patch version to be bumped
+* `major version` will cause the major version to be bumped
+* `minor version` will cause the minor version to be bumped
+* `patch version` will cause the patch version to be bumped
 * `in .\file` specifies the file containing the version reference
 
 ## run sql
