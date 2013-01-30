@@ -9,6 +9,8 @@ Command for bumping version numbers in files (usually for releasing a NuGet pack
 `please bump minor version in .\release\template\TheApp.nuspec`
 `please bump patch version in .\release\staging.bat`
 
+See release\bump.bat for an example.
+
 ### Options
 `major` will cause the major version to be bumped
 `minor` will cause the minor version to be bumped
@@ -30,5 +32,6 @@ Command for running a batch of .sql files in a directory on a given database.
 ## Contributing
 * New commands can be added to please by adding a Command to the \app\Library\Commands.cs file and corresponding tests to the app\Tests project.
 * Run `ci\local` to build the projects and run the tests.
+* If you fixed a bug, run `release\bump patch`. If you added a command, run `release\bump minor`.
 * Run `build\release\` to create a new please.exe in build\output.
 * Submit changes using Pull Requests.
