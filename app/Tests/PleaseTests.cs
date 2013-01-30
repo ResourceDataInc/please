@@ -48,6 +48,7 @@ namespace Tests
                 var commandText = String.Format("bump major version in {0}", file);
                 var bump = ShouldExecute<Bump>(commandText);
 
+                Assert.That(bump.Stats.ExecuteCount, Is.EqualTo(1));
                 Assert.That(bump.In.BumpType, Is.EqualTo(BumpType.Major));
                 Assert.That(bump.In.FileType, Is.EqualTo(FileType.AssemblyInfo));
                 Assert.That(bump.In.FileName, Is.EqualTo(file));
@@ -76,6 +77,7 @@ namespace Tests
                 var commandText = String.Format("bump minor version in {0}", file);
                 var bump = ShouldExecute<Bump>(commandText);
 
+                Assert.That(bump.Stats.ExecuteCount, Is.EqualTo(1));
                 Assert.That(bump.In.BumpType, Is.EqualTo(BumpType.Minor));
                 Assert.That(bump.In.FileType, Is.EqualTo(FileType.Nuspec));
                 Assert.That(bump.In.FileName, Is.EqualTo(file));
@@ -104,6 +106,7 @@ namespace Tests
                 var commandText = String.Format("bump patch version in {0}", file);
                 var bump = ShouldExecute<Bump>(commandText);
 
+                Assert.That(bump.Stats.ExecuteCount, Is.EqualTo(1));
                 Assert.That(bump.In.BumpType, Is.EqualTo(BumpType.Patch));
                 Assert.That(bump.In.FileType, Is.EqualTo(FileType.Script));
                 Assert.That(bump.In.FileName, Is.EqualTo(file));
@@ -115,6 +118,7 @@ namespace Tests
         {
             var runSql = ShouldExecute<RunSql>("run sql with versioning");
 
+            Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(runSql.In.WithVersioning, "Expected with versioning to be true.");
         }
 
@@ -123,6 +127,7 @@ namespace Tests
         {
             var runSql = ShouldExecute<RunSql>("run sql");
 
+            Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(!runSql.In.WithVersioning, "Expected with versioning to be false.");
         }
 
@@ -131,6 +136,7 @@ namespace Tests
         {
             var runSql = ShouldExecute<RunSql>("run sql on DEV");
 
+            Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(runSql.In.ConnectionName, Is.EqualTo("DEV"));
         }
 
@@ -160,9 +166,9 @@ namespace Tests
                 var commandText = String.Format("run sql in {0} on DEV", directory);
                 var runSql = ShouldExecute<RunSql>(commandText);
 
+                Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
                 Assert.That(runSql.In.Directory, Is.EqualTo(directory));
             }
         }
-
     }
 }
