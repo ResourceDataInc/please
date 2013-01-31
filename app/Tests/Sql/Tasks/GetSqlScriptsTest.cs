@@ -36,9 +36,9 @@ namespace Tests.Sql.Tasks
             getSqlScripts.Execute();
 
             // Assert
-            const string expectedFileName = @"Sql\files\sql\versioned\000002_001.sql";
-            Assert.That(getSqlScripts.Out.SqlScripts.Length, Is.EqualTo(1));
-            Assert.That(getSqlScripts.Out.SqlScripts[0].FileName, Is.EqualTo(expectedFileName));
+            Assert.That(getSqlScripts.Out.SqlScripts.Length, Is.EqualTo(2));
+            Assert.That(getSqlScripts.Out.SqlScripts[0].FileName, Is.EqualTo(@"Sql\files\sql\versioned\000002_001.sql"));
+            Assert.That(getSqlScripts.Out.SqlScripts[1].FileName, Is.EqualTo(@"Sql\files\sql\versioned\000002_002.sql"));
         }
 
         [Test]

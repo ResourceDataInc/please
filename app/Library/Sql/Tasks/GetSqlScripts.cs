@@ -45,7 +45,8 @@ namespace Library.Sql.Tasks
 
                 if (fileQualifies && checkWhitelist)
                 {
-                    var fileSearch = new Regex(String.Format("^{0}\r?$", Regex.Escape(fileName)), RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                    var fileSearch = new Regex(String.Format(@"(^|\\){0}\r?$", Regex.Escape(fileNameWithoutPath)),
+                                               RegexOptions.IgnoreCase | RegexOptions.Multiline);
                     fileQualifies = fileSearch.IsMatch(whitelist);
                 }
 
