@@ -1,0 +1,6 @@
+﻿Sql/files/sql/versioned/XXX.sql
+Sql/files/sql/versioned/XXX.sql
+Sql/files/sql/versioned/000002_001.sql
+Sql/files/sql/versioned/XXX.sql
+Sql/files/sql/versioned/XXX.sql
+Sql/files/sql/versioned/XXX.sql

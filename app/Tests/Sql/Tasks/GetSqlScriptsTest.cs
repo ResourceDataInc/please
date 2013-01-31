@@ -8,7 +8,7 @@ namespace Tests.Sql.Tasks
     public class GetSqlScriptsTest
     {
         [Test]
-        public void should_find_files_in_given_directory()
+        public void should_find_sql_files_in_given_directory()
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
@@ -24,7 +24,25 @@ namespace Tests.Sql.Tasks
         }
 
         [Test]
-        public void should_find_versioned_files()
+        public void should_respect_whitelist()
+        {
+            // Arrange
+            var getSqlScripts = Task.New<GetSqlScripts>();
+            getSqlScripts.In.Directory = @"Sql\files\sql\versioned";
+            getSqlScripts.In.WhitelistFile = @"Sql\files\sql\versioned\whitelist.txt";
+
+
+            // Act
+            getSqlScripts.Execute();
+
+            // Assert
+            const string expectedFileName = @"Sql\files\sql\versioned\000002_001.sql";
+            Assert.That(getSqlScripts.Out.SqlScripts.Length, Is.EqualTo(1));
+            Assert.That(getSqlScripts.Out.SqlScripts[0].FileName, Is.EqualTo(expectedFileName));
+        }
+
+        [Test]
+        public void should_mark_versioned_files()
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
@@ -41,7 +59,7 @@ namespace Tests.Sql.Tasks
         }
 
         [Test]
-        public void should_find_unversioned_files()
+        public void should_mark_unversioned_files()
         {
             // Arrange
             var getSqlScripts = Task.New<GetSqlScripts>();
