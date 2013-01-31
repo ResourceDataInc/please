@@ -170,5 +170,15 @@ namespace Tests
                 Assert.That(runSql.In.Directory, Is.EqualTo(directory));
             }
         }
+
+        [Test]
+        public void should_run_sql_include_whitelist_in_directory()
+        {
+            const string whitelistFile = @".\whitelist.txt";
+            var runSql = ShouldExecute<RunSql>(@"run sql include " + whitelistFile + @" in .\Directory");
+
+            Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(runSql.In.WhitelistFile, Is.EqualTo(whitelistFile));
+        }
     }
 }

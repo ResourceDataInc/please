@@ -82,6 +82,11 @@ namespace Library
                                     {
                                         Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
                                         Action = (task, match) => task.In.Directory = match.Groups["Directory"].Value.Trim()
+                                    },
+                                new Option<RunSql>
+                                    {
+                                        Pattern = @"include (?<Whitelist>" + Path + FileOrDirectory + ")",
+                                        Action = (task, match) => task.In.WhitelistFile = match.Groups["Whitelist"].Value.Trim()
                                     }
                             }
             };

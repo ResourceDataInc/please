@@ -10,6 +10,7 @@ namespace Library.Sql.Tasks
             public string ConnectionName { get; set; }
             public string Directory { get; set; }
             public bool WithVersioning { get; set; }
+            public string WhitelistFile { get; set; }
         }
 
         public CheckForVersionTable CheckForVersionTable { get; set; }
@@ -38,6 +39,7 @@ namespace Library.Sql.Tasks
 
             GetSqlScripts.In.Directory = In.Directory;
             GetSqlScripts.In.CheckForVersionedFilesOnly = In.WithVersioning;
+            GetSqlScripts.In.WhitelistFile = In.WhitelistFile;
             GetSqlScripts.Execute();
 
             if (In.WithVersioning)
