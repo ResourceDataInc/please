@@ -23,11 +23,13 @@ Command for running a batch of .sql files in a directory on a given database.
 ### Usage
 * `please run sql in .\directory on DATABASE`
 * `please run sql with versioning in .\directory on DATABASE`
+* `please run sql include .\whitelist.txt in .\directory on DATABASE`
 
 ### Options
 * `in .\directory` specifies the directory containing the .sql files
 * `on DATABASE` specifies the name of the database connectionString in please.exe.config
 * `with versioning` uses the version number prepended to the .sql file (e.g. 20130901000000_create-table.sql) to ensure the .sql file is only ran once on the given database
+* `include .\whitelist.txt` specifies a file containing the list of .sql files to run if found in the given .\directory
 
 ## Contributing
 * New commands can be added to please by adding a Command to the \app\Library\Commands.cs file and corresponding tests to the app\Tests project.
