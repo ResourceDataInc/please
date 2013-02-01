@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Library;
 using Library.Releases;
 using Library.Releases.Tasks;
@@ -20,7 +21,11 @@ namespace Tests
 
             var please = Task.New<Please>();
             please.In.Args = commandText.Split(' ');
-            please.Execute();
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                please.Execute();
+            }
 
             var task = please.Out.Command.Task as TTask;
             if (task == null) throw new Exception("Unexpected command task was found.");
@@ -179,6 +184,44 @@ namespace Tests
 
             Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(runSql.In.WhitelistFile, Is.EqualTo(whitelistFile));
+        }
+
+        [Test]
+        public void should_return_0_on_success()
+        {
+            foreach (var command in Commands.All)
+            {
+                command.Task = Fake.Task<RunSql>();
+            }
+
+            var please = Task.New<Please>();
+            please.In.Args = "run sql".Split(' ');
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                please.Execute();
+            }
+
+            Assert.That(please.Out.ExitCode, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void should_return_1_on_failure()
+        {
+            foreach (var command in Commands.All)
+            {
+                command.Task = Fake.Task<RunSql>();
+            }
+
+            var please = Task.New<Please>();
+            please.In.Args = "this is wrong".Split(' ');
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                please.Execute();
+            }
+
+            Assert.That(please.Out.ExitCode, Is.EqualTo(1));
         }
     }
 }
