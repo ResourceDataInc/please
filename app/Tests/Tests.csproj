@@ -83,6 +83,8 @@
     <Compile Include="Releases\Tasks\BumpFileTest.cs" />
     <Compile Include="Sql\Tasks\RunMissingVersionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Timestamp\Tasks\GetFilesTest.cs" />
+    <Compile Include="Timestamp\Tasks\TimestampFileTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sql\files\insert-version.sql">
@@ -106,6 +108,15 @@
     <Content Include="Sql\files\sql\versioned\whitelist.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Timestamp\files\20130226153530_timestampedFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Timestamp\files\file1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Timestamp\files\file2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
     <None Include="Releases\files\Nuspec_MajorBumped.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -145,7 +156,9 @@
       <Name>Library</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Timestamp\files\test\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,6 +1,7 @@
 using Library.Releases;
 using Library.Releases.Tasks;
 using Library.Sql.Tasks;
+using Library.Timestamp.Tasks;
 
 namespace Library
 {
@@ -91,6 +92,21 @@ namespace Library
                             }
             };
 
-        public static ICommand[] All = {Bump, RunSql};
+        private static readonly Command<Timestamp.Tasks.Timestamp> Timestamp =
+            new Command<Timestamp.Tasks.Timestamp>
+                {
+                    Name = "add timestamps",
+                    Options =
+                    new []
+                        {
+                            new Option<Timestamp.Tasks.Timestamp>
+                                {
+                                    Pattern = "in (?<Directory>" + Path + FileOrDirectory + ")",
+                                    Action =  (task, match) => task.In.Directory = match.Groups["Directory"].Value.Trim()
+                                }
+                        }
+                };
+
+        public static ICommand[] All = {Bump, RunSql, Timestamp};
     }
 }

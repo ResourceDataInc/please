@@ -71,10 +71,14 @@
     <Compile Include="Releases\Tasks\BumpAssemblyInfo.cs" />
     <Compile Include="Releases\Tasks\BumpNuspec.cs" />
     <Compile Include="Releases\Tasks\BumpScript.cs" />
+    <Compile Include="Timestamp\Tasks\GetFiles.cs" />
+    <Compile Include="Timestamp\Tasks\Timestamp.cs" />
+    <Compile Include="Timestamp\TimestampFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
