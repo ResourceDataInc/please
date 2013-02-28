@@ -17,9 +17,9 @@ namespace Library.Timestamp.Tasks
         {
             string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss_");
 
-            GetFiles.In = In.Directory;
+            GetFiles.In.Directory = In.Directory;
             GetFiles.Execute();
-            TimestampFile[] files = GetFiles.Out;
+            TimestampFile[] files = GetFiles.Out.Files;
 
             foreach (var file in files)
             {

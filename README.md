@@ -35,10 +35,10 @@ Command for running a batch of .sql files in a directory on a given database.
 Command for adding timestamps to all files in a directory that don't already have them.
 
 ### Usage
-* 'please add timestamps in .\directory'
+* `please add timestamps in .\directory`
 
 ### Options
-* 'in .\directory' specifies the directory containing the files
+* `in .\directory` specifies the directory containing the files
 
 ## Contributing
 * New commands can be added to please by adding a Command to the \app\Library\Commands.cs file and corresponding tests to the app\Tests project.

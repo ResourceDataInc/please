@@ -16,30 +16,30 @@ namespace Tests.Timestamp.Tasks
         public void should_find_three_files()
         {
             var GetFiles = Task.New<GetFiles>();
-            GetFiles.In = directory;
+            GetFiles.In.Directory = directory;
             GetFiles.Execute();
 
-            Assert.That(GetFiles.Out.Count(), Is.EqualTo(3));
+            Assert.That(GetFiles.Out.Files.Count(), Is.EqualTo(3));
         }
 
         [Test]
         public void should_find_two_nontimestamped_files()
         {
             var GetFiles = Task.New<GetFiles>();
-            GetFiles.In = directory;
+            GetFiles.In.Directory = directory;
             GetFiles.Execute();
 
-            Assert.That(GetFiles.Out.Count(f => !f.IsTimestamped), Is.EqualTo(2));
+            Assert.That(GetFiles.Out.Files.Count(f => !f.IsTimestamped), Is.EqualTo(2));
         }
 
         [Test]
         public void should_find_one_timestamped_file()
         {
             var GetFiles = Task.New<GetFiles>();
-            GetFiles.In = directory;
+            GetFiles.In.Directory = directory;
             GetFiles.Execute();
 
-            Assert.That(GetFiles.Out.Count(f => f.IsTimestamped), Is.EqualTo(1));
+            Assert.That(GetFiles.Out.Files.Count(f => f.IsTimestamped), Is.EqualTo(1));
         }
     }
 }

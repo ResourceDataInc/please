@@ -6,14 +6,24 @@ using Simpler;
 
 namespace Library.Timestamp.Tasks
 {
-    public class GetFiles : InOutTask<string, TimestampFile[]>
+    public class GetFiles : InOutTask<GetFiles.Input, GetFiles.Output>
     {
         const string timestampPattern = "^\\d{14}_";
+
+        public class Input
+        {
+            public string Directory;
+        }
+
+        public class Output
+        {
+            public TimestampFile[] Files;
+        }
 
         public override void Execute()
         {    
             var files = new List<TimestampFile>();
-            var fileNames = Directory.GetFiles(In);
+            var fileNames = Directory.GetFiles(In.Directory);
 
             foreach (var fileName in fileNames)
             {
@@ -31,7 +41,7 @@ namespace Library.Timestamp.Tasks
                 files.Add(file);
             }
 
-            Out = files.ToArray();
+            Out.Files = files.ToArray();
         }
     }
 }

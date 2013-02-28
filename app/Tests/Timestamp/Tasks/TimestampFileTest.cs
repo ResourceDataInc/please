@@ -22,7 +22,7 @@ namespace Tests.Timestamp.Tasks
             All
         }
 
-        public void refreshTestDirectory(TimestampState state)
+        public void RefreshTestDirectory(TimestampState state)
         {
             if (Directory.Exists(testDirectory))
                 Directory.Delete(testDirectory, true);
@@ -41,18 +41,15 @@ namespace Tests.Timestamp.Tasks
             }
         }
 
-        public bool fileIsTimestamped(string filename)
+        public bool FileIsTimestamped(string filename)
         {
-            if (Regex.IsMatch(filename, timestampPattern))
-                return true;
-
-            return false;
+            return Regex.IsMatch(filename, timestampPattern);
         }
 
         [Test]
         public void should_timestamp_new_files()
         {
-            refreshTestDirectory(TimestampState.Untimestamped);
+            RefreshTestDirectory(TimestampState.Untimestamped);
 
             var Timestamp = Task.New<Library.Timestamp.Tasks.Timestamp>();
             Timestamp.In.Directory = testDirectory;
@@ -62,7 +59,7 @@ namespace Tests.Timestamp.Tasks
 
             foreach (var file in Directory.GetFiles(testDirectory))
             {
-                if (!fileIsTimestamped(Path.GetFileName(file)))
+                if (!FileIsTimestamped(Path.GetFileName(file)))
                 {
                     allTimestamped = false;
                     break;
@@ -76,7 +73,7 @@ namespace Tests.Timestamp.Tasks
         [Test]
         public void should_not_retimestamp_files()
         {
-            refreshTestDirectory(TimestampState.Timestamped);
+            RefreshTestDirectory(TimestampState.Timestamped);
 
             var originalFiles = Directory.GetFiles(testDirectory);
 
