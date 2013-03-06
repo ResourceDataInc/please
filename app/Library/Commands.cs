@@ -95,7 +95,7 @@ namespace Library
         private static readonly Command<AddTimestamp> Timestamp =
             new Command<AddTimestamp>
                 {
-                    Name = "add timestamps",
+                    Name = "add timestamp",
                     Options =
                     new []
                         {

@@ -31,11 +31,11 @@ Command for running a batch of .sql files in a directory on a given database.
 * `with versioning` uses the version number prepended to the .sql file (e.g. 20130901000000_create-table.sql) to ensure the .sql file is only ran once on the given database
 * `include .\whitelist.txt` specifies a file containing the list of .sql files to run if found in the given .\directory
 
-## add timestamps
-Command for adding timestamps to all files in a directory that don't already have them.
+## add timestamp
+Command for adding a timestamp to all files in a directory that don't already have them.
 
 ### Usage
-* `please add timestamps in .\directory`
+* `please add timestamp in .\directory`
 
 ### Options
 * `in .\directory` specifies the directory containing the files

@@ -200,7 +200,7 @@ namespace Tests
 
             foreach (var directory in directories)
             {
-                var commandText = String.Format("add timestamps in {0}", directory);
+                var commandText = String.Format("add timestamp in {0}", directory);
                 var addTimestamp = ShouldExecute<AddTimestamp>(commandText);
 
                 Assert.That(addTimestamp.Stats.ExecuteCount, Is.EqualTo(1));
