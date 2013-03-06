@@ -101,7 +101,7 @@ namespace Library
                         {
                             new Option<Timestamp.Tasks.Timestamp>
                                 {
-                                    Pattern = "in (?<Directory>" + Path + FileOrDirectory + ")",
+                                    Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
                                     Action =  (task, match) => task.In.Directory = match.Groups["Directory"].Value.Trim()
                                 }
                         }
