@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Library.Timestamp.Tasks
 {
-    public class Timestamp : InTask<Timestamp.Input>
+    public class AddTimestamp : InTask<AddTimestamp.Input>
     {
         public class Input
         {

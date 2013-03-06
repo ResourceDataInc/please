@@ -92,14 +92,14 @@ namespace Library
                             }
             };
 
-        private static readonly Command<Timestamp.Tasks.Timestamp> Timestamp =
-            new Command<Timestamp.Tasks.Timestamp>
+        private static readonly Command<AddTimestamp> Timestamp =
+            new Command<AddTimestamp>
                 {
                     Name = "add timestamps",
                     Options =
                     new []
                         {
-                            new Option<Timestamp.Tasks.Timestamp>
+                            new Option<AddTimestamp>
                                 {
                                     Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
                                     Action =  (task, match) => task.In.Directory = match.Groups["Directory"].Value.Trim()

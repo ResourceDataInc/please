@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using Library.Timestamp;
+using Library.Timestamp.Tasks;
 using NUnit.Framework;
 using Simpler;
 
 namespace Tests.Timestamp.Tasks
 {
-    class TimestampFileTest
+    class AddTimestampTest
     {
         const string testDirectory = @"Timestamp\files\test";
         const string timestampPattern = "^\\d{14}_";
@@ -51,9 +48,9 @@ namespace Tests.Timestamp.Tasks
         {
             RefreshTestDirectory(TimestampState.Untimestamped);
 
-            var Timestamp = Task.New<Library.Timestamp.Tasks.Timestamp>();
-            Timestamp.In.Directory = testDirectory;
-            Timestamp.Execute();
+            var addTimestamp = Task.New<AddTimestamp>();
+            addTimestamp.In.Directory = testDirectory;
+            addTimestamp.Execute();
 
             bool allTimestamped = true;
 
@@ -77,9 +74,9 @@ namespace Tests.Timestamp.Tasks
 
             var originalFiles = Directory.GetFiles(testDirectory);
 
-            var timestamp = Task.New<Library.Timestamp.Tasks.Timestamp>();
-            timestamp.In.Directory = testDirectory;
-            timestamp.Execute();
+            var addTimestamp = Task.New<AddTimestamp>();
+            addTimestamp.In.Directory = testDirectory;
+            addTimestamp.Execute();
 
             var updatedFiles = Directory.GetFiles(testDirectory);
 

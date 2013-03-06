@@ -72,7 +72,7 @@
     <Compile Include="Releases\Tasks\BumpNuspec.cs" />
     <Compile Include="Releases\Tasks\BumpScript.cs" />
     <Compile Include="Timestamp\Tasks\GetFiles.cs" />
-    <Compile Include="Timestamp\Tasks\Timestamp.cs" />
+    <Compile Include="Timestamp\Tasks\AddTimestamp.cs" />
     <Compile Include="Timestamp\TimestampFile.cs" />
   </ItemGroup>
   <ItemGroup>

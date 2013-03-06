@@ -84,7 +84,7 @@
     <Compile Include="Sql\Tasks\RunMissingVersionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Timestamp\Tasks\GetFilesTest.cs" />
-    <Compile Include="Timestamp\Tasks\TimestampFileTest.cs" />
+    <Compile Include="Timestamp\Tasks\AddTimestampTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sql\files\insert-version.sql">

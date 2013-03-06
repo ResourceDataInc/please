@@ -4,6 +4,7 @@ using Library;
 using Library.Releases;
 using Library.Releases.Tasks;
 using Library.Sql.Tasks;
+using Library.Timestamp.Tasks;
 using NUnit.Framework;
 using Simpler;
 
@@ -200,7 +201,7 @@ namespace Tests
             foreach (var directory in directories)
             {
                 var commandText = String.Format("add timestamps in {0}", directory);
-                var addTimestamp = ShouldExecute<Library.Timestamp.Tasks.Timestamp>(commandText);
+                var addTimestamp = ShouldExecute<AddTimestamp>(commandText);
 
                 Assert.That(addTimestamp.Stats.ExecuteCount, Is.EqualTo(1));
                 Assert.That(addTimestamp.In.Directory, Is.EqualTo(directory));
