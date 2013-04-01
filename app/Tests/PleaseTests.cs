@@ -4,6 +4,7 @@ using Library;
 using Library.Releases;
 using Library.Releases.Tasks;
 using Library.Sql.Tasks;
+using Library.Timestamp.Tasks;
 using NUnit.Framework;
 using Simpler;
 
@@ -153,15 +154,10 @@ namespace Tests
                     {
                         @"SomeDirectory",
                         @"Some\Directory",
-                        @"SomeDirectory\",
                         @".\SomeDirectory",
-                        @".\Some\Directory\",
                         @"\\SomeDirectory",
-                        @"\\Some\Directory\",
                         @"c:\SomeDirectory",
-                        @"c:\Some\Directory\",
                         @"Some Directory",
-                        @"Some Directory\",
                         @".\Some Directory",
                         @"c:\Some Directory"
                     };
@@ -184,6 +180,32 @@ namespace Tests
 
             Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(runSql.In.WhitelistFile, Is.EqualTo(whitelistFile));
+        }
+
+        [Test]
+        public void should_add_timestamp_in_directory()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory",
+                        @"Some\Directory",
+                        @".\SomeDirectory",
+                        @"\\SomeDirectory",
+                        @"c:\SomeDirectory",
+                        @"Some Directory",
+                        @".\Some Directory",
+                        @"c:\Some Directory"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("add timestamp in {0}", directory);
+                var addTimestamp = ShouldExecute<AddTimestamp>(commandText);
+
+                Assert.That(addTimestamp.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(addTimestamp.In.Directory, Is.EqualTo(directory));
+            }
         }
 
         [Test]
