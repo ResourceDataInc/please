@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Releases\BumpType.cs" />
     <Compile Include="Releases\FileType.cs" />
     <Compile Include="Releases\Tasks\Bump.cs" />

@@ -37,7 +37,7 @@ namespace Library.Sql.Tasks
                     {
                         foreach (var sqlString in sqlStrings)
                         {
-                            Out.RowsAffected += Db.GetResult(connection, sqlString);
+                            Out.RowsAffected += Db.GetResult(connection, sqlString, null, Config.RunSqlTimeout);
                         }
                     }
                     Console.WriteLine("  {0} ran successfully.", fileName);
