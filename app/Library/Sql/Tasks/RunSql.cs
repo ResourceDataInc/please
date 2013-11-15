@@ -9,6 +9,7 @@ namespace Library.Sql.Tasks
         {
             public string ConnectionName { get; set; }
             public string Directory { get; set; }
+            public string File { get; set; }
             public bool WithVersioning { get; set; }
             public string WhitelistFile { get; set; }
         }
@@ -22,6 +23,15 @@ namespace Library.Sql.Tasks
 
         public override void Execute()
         {
+            if (In.File != null)
+            {
+                Console.WriteLine("{0} script was found.", In.File);
+                RunSqlScripts.In.ConnectionName = In.ConnectionName;
+                RunSqlScripts.In.SqlScripts = new[] { new SqlScript { FileName = In.File, IsVersioned = false} };
+                RunSqlScripts.Execute();
+                return;
+            }
+            
             if (In.WithVersioning)
             {
                 CheckForVersionTable.In.ConnectionName = In.ConnectionName;
@@ -36,6 +46,7 @@ namespace Library.Sql.Tasks
                 FetchInstalledVersions.In.ConnectionName = In.ConnectionName;
                 FetchInstalledVersions.Execute();
             }
+
 
             GetSqlScripts.In.Directory = In.Directory;
             GetSqlScripts.In.CheckForVersionedFilesOnly = In.WithVersioning;

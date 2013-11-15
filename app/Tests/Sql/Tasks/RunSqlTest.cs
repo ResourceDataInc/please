@@ -181,6 +181,31 @@ namespace Tests.Sql.Tasks
         }
 
         [Test]
+        public void should_run_sql_specified_sql_file_without_versioning()
+        {
+            // Arrange
+            const string connectionNameArgument = "SomeConnection";
+            var passedConnectionName = "";
+
+            var runSql = Task.New<RunSql>();
+            runSql.In.File = "001_first.sql";
+            runSql.In.ConnectionName = connectionNameArgument;
+            runSql.In.WithVersioning = false;
+            runSql.RunSqlScripts = Fake.Task<RunSqlScripts>(rss => passedConnectionName = rss.In.ConnectionName);
+
+            // Act
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runSql.Execute();
+            }
+
+            // Assert
+            Assert.That(runSql.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
+            Assert.That(passedConnectionName, Is.EqualTo(connectionNameArgument));
+        }
+
+        [Test]
         public void should_run_sql_scripts_using_given_connection_name_without_versioning()
         {
             // Arrange
