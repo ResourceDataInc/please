@@ -75,7 +75,7 @@
     <Compile Include="Sql\Tasks\InsertInstalledVersionTest.cs" />
     <Compile Include="Sql\Tasks\FetchInstalledVersionsTest.cs" />
     <Compile Include="Sql\Tasks\CreateVersionTableTest.cs" />
-    <Compile Include="Sql\Tasks\GetSqlScriptsTest.cs" />
+    <Compile Include="Sql\Tasks\GetScriptsTest.cs" />
     <Compile Include="Sql\Tasks\RunSqlScriptsTest.cs" />
     <Compile Include="Releases\Tasks\BumpNuspecTest.cs" />
     <Compile Include="Releases\Tasks\BumpAssemblyInfoTest.cs" />
@@ -88,6 +88,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Sql\files\insert-version.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sql\files\py\hello.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sql\files\sql\repeatable\create-four-tables.sql">

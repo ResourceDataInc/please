@@ -72,27 +72,47 @@ namespace Library
                                 new Option<RunSql>
                                     {
                                         Pattern = "with versioning",
-                                        Action = (task, match) => task.In.WithVersioning = true
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql"};
+                                                         task.In.WithVersioning = true;
+                                                     }
                                     },
                                 new Option<RunSql>
                                     {
                                         Pattern = @"on (?<ConnectionName>\w+)",
-                                        Action = (task, match) => task.In.ConnectionName = match.Groups["ConnectionName"].Value
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql"};
+                                                         task.In.ConnectionName = match.Groups["ConnectionName"].Value;
+                                                     }
                                     },
                                 new Option<RunSql>
                                     {
                                         Pattern = @"file (?<File>" + Path + FileOrDirectory + ")",
-                                        Action = (task, match) => task.In.File = match.Groups["File"].Value.Trim()
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql"};
+                                                         task.In.File = match.Groups["File"].Value.Trim();
+                                                     }
                                     },
                                 new Option<RunSql>
                                     {
                                         Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
-                                        Action = (task, match) => task.In.Directory = match.Groups["Directory"].Value.Trim()
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql"};
+                                                         task.In.Directory = match.Groups["Directory"].Value.Trim();
+                                                     }
                                     },
                                 new Option<RunSql>
                                     {
                                         Pattern = @"include (?<Whitelist>" + Path + FileOrDirectory + ")",
-                                        Action = (task, match) => task.In.WhitelistFile = match.Groups["Whitelist"].Value.Trim()
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql"};
+                                                         task.In.WhitelistFile = match.Groups["Whitelist"].Value.Trim();
+                                                     }
                                     }
                             }
             };

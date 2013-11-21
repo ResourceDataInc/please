@@ -198,7 +198,6 @@ namespace Tests
             }
         }
 
-
         [Test]
         public void should_run_sql_include_whitelist_in_directory()
         {

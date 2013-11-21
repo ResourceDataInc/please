@@ -37,7 +37,7 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts = Fake.Task<GetSqlScripts>(gss => gss.Out.SqlScripts = new SqlScript[0]);
+            runSql.GetScripts = Fake.Task<GetScripts>(gss => gss.Out.SqlScripts = new SqlScript[0]);
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
             runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
@@ -62,7 +62,7 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>(cfvt => cfvt.Out.TableExists = false);
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts = Fake.Task<GetSqlScripts>();
+            runSql.GetScripts = Fake.Task<GetScripts>();
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
             runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
@@ -82,7 +82,7 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>(cfvt => cfvt.Out.TableExists = true);
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts = Fake.Task<GetSqlScripts>();
+            runSql.GetScripts = Fake.Task<GetScripts>();
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
             runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
@@ -106,8 +106,8 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts =
-                Fake.Task<GetSqlScripts>(gss =>
+            runSql.GetScripts =
+                Fake.Task<GetScripts>(gss =>
                 {
                     passedDirectory = gss.In.Directory;
                     gss.Out.SqlScripts = TestSqlScripts;
@@ -124,7 +124,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runSql.GetSqlScripts.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(runSql.GetScripts.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(passedDirectory, Is.EqualTo(directoryArgument));
         }
 
@@ -140,8 +140,8 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts =
-                Fake.Task<GetSqlScripts>(gss => passedDirectory = gss.In.Directory);
+            runSql.GetScripts =
+                Fake.Task<GetScripts>(gss => passedDirectory = gss.In.Directory);
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
             runSql.RunSqlScripts = Fake.Task<RunSqlScripts>();
@@ -150,7 +150,7 @@ namespace Tests.Sql.Tasks
             runSql.Execute();
 
             // Assert
-            Assert.That(runSql.GetSqlScripts.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(runSql.GetScripts.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(passedDirectory, Is.EqualTo(directoryArgument));
         }
 
@@ -166,7 +166,7 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts = Fake.Task<GetSqlScripts>();
+            runSql.GetScripts = Fake.Task<GetScripts>();
             runSql.FetchInstalledVersions =
                 Fake.Task<FetchInstalledVersions>(fiv => passedConnectionName = fiv.In.ConnectionName);
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
@@ -217,8 +217,8 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = false;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts =
-                Fake.Task<GetSqlScripts>(gss => gss.Out.SqlScripts = TestSqlScripts);
+            runSql.GetScripts =
+                Fake.Task<GetScripts>(gss => gss.Out.SqlScripts = TestSqlScripts);
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions = Fake.Task<RunMissingVersions>();
             runSql.RunSqlScripts = Fake.Task<RunSqlScripts>(rss => passedConnectionName = rss.In.ConnectionName);
@@ -247,7 +247,7 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts = Fake.Task<GetSqlScripts>();
+            runSql.GetScripts = Fake.Task<GetScripts>();
             runSql.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             runSql.RunMissingVersions =
                 Fake.Task<RunMissingVersions>(rmm => passedConnectionName = rmm.In.ConnectionName);
@@ -274,8 +274,8 @@ namespace Tests.Sql.Tasks
             runSql.In.WithVersioning = true;
             runSql.CheckForVersionTable = Fake.Task<CheckForVersionTable>();
             runSql.CreateVersionTable = Fake.Task<CreateVersionTable>();
-            runSql.GetSqlScripts = 
-                Fake.Task<GetSqlScripts>(gms => gms.Out.SqlScripts = sqlScripts);
+            runSql.GetScripts =
+                Fake.Task<GetScripts>(gms => gms.Out.SqlScripts = sqlScripts);
             runSql.FetchInstalledVersions = 
                 Fake.Task<FetchInstalledVersions>(fiv => fiv.Out.Versions = versions);
             runSql.RunMissingVersions =

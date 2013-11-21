@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Simpler;
+using System.Linq;
 
 namespace Library.Sql.Tasks
 {
-    public class GetSqlScripts : InOutTask<GetSqlScripts.Input, GetSqlScripts.Output>
+    public class GetScripts : InOutTask<GetScripts.Input, GetScripts.Output>
     {
         public class Input
         {
             public string Directory { get; set; }
+            public string[] Extensions { get; set; }
             public bool CheckForVersionedFilesOnly { get; set; }
             public string WhitelistFile { get; set; }
         }
 
-        public class Output 
+        public class Output
         {
             public SqlScript[] SqlScripts { get; set; }
         }
@@ -40,8 +42,7 @@ namespace Library.Sql.Tasks
                 var fileNameWithoutPath = Path.GetFileName(fileName);
                 if (fileNameWithoutPath == null) throw new RunSqlException(String.Format("{0} is not a file.", fileName));
 
-                var fileQualifies =
-                    String.Compare(Path.GetExtension(fileNameWithoutPath), ".sql", StringComparison.OrdinalIgnoreCase) == 0;
+                var fileQualifies = In.Extensions.Contains(Path.GetExtension(fileNameWithoutPath));
 
                 if (fileQualifies && checkWhitelist)
                 {
