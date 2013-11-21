@@ -19,7 +19,7 @@ namespace Tests.Sql.Tasks
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
             runMissingVersions.In.Scripts = RunTest.TestScripts;
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>();
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -30,7 +30,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
+            Assert.That(runMissingVersions.RunScripts.Stats.ExecuteCount, Is.GreaterThan(0));
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace Tests.Sql.Tasks
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = RunTest.TestVersions;
             runMissingVersions.In.Scripts = RunTest.TestScripts;
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>();
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -51,7 +51,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.EqualTo(0));
+            Assert.That(runMissingVersions.RunScripts.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Tests.Sql.Tasks
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = RunTest.TestVersions.Where(version => version.Id != "002").ToArray();
             runMissingVersions.In.Scripts = RunTest.TestScripts;
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>(
                 task => versions.AddRange(task.In.Scripts.Select(script => script.VersionId)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
@@ -74,7 +74,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
+            Assert.That(runMissingVersions.RunScripts.Stats.ExecuteCount, Is.GreaterThan(0));
             Assert.That(versions[0], Is.EqualTo("002"));
             Assert.That(versions[1], Is.EqualTo("002"));
         }
@@ -87,7 +87,7 @@ namespace Tests.Sql.Tasks
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = RunTest.TestVersions.Where(version => version.Id != "002").ToArray();
             runMissingVersions.In.Scripts = RunTest.TestScripts;
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>(
                 task => versions.AddRange(task.In.Scripts.Select(script => script.VersionId)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
@@ -110,7 +110,7 @@ namespace Tests.Sql.Tasks
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
             runMissingVersions.In.Scripts = RunTest.TestScripts.Reverse().ToArray();
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>(
                 task => runOrder.AddRange(task.In.Scripts.Select(script => script.FileName)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 

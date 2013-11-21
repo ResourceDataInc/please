@@ -13,7 +13,7 @@ namespace Library.Sql.Tasks
             public Script[] Scripts { get; set; }
         }
 
-        public RunSqlScripts RunSqlScripts { get; set; }
+        public RunScripts RunScripts { get; set; }
         public InsertInstalledVersion InsertInstalledVersion { get; set; }
 
         public override void Execute()
@@ -36,9 +36,9 @@ namespace Library.Sql.Tasks
                     Console.WriteLine("{0} scripts were found for version {1}.",
                                       sqlScriptsForMissingVersion.Count(),
                                       missingVersionId);
-                    RunSqlScripts.In.ConnectionName = In.ConnectionName;
-                    RunSqlScripts.In.Scripts = sqlScriptsForMissingVersion.ToArray();
-                    RunSqlScripts.Execute();
+                    RunScripts.In.ConnectionName = In.ConnectionName;
+                    RunScripts.In.Scripts = sqlScriptsForMissingVersion.ToArray();
+                    RunScripts.Execute();
 
                     InsertInstalledVersion.In.ConnectionName = In.ConnectionName;
                     InsertInstalledVersion.In.Version = new Version {Id = missingVersionId};

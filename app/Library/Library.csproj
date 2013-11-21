@@ -63,7 +63,7 @@
     <Compile Include="Sql\Tasks\FetchInstalledVersions.cs" />
     <Compile Include="Sql\Tasks\CreateVersionTable.cs" />
     <Compile Include="Sql\Tasks\GetScripts.cs" />
-    <Compile Include="Sql\Tasks\RunSqlScripts.cs" />
+    <Compile Include="Sql\Tasks\RunScripts.cs" />
     <Compile Include="Sql\Tasks\RunMissingVersions.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="ICommand.cs" />

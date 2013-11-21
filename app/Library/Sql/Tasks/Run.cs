@@ -20,16 +20,16 @@ namespace Library.Sql.Tasks
         public GetScripts GetScripts { get; set; }
         public FetchInstalledVersions FetchInstalledVersions { get; set; }
         public RunMissingVersions RunMissingVersions { get; set; }
-        public RunSqlScripts RunSqlScripts { get; set; }
+        public RunScripts RunScripts { get; set; }
 
         public override void Execute()
         {
             if (In.File != null)
             {
                 Console.WriteLine("{0} script was found.", In.File);
-                RunSqlScripts.In.ConnectionName = In.ConnectionName;
-                RunSqlScripts.In.Scripts = new[] { new Script { FileName = In.File, IsVersioned = false} };
-                RunSqlScripts.Execute();
+                RunScripts.In.ConnectionName = In.ConnectionName;
+                RunScripts.In.Scripts = new[] { new Script { FileName = In.File, IsVersioned = false} };
+                RunScripts.Execute();
                 return;
             }
             
@@ -65,9 +65,9 @@ namespace Library.Sql.Tasks
             else
             {
                 Console.WriteLine("{0} scripts were found in {1}.", GetScripts.Out.Scripts.Length, In.Directory);
-                RunSqlScripts.In.ConnectionName = In.ConnectionName;
-                RunSqlScripts.In.Scripts = GetScripts.Out.Scripts;
-                RunSqlScripts.Execute();
+                RunScripts.In.ConnectionName = In.ConnectionName;
+                RunScripts.In.Scripts = GetScripts.Out.Scripts;
+                RunScripts.Execute();
             }
         }
     }

@@ -9,7 +9,7 @@ using Simpler.Data;
 namespace Tests.Sql.Tasks
 {
     [TestFixture]
-    public class RunSqlScriptsTest
+    public class RunScriptsTest
     {
         [Test]
         public void should_run_given_sql_scripts()
@@ -22,15 +22,15 @@ namespace Tests.Sql.Tasks
             createVersionTable.In.ConnectionName = "Test";
             createVersionTable.Execute();
 
-            var runSqlScripts = Task.New<RunSqlScripts>();
-            runSqlScripts.In.ConnectionName = "Test";
-            runSqlScripts.In.Scripts = new[] {new Script {FileName = @"Sql\files\insert-version.sql"}};
+            var runScripts = Task.New<RunScripts>();
+            runScripts.In.ConnectionName = "Test";
+            runScripts.In.Scripts = new[] {new Script {FileName = @"Sql\files\insert-version.sql"}};
 
             // Act
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                runSqlScripts.Execute();
+                runScripts.Execute();
             }
 
             // Assert
@@ -52,15 +52,15 @@ namespace Tests.Sql.Tasks
             createVersionTable.In.ConnectionName = "Test";
             createVersionTable.Execute();
 
-            var runSqlScripts = Task.New<RunSqlScripts>();
-            runSqlScripts.In.ConnectionName = "Test";
-            runSqlScripts.In.Scripts = new[] { new Script { FileName = @"Sql\files\insert-version.sql" } };
+            var runScripts = Task.New<RunScripts>();
+            runScripts.In.ConnectionName = "Test";
+            runScripts.In.Scripts = new[] { new Script { FileName = @"Sql\files\insert-version.sql" } };
 
             // Act
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                runSqlScripts.Execute();
+                runScripts.Execute();
             }
 
             // Assert
@@ -78,15 +78,15 @@ namespace Tests.Sql.Tasks
             File.Delete(@"Sql\files\test.db");
             File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
 
-            var runSqlScripts = Task.New<RunSqlScripts>();
-            runSqlScripts.In.ConnectionName = "Test";
-            runSqlScripts.In.Scripts = new[] {new Script{FileName = @"Sql\files\sql\repeatable\create-four-tables.sql"}};
+            var runScripts = Task.New<RunScripts>();
+            runScripts.In.ConnectionName = "Test";
+            runScripts.In.Scripts = new[] {new Script{FileName = @"Sql\files\sql\repeatable\create-four-tables.sql"}};
 
             // Act
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                runSqlScripts.Execute();
+                runScripts.Execute();
             }
 
             // Assert

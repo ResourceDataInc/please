@@ -40,7 +40,7 @@ namespace Tests.Sql.Tasks
             run.GetScripts = Fake.Task<GetScripts>(gss => gss.Out.Scripts = new Script[0]);
             run.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             run.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            run.RunScripts = Fake.Task<RunScripts>();
 
             // Act
             using (var sw = new StringWriter())
@@ -65,7 +65,7 @@ namespace Tests.Sql.Tasks
             run.GetScripts = Fake.Task<GetScripts>();
             run.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             run.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            run.RunScripts = Fake.Task<RunScripts>();
 
             // Act
             run.Execute();
@@ -85,7 +85,7 @@ namespace Tests.Sql.Tasks
             run.GetScripts = Fake.Task<GetScripts>();
             run.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             run.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            run.RunScripts = Fake.Task<RunScripts>();
 
             // Act
             run.Execute();
@@ -114,7 +114,7 @@ namespace Tests.Sql.Tasks
                 });
             run.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             run.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            run.RunScripts = Fake.Task<RunScripts>();
 
             // Act
             using (var sw = new StringWriter())
@@ -144,7 +144,7 @@ namespace Tests.Sql.Tasks
                 Fake.Task<GetScripts>(gss => passedDirectory = gss.In.Directory);
             run.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             run.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            run.RunScripts = Fake.Task<RunScripts>();
 
             // Act
             run.Execute();
@@ -170,7 +170,7 @@ namespace Tests.Sql.Tasks
             run.FetchInstalledVersions =
                 Fake.Task<FetchInstalledVersions>(fiv => passedConnectionName = fiv.In.ConnectionName);
             run.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            run.RunScripts = Fake.Task<RunScripts>();
 
             // Act
             run.Execute();
@@ -191,7 +191,7 @@ namespace Tests.Sql.Tasks
             run.In.File = "001_first.sql";
             run.In.ConnectionName = connectionNameArgument;
             run.In.WithVersioning = false;
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>(rss => passedConnectionName = rss.In.ConnectionName);
+            run.RunScripts = Fake.Task<RunScripts>(rss => passedConnectionName = rss.In.ConnectionName);
 
             // Act
             using (var sw = new StringWriter())
@@ -201,7 +201,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(run.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
+            Assert.That(run.RunScripts.Stats.ExecuteCount, Is.GreaterThan(0));
             Assert.That(passedConnectionName, Is.EqualTo(connectionNameArgument));
         }
 
@@ -221,7 +221,7 @@ namespace Tests.Sql.Tasks
                 Fake.Task<GetScripts>(gss => gss.Out.Scripts = TestScripts);
             run.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             run.RunMissingVersions = Fake.Task<RunMissingVersions>();
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>(rss => passedConnectionName = rss.In.ConnectionName);
+            run.RunScripts = Fake.Task<RunScripts>(rss => passedConnectionName = rss.In.ConnectionName);
 
             // Act
             using (var sw = new StringWriter())
@@ -231,7 +231,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(run.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
+            Assert.That(run.RunScripts.Stats.ExecuteCount, Is.GreaterThan(0));
             Assert.That(passedConnectionName, Is.EqualTo(connectionNameArgument));
         }
 
@@ -251,7 +251,7 @@ namespace Tests.Sql.Tasks
             run.FetchInstalledVersions = Fake.Task<FetchInstalledVersions>();
             run.RunMissingVersions =
                 Fake.Task<RunMissingVersions>(rmm => passedConnectionName = rmm.In.ConnectionName);
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            run.RunScripts = Fake.Task<RunScripts>();
 
             // Act
             run.Execute();
@@ -284,7 +284,7 @@ namespace Tests.Sql.Tasks
                                                         passedSqlScripts = rmm.In.Scripts;
                                                         passedVersions = rmm.In.InstalledVersions;
                                                     });
-            run.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            run.RunScripts = Fake.Task<RunScripts>();
 
             // Act
             run.Execute();

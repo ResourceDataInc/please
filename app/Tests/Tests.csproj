@@ -76,7 +76,7 @@
     <Compile Include="Sql\Tasks\FetchInstalledVersionsTest.cs" />
     <Compile Include="Sql\Tasks\CreateVersionTableTest.cs" />
     <Compile Include="Sql\Tasks\GetScriptsTest.cs" />
-    <Compile Include="Sql\Tasks\RunSqlScriptsTest.cs" />
+    <Compile Include="Sql\Tasks\RunScriptsTest.cs" />
     <Compile Include="Releases\Tasks\BumpNuspecTest.cs" />
     <Compile Include="Releases\Tasks\BumpAssemblyInfoTest.cs" />
     <Compile Include="Releases\Tasks\BumpScriptTest.cs" />

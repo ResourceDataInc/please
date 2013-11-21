@@ -21,13 +21,13 @@ namespace Tests.Sql.Tasks
             createVersionTable.In.ConnectionName = "Test";
             createVersionTable.Execute();
 
-            var runSqlScripts = Task.New<RunSqlScripts>();
-            runSqlScripts.In.ConnectionName = "Test";
-            runSqlScripts.In.Scripts = new[] {new Script {FileName = @"Sql\files\insert-version.sql"}};
+            var runScripts = Task.New<RunScripts>();
+            runScripts.In.ConnectionName = "Test";
+            runScripts.In.Scripts = new[] {new Script {FileName = @"Sql\files\insert-version.sql"}};
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                runSqlScripts.Execute();
+                runScripts.Execute();
             }
 
             var fetchInstalledVersions = Task.New<FetchInstalledVersions>();

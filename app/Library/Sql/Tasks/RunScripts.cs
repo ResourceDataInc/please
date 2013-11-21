@@ -5,7 +5,7 @@ using Simpler.Data;
 
 namespace Library.Sql.Tasks
 {
-    public class RunSqlScripts : InOutTask<RunSqlScripts.Input, RunSqlScripts.Output>
+    public class RunScripts : InOutTask<RunScripts.Input, RunScripts.Output>
     {
         public class Input
         {
