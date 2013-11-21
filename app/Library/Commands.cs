@@ -81,6 +81,11 @@ namespace Library
                                     },
                                 new Option<RunSql>
                                     {
+                                        Pattern = @"file (?<File>" + Path + FileOrDirectory + ")",
+                                        Action = (task, match) => task.In.File = match.Groups["File"].Value.Trim()
+                                    },
+                                new Option<RunSql>
+                                    {
                                         Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
                                         Action = (task, match) => task.In.Directory = match.Groups["Directory"].Value.Trim()
                                     },

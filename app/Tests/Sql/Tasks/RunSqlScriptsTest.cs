@@ -42,6 +42,36 @@ namespace Tests.Sql.Tasks
         }
 
         [Test]
+        public void should_run_given_sql_script()
+        {
+            // Arrange
+            File.Delete(@"Sql\files\test.db");
+            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
+
+            var createVersionTable = Task.New<CreateVersionTable>();
+            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.Execute();
+
+            var runSqlScripts = Task.New<RunSqlScripts>();
+            runSqlScripts.In.ConnectionName = "Test";
+            runSqlScripts.In.SqlScripts = new[] { new SqlScript { FileName = @"Sql\files\insert-version.sql" } };
+
+            // Act
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                runSqlScripts.Execute();
+            }
+
+            // Assert
+            using (var connection = Db.Connect("Test"))
+            {
+                var count = Db.GetScalar(connection, "select count(1) from db_version;");
+                Assert.That(Convert.ToInt32(count), Is.EqualTo(1));
+            }
+        }
+
+        [Test]
         public void should_split_sql_if_it_contains_GO_keyword()
         {
             // Arrange

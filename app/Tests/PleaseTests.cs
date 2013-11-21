@@ -173,6 +173,33 @@ namespace Tests
         }
 
         [Test]
+        public void should_run_sql_file()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory\test.sql",
+                        @"Some\Directory\test.sql",
+                        @".\SomeDirectory\test.sql",
+                        @"\\SomeDirectory\test.sql",
+                        @"c:\SomeDirectory\test.sql",
+                        @"Some Directory\test.sql",
+                        @".\Some Directory\test.sql",
+                        @"c:\Some Directory\test.sql"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("run sql file {0} on DEV", directory);
+                var runSql = ShouldExecute<RunSql>(commandText);
+
+                Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(runSql.In.File, Is.EqualTo(directory));
+            }
+        }
+
+
+        [Test]
         public void should_run_sql_include_whitelist_in_directory()
         {
             const string whitelistFile = @".\whitelist.txt";
