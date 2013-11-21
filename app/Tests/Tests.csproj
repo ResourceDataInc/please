@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="PleaseTests.cs" />
     <Compile Include="Sql\Tasks\CheckForVersionTableTest.cs" />
+    <Compile Include="Sql\Tasks\RunProcessTest.cs" />
     <Compile Include="Sql\Tasks\SplitSqlOnGoTest.cs" />
     <Compile Include="Sql\Tasks\RunTest.cs" />
     <Compile Include="Sql\Tasks\InsertInstalledVersionTest.cs" />
@@ -90,7 +91,10 @@
     <Content Include="Sql\files\insert-version.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\py\hello.py">
+    <Content Include="Sql\files\py\2_error.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sql\files\py\1_hello.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sql\files\sql\repeatable\create-four-tables.sql">

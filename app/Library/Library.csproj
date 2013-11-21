@@ -58,6 +58,7 @@
     <Compile Include="Sql\Tasks\CheckForVersionTable.cs" />
     <Compile Include="Sql\Tasks\InsertInstalledVersion.cs" />
     <Compile Include="Sql\Tasks\Run.cs" />
+    <Compile Include="Sql\Tasks\RunProcess.cs" />
     <Compile Include="Sql\Tasks\SplitSqlOnGo.cs" />
     <Compile Include="Sql\Version.cs" />
     <Compile Include="Sql\Tasks\FetchInstalledVersions.cs" />

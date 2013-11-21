@@ -36,7 +36,8 @@ namespace Tests.Sql.Tasks
             getSqlScripts.Execute();
 
             // Assert
-            const string expectedFileName = @"Sql\files\py\hello.py";
+            const string expectedFileName = @"Sql\files\py\1_hello.py";
+            Assert.That(getSqlScripts.Out.Scripts.Length, Is.EqualTo(2));
             Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(expectedFileName));
         }
 
