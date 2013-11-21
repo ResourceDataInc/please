@@ -1,4 +1,4 @@
-﻿namespace Library.Sql
+﻿namespace Library.Scripts
 {
     public class Version
     {

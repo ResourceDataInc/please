@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Simpler;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
     public class RunProcess : InOutTask<RunProcess.Input, RunProcess.Output>
     {

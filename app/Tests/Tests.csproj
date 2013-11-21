@@ -69,53 +69,59 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="PleaseTests.cs" />
-    <Compile Include="Sql\Tasks\CheckForVersionTableTest.cs" />
-    <Compile Include="Sql\Tasks\RunSqlTest.cs" />
-    <Compile Include="Sql\Tasks\RunProcessTest.cs" />
-    <Compile Include="Sql\Tasks\SplitSqlOnGoTest.cs" />
-    <Compile Include="Sql\Tasks\RunTest.cs" />
-    <Compile Include="Sql\Tasks\InsertInstalledVersionTest.cs" />
-    <Compile Include="Sql\Tasks\FetchInstalledVersionsTest.cs" />
-    <Compile Include="Sql\Tasks\CreateVersionTableTest.cs" />
-    <Compile Include="Sql\Tasks\GetScriptsTest.cs" />
-    <Compile Include="Sql\Tasks\RunScriptsTest.cs" />
+    <Compile Include="Scripts\Tasks\CheckForVersionTableTest.cs" />
+    <Compile Include="Scripts\Tasks\RunSqlTest.cs" />
+    <Compile Include="Scripts\Tasks\RunProcessTest.cs" />
+    <Compile Include="Scripts\Tasks\SplitSqlOnGoTest.cs" />
+    <Compile Include="Scripts\Tasks\RunTest.cs" />
+    <Compile Include="Scripts\Tasks\InsertInstalledVersionTest.cs" />
+    <Compile Include="Scripts\Tasks\FetchInstalledVersionsTest.cs" />
+    <Compile Include="Scripts\Tasks\CreateVersionTableTest.cs" />
+    <Compile Include="Scripts\Tasks\GetScriptsTest.cs" />
+    <Compile Include="Scripts\Tasks\RunScriptsTest.cs" />
     <Compile Include="Releases\Tasks\BumpNuspecTest.cs" />
     <Compile Include="Releases\Tasks\BumpAssemblyInfoTest.cs" />
     <Compile Include="Releases\Tasks\BumpScriptTest.cs" />
     <Compile Include="Releases\Tasks\BumpFileTest.cs" />
-    <Compile Include="Sql\Tasks\RunMissingVersionsTest.cs" />
+    <Compile Include="Scripts\Tasks\RunMissingVersionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Timestamp\Tasks\GetFilesTest.cs" />
     <Compile Include="Timestamp\Tasks\AddTimestampTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sql\files\insert-version.sql">
+    <Content Include="Scripts\files\insert-version.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\py\2_error.py">
+    <Content Include="Scripts\files\py\2_error.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\py\1_hello.py">
+    <Content Include="Scripts\files\py\1_hello.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\sql\repeatable\create-four-tables.sql">
+    <Content Include="Scripts\files\sql\repeatable\create-four-tables.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\sql\versioned\000001_create-testing-table.sql">
+    <Content Include="Scripts\files\sql\versioned\000001_create-testing-table.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\sql\versioned\000002_001.sql">
+    <Content Include="Scripts\files\sql\versioned\000002_001.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\sql\versioned\000002_002.sql">
+    <Content Include="Scripts\files\sql\versioned\000002_002.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\sql\versioned\000003_do-something-else.sql">
+    <Content Include="Scripts\files\sql\versioned\000003_do-something-else.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sql\files\sql\versioned\whitelist.txt">
+    <Content Include="Scripts\files\sql\versioned\whitelist.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Scripts\files\empty.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\files\test.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Timestamp\files\20130226153530_timestampedFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -150,12 +156,6 @@
     <Content Include="Releases\files\Script_Before.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Sql\files\empty.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Sql\files\test.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using Library.Sql.Tasks;
+using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Sql.Tasks
+namespace Tests.Scripts.Tasks
 {
     [TestFixture]
     public class CheckForVersionTableTest
@@ -12,8 +12,8 @@ namespace Tests.Sql.Tasks
         public void should_find_version_table_if_it_exists()
         {
             // Arrange
-            File.Delete(@"Sql\files\test.db");
-            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
+            File.Delete(@"Scripts\files\test.db");
+            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -33,8 +33,8 @@ namespace Tests.Sql.Tasks
         public void should_not_find_version_table_if_it_does_not_exist()
         {
             // Arrange
-            File.Delete(@"Sql\files\test.db");
-            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
+            File.Delete(@"Scripts\files\test.db");
+            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
 
             var checkForVersionTable = Task.New<CheckForVersionTable>();
             checkForVersionTable.In.ConnectionName = "Test";

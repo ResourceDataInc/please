@@ -10,7 +10,6 @@ _ReSharper.*
 *.swp
 *.ReSharper.user
 *.DotSettings.user
-*.db
 *.dmp
 *.log
 !.gitignore

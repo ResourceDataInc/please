@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using Library.Sql;
-using Library.Sql.Tasks;
+using Library.Scripts;
+using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Sql.Tasks
+namespace Tests.Scripts.Tasks
 {
     [TestFixture]
     public class FetchInstalledVersionsTest
@@ -14,8 +14,8 @@ namespace Tests.Sql.Tasks
         public void should_fetch_installed_versions()
         {
             // Arrange
-            File.Delete(@"Sql\files\test.db");
-            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
+            File.Delete(@"Scripts\files\test.db");
+            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -23,7 +23,7 @@ namespace Tests.Sql.Tasks
 
             var runScripts = Task.New<RunScripts>();
             runScripts.In.ConnectionName = "Test";
-            runScripts.In.Scripts = new[] {new Script {FileName = @"Sql\files\insert-version.sql"}};
+            runScripts.In.Scripts = new[] {new Script {FileName = @"Scripts\files\insert-version.sql"}};
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);

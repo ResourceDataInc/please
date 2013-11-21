@@ -3,7 +3,7 @@ using System.IO;
 using Simpler;
 using Simpler.Data;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
     public class RunSql : InOutTask<RunSql.Input, RunSql.Output>
     {

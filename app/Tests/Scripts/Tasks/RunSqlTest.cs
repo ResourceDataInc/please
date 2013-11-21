@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using Library.Sql;
-using Library.Sql.Tasks;
+using Library.Scripts;
+using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
 using Simpler.Data;
 
-namespace Tests.Sql.Tasks
+namespace Tests.Scripts.Tasks
 {
     [TestFixture]
     public class RunSqlTest
@@ -15,8 +15,8 @@ namespace Tests.Sql.Tasks
         public void should_run_sql()
         {
             // Arrange
-            File.Delete(@"Sql\files\test.db");
-            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
+            File.Delete(@"Scripts\files\test.db");
+            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -24,7 +24,7 @@ namespace Tests.Sql.Tasks
 
             var runScripts = Task.New<RunSql>();
             runScripts.In.ConnectionName = "Test";
-            runScripts.In.Sql = new Script {FileName = @"Sql\files\insert-version.sql"};
+            runScripts.In.Sql = new Script {FileName = @"Scripts\files\insert-version.sql"};
 
             // Act
             using (var sw = new StringWriter())
@@ -45,12 +45,12 @@ namespace Tests.Sql.Tasks
         public void should_split_sql_if_it_contains_GO_keyword()
         {
             // Arrange
-            File.Delete(@"Sql\files\test.db");
-            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
+            File.Delete(@"Scripts\files\test.db");
+            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
 
             var runScripts = Task.New<RunSql>();
             runScripts.In.ConnectionName = "Test";
-            runScripts.In.Sql = new Script{FileName = @"Sql\files\sql\repeatable\create-four-tables.sql"};
+            runScripts.In.Sql = new Script{FileName = @"Scripts\files\sql\repeatable\create-four-tables.sql"};
 
             // Act
             using (var sw = new StringWriter())

@@ -1,15 +1,13 @@
-﻿using System;
-using Simpler;
+﻿using Simpler;
 using Simpler.Data;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
-    public class InsertInstalledVersion : InOutTask<InsertInstalledVersion.Input, InsertInstalledVersion.Output>
+    public class CreateVersionTable : InOutTask<CreateVersionTable.Input, CreateVersionTable.Output>
     {
         public class Input
         {
             public string ConnectionName { get; set; }
-            public Version Version { get; set; }
         }
 
         public class Output
@@ -19,9 +17,7 @@ namespace Library.Sql.Tasks
 
         public override void Execute()
         {
-            var sql = @"INSERT INTO db_version (version) VALUES ('{0}');";
-
-            sql = String.Format(sql, In.Version.Id);
+            const string sql = @"CREATE TABLE db_version (version NVARCHAR(255) NOT NULL UNIQUE);";
 
             using (var connection = Db.Connect(In.ConnectionName))
             {

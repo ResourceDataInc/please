@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using Simpler;
 using System.Linq;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
     public class GetScripts : InOutTask<GetScripts.Input, GetScripts.Output>
     {

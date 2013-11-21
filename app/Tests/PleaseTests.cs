@@ -3,7 +3,7 @@ using System.IO;
 using Library;
 using Library.Releases;
 using Library.Releases.Tasks;
-using Library.Sql.Tasks;
+using Library.Scripts.Tasks;
 using Library.Timestamp.Tasks;
 using NUnit.Framework;
 using Simpler;

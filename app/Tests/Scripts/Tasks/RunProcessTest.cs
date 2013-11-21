@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using Library.Sql.Tasks;
+using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Sql.Tasks
+namespace Tests.Scripts.Tasks
 {
     [TestFixture]
     public class RunProcessTest
@@ -15,7 +15,7 @@ namespace Tests.Sql.Tasks
             // Arrange
             var run = Task.New<RunProcess>();
             run.In.FileName = "python";
-            run.In.Arguments = @"Sql\files\py\1_hello.py";
+            run.In.Arguments = @"Scripts\files\py\1_hello.py";
 
             // Act
             string output;
@@ -37,7 +37,7 @@ namespace Tests.Sql.Tasks
             // Arrange
             var run = Task.New<RunProcess>();
             run.In.FileName = "python";
-            run.In.Arguments = @"Sql\files\py\2_error.py";
+            run.In.Arguments = @"Scripts\files\py\2_error.py";
 
             // Act
             string output;

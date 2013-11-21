@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using Simpler;
-using Simpler.Data;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
     public class RunScripts : InOutTask<RunScripts.Input, RunScripts.Output>
     {

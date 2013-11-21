@@ -1,12 +1,10 @@
 ﻿using System;
-using System.IO;
-using Library.Sql;
-using Library.Sql.Tasks;
+using Library.Scripts;
+using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
-using Simpler.Data;
 
-namespace Tests.Sql.Tasks
+namespace Tests.Scripts.Tasks
 {
     [TestFixture]
     public class RunScriptsTest

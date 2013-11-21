@@ -1,7 +1,7 @@
 ﻿using System;
 using Simpler;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
     public class Run : InTask<Run.Input>
     {
