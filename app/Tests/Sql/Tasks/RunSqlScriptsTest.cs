@@ -24,7 +24,7 @@ namespace Tests.Sql.Tasks
 
             var runSqlScripts = Task.New<RunSqlScripts>();
             runSqlScripts.In.ConnectionName = "Test";
-            runSqlScripts.In.SqlScripts = new[] {new SqlScript {FileName = @"Sql\files\insert-version.sql"}};
+            runSqlScripts.In.Scripts = new[] {new Script {FileName = @"Sql\files\insert-version.sql"}};
 
             // Act
             using (var sw = new StringWriter())
@@ -54,7 +54,7 @@ namespace Tests.Sql.Tasks
 
             var runSqlScripts = Task.New<RunSqlScripts>();
             runSqlScripts.In.ConnectionName = "Test";
-            runSqlScripts.In.SqlScripts = new[] { new SqlScript { FileName = @"Sql\files\insert-version.sql" } };
+            runSqlScripts.In.Scripts = new[] { new Script { FileName = @"Sql\files\insert-version.sql" } };
 
             // Act
             using (var sw = new StringWriter())
@@ -80,7 +80,7 @@ namespace Tests.Sql.Tasks
 
             var runSqlScripts = Task.New<RunSqlScripts>();
             runSqlScripts.In.ConnectionName = "Test";
-            runSqlScripts.In.SqlScripts = new[] {new SqlScript{FileName = @"Sql\files\sql\repeatable\create-four-tables.sql"}};
+            runSqlScripts.In.Scripts = new[] {new Script{FileName = @"Sql\files\sql\repeatable\create-four-tables.sql"}};
 
             // Act
             using (var sw = new StringWriter())

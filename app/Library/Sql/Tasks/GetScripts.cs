@@ -19,13 +19,13 @@ namespace Library.Sql.Tasks
 
         public class Output
         {
-            public SqlScript[] SqlScripts { get; set; }
+            public Script[] Scripts { get; set; }
         }
 
         public override void Execute()
         {
             const string versionedPattern = @"^(?<Version>\d+)[_]";
-            var sqlScripts = new List<SqlScript>();
+            var scripts = new List<Script>();
             var fileNames = Directory.GetFiles(In.Directory);
 
             var checkWhitelist = false;
@@ -55,7 +55,7 @@ namespace Library.Sql.Tasks
                 {
                     var match = Regex.Match(fileNameWithoutPath, versionedPattern);
                     var fileIsVersioned = match.Groups.Count == 2;
-                    var script = new SqlScript
+                    var script = new Script
                     {
                         FileName = fileName,
                         IsVersioned = fileIsVersioned,
@@ -65,11 +65,11 @@ namespace Library.Sql.Tasks
                     Check.That(!In.CheckForVersionedFilesOnly || (In.CheckForVersionedFilesOnly && script.IsVersioned),
                                "Expected to find version number at the beginning of file {0}.", fileNameWithoutPath);
 
-                    sqlScripts.Add(script);
+                    scripts.Add(script);
                 }
             }
 
-            Out.SqlScripts = sqlScripts.ToArray();
+            Out.Scripts = scripts.ToArray();
         }
     }
 }

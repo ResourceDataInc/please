@@ -3,7 +3,7 @@ using Simpler;
 
 namespace Library.Sql.Tasks
 {
-    public class RunSql : InTask<RunSql.Input>
+    public class Run : InTask<Run.Input>
     {
         public class Input
         {
@@ -28,7 +28,7 @@ namespace Library.Sql.Tasks
             {
                 Console.WriteLine("{0} script was found.", In.File);
                 RunSqlScripts.In.ConnectionName = In.ConnectionName;
-                RunSqlScripts.In.SqlScripts = new[] { new SqlScript { FileName = In.File, IsVersioned = false} };
+                RunSqlScripts.In.Scripts = new[] { new Script { FileName = In.File, IsVersioned = false} };
                 RunSqlScripts.Execute();
                 return;
             }
@@ -58,15 +58,15 @@ namespace Library.Sql.Tasks
             if (In.WithVersioning)
             {
                 RunMissingVersions.In.ConnectionName = In.ConnectionName;
-                RunMissingVersions.In.SqlScripts = GetScripts.Out.SqlScripts;
+                RunMissingVersions.In.Scripts = GetScripts.Out.Scripts;
                 RunMissingVersions.In.InstalledVersions = FetchInstalledVersions.Out.Versions;
                 RunMissingVersions.Execute();
             }
             else
             {
-                Console.WriteLine("{0} scripts were found in {1}.", GetScripts.Out.SqlScripts.Length, In.Directory);
+                Console.WriteLine("{0} scripts were found in {1}.", GetScripts.Out.Scripts.Length, In.Directory);
                 RunSqlScripts.In.ConnectionName = In.ConnectionName;
-                RunSqlScripts.In.SqlScripts = GetScripts.Out.SqlScripts;
+                RunSqlScripts.In.Scripts = GetScripts.Out.Scripts;
                 RunSqlScripts.Execute();
             }
         }

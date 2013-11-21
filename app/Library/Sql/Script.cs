@@ -1,6 +1,6 @@
 ﻿namespace Library.Sql
 {
-    public class SqlScript
+    public class Script
     {
         public string FileName { get; set; }
         public bool IsVersioned { get; set; }

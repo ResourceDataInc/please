@@ -10,7 +10,7 @@ namespace Library.Sql.Tasks
         {
             public string ConnectionName { get; set; }
             public Version[] InstalledVersions { get; set; }
-            public SqlScript[] SqlScripts { get; set; }
+            public Script[] Scripts { get; set; }
         }
 
         public RunSqlScripts RunSqlScripts { get; set; }
@@ -18,7 +18,7 @@ namespace Library.Sql.Tasks
 
         public override void Execute()
         {
-            var allVersionIds = In.SqlScripts
+            var allVersionIds = In.Scripts
                 .OrderBy(m => m.VersionId)
                 .Select(m => m.VersionId).Distinct();
 
@@ -29,7 +29,7 @@ namespace Library.Sql.Tasks
                     var missingVersionId = versionId;
                     Console.WriteLine("{0} not installed - running sql scripts.", missingVersionId);
 
-                    var sqlScriptsForMissingVersion = In.SqlScripts
+                    var sqlScriptsForMissingVersion = In.Scripts
                         .Where(m => m.VersionId == missingVersionId)
                         .OrderBy(m => m.FileName);
 
@@ -37,7 +37,7 @@ namespace Library.Sql.Tasks
                                       sqlScriptsForMissingVersion.Count(),
                                       missingVersionId);
                     RunSqlScripts.In.ConnectionName = In.ConnectionName;
-                    RunSqlScripts.In.SqlScripts = sqlScriptsForMissingVersion.ToArray();
+                    RunSqlScripts.In.Scripts = sqlScriptsForMissingVersion.ToArray();
                     RunSqlScripts.Execute();
 
                     InsertInstalledVersion.In.ConnectionName = In.ConnectionName;

@@ -71,7 +71,7 @@
     <Compile Include="PleaseTests.cs" />
     <Compile Include="Sql\Tasks\CheckForVersionTableTest.cs" />
     <Compile Include="Sql\Tasks\SplitSqlOnGoTest.cs" />
-    <Compile Include="Sql\Tasks\RunSqlTest.cs" />
+    <Compile Include="Sql\Tasks\RunTest.cs" />
     <Compile Include="Sql\Tasks\InsertInstalledVersionTest.cs" />
     <Compile Include="Sql\Tasks\FetchInstalledVersionsTest.cs" />
     <Compile Include="Sql\Tasks\CreateVersionTableTest.cs" />

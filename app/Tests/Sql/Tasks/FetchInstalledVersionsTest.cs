@@ -23,7 +23,7 @@ namespace Tests.Sql.Tasks
 
             var runSqlScripts = Task.New<RunSqlScripts>();
             runSqlScripts.In.ConnectionName = "Test";
-            runSqlScripts.In.SqlScripts = new[] {new SqlScript {FileName = @"Sql\files\insert-version.sql"}};
+            runSqlScripts.In.Scripts = new[] {new Script {FileName = @"Sql\files\insert-version.sql"}};
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);

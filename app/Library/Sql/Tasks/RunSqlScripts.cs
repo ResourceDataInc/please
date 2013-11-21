@@ -10,7 +10,7 @@ namespace Library.Sql.Tasks
         public class Input
         {
             public string ConnectionName { get; set; }
-            public SqlScript[] SqlScripts { get; set; }
+            public Script[] Scripts { get; set; }
         }
 
         public class Output
@@ -22,12 +22,12 @@ namespace Library.Sql.Tasks
 
         public override void Execute()
         {
-            foreach (var sqlScript in In.SqlScripts)
+            foreach (var script in In.Scripts)
             {
-                var fileName = Path.GetFileName(sqlScript.FileName);
+                var fileName = Path.GetFileName(script.FileName);
                 try
                 {
-                    var sql = File.ReadAllText(sqlScript.FileName);
+                    var sql = File.ReadAllText(script.FileName);
 
                     SplitSqlOnGo.In.Sql = sql;
                     SplitSqlOnGo.Execute();

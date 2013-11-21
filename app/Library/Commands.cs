@@ -62,14 +62,14 @@ namespace Library
                             }
             };
 
-        static readonly Command<RunSql> RunSql =
-            new Command<RunSql>
+        static readonly Command<Run> RunSql =
+            new Command<Run>
             {
                 Name = "run sql",
                 Options =
                     new[]
                             {
-                                new Option<RunSql>
+                                new Option<Run>
                                     {
                                         Pattern = "with versioning",
                                         Action = (task, match) =>
@@ -78,7 +78,7 @@ namespace Library
                                                          task.In.WithVersioning = true;
                                                      }
                                     },
-                                new Option<RunSql>
+                                new Option<Run>
                                     {
                                         Pattern = @"on (?<ConnectionName>\w+)",
                                         Action = (task, match) =>
@@ -87,7 +87,7 @@ namespace Library
                                                          task.In.ConnectionName = match.Groups["ConnectionName"].Value;
                                                      }
                                     },
-                                new Option<RunSql>
+                                new Option<Run>
                                     {
                                         Pattern = @"file (?<File>" + Path + FileOrDirectory + ")",
                                         Action = (task, match) =>
@@ -96,7 +96,7 @@ namespace Library
                                                          task.In.File = match.Groups["File"].Value.Trim();
                                                      }
                                     },
-                                new Option<RunSql>
+                                new Option<Run>
                                     {
                                         Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
                                         Action = (task, match) =>
@@ -105,7 +105,7 @@ namespace Library
                                                          task.In.Directory = match.Groups["Directory"].Value.Trim();
                                                      }
                                     },
-                                new Option<RunSql>
+                                new Option<Run>
                                     {
                                         Pattern = @"include (?<Whitelist>" + Path + FileOrDirectory + ")",
                                         Action = (task, match) =>

@@ -20,8 +20,8 @@ namespace Tests.Sql.Tasks
 
             // Assert
             const string expectedFileName = @"Sql\files\sql\versioned\000001_create-testing-table.sql";
-            Assert.That(getSqlScripts.Out.SqlScripts.Length, Is.EqualTo(4));
-            Assert.That(getSqlScripts.Out.SqlScripts[0].FileName, Is.EqualTo(expectedFileName));
+            Assert.That(getSqlScripts.Out.Scripts.Length, Is.EqualTo(4));
+            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(expectedFileName));
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace Tests.Sql.Tasks
 
             // Assert
             const string expectedFileName = @"Sql\files\py\hello.py";
-            Assert.That(getSqlScripts.Out.SqlScripts[0].FileName, Is.EqualTo(expectedFileName));
+            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(expectedFileName));
         }
 
         [Test]
@@ -54,9 +54,9 @@ namespace Tests.Sql.Tasks
             getSqlScripts.Execute();
 
             // Assert
-            Assert.That(getSqlScripts.Out.SqlScripts.Length, Is.EqualTo(2));
-            Assert.That(getSqlScripts.Out.SqlScripts[0].FileName, Is.EqualTo(@"Sql\files\sql\versioned\000002_001.sql"));
-            Assert.That(getSqlScripts.Out.SqlScripts[1].FileName, Is.EqualTo(@"Sql\files\sql\versioned\000002_002.sql"));
+            Assert.That(getSqlScripts.Out.Scripts.Length, Is.EqualTo(2));
+            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(@"Sql\files\sql\versioned\000002_001.sql"));
+            Assert.That(getSqlScripts.Out.Scripts[1].FileName, Is.EqualTo(@"Sql\files\sql\versioned\000002_002.sql"));
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Tests.Sql.Tasks
             getSqlScripts.Execute();
 
             // Assert
-            var script = getSqlScripts.Out.SqlScripts[0];
+            var script = getSqlScripts.Out.Scripts[0];
             const string version = "000001";
             Assert.That(script.IsVersioned, "Expected script to be versioned.");
             Assert.That(script.VersionId, Is.EqualTo(version));
@@ -89,7 +89,7 @@ namespace Tests.Sql.Tasks
             getSqlScripts.Execute();
 
             // Assert
-            var script = getSqlScripts.Out.SqlScripts[0];
+            var script = getSqlScripts.Out.Scripts[0];
             Assert.That(!script.IsVersioned, "Expected script to be unversioned.");
         }
 
