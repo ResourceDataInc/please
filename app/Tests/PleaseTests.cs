@@ -209,6 +209,130 @@ namespace Tests
         }
 
         [Test]
+        public void should_run_py_with_versioning()
+        {
+            var run = ShouldExecute<Run>("run py with versioning on DEV");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.WithVersioning, "Expected with versioning to be true.");
+        }
+
+        [Test]
+        public void should_run_py_without_versioning()
+        {
+            var run = ShouldExecute<Run>("run py");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(!run.In.WithVersioning, "Expected with versioning to be false.");
+        }
+
+        [Test]
+        public void should_run_py_in_directory()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory",
+                        @"Some\Directory",
+                        @".\SomeDirectory",
+                        @"\\SomeDirectory",
+                        @"c:\SomeDirectory",
+                        @"Some Directory",
+                        @".\Some Directory",
+                        @"c:\Some Directory"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("run py in {0}", directory);
+                var run = ShouldExecute<Run>(commandText);
+
+                Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(run.In.Directory, Is.EqualTo(directory));
+            }
+        }
+
+        [Test]
+        public void should_run_py_file()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory\test.py",
+                        @"Some\Directory\test.py",
+                        @".\SomeDirectory\test.py",
+                        @"\\SomeDirectory\test.py",
+                        @"c:\SomeDirectory\test.py",
+                        @"Some Directory\test.py",
+                        @".\Some Directory\test.py",
+                        @"c:\Some Directory\test.py"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("run py file {0}", directory);
+                var run = ShouldExecute<Run>(commandText);
+
+                Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(run.In.File, Is.EqualTo(directory));
+            }
+        }
+
+        [Test]
+        public void should_run_all_with_versioning()
+        {
+            var run = ShouldExecute<Run>("run all with versioning on DEV");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.WithVersioning, "Expected with versioning to be true.");
+        }
+
+        [Test]
+        public void should_run_all_without_versioning()
+        {
+            var run = ShouldExecute<Run>("run all");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(!run.In.WithVersioning, "Expected with versioning to be false.");
+        }
+
+        [Test]
+        public void should_run_all_in_directory()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory",
+                        @"Some\Directory",
+                        @".\SomeDirectory",
+                        @"\\SomeDirectory",
+                        @"c:\SomeDirectory",
+                        @"Some Directory",
+                        @".\Some Directory",
+                        @"c:\Some Directory"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("run all in {0}", directory);
+                var run = ShouldExecute<Run>(commandText);
+
+                Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(run.In.Directory, Is.EqualTo(directory));
+            }
+        }
+
+        [Test]
+        public void should_run_py_include_whitelist_in_directory()
+        {
+            const string whitelistFile = @".\whitelist.txt";
+            var run = ShouldExecute<Run>(@"run sql include " + whitelistFile + @" in .\Directory");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.WhitelistFile, Is.EqualTo(whitelistFile));
+        }
+
+        [Test]
         public void should_add_timestamp_in_directory()
         {
             var directories =

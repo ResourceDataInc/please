@@ -18,7 +18,7 @@ See release\bump.bat for an example.
 * `in .\file` specifies the file containing the version reference
 
 ## run sql
-Command for running a single sql file or a batch of .sql files in a directory on a given database.
+Command for running a single .sql file or a batch of .sql files in a directory on a given database.
 
 ### Usage
 * `please run sql file .\script.sql on DATABASE`
@@ -32,6 +32,35 @@ Command for running a single sql file or a batch of .sql files in a directory on
 * `on DATABASE` specifies the name of the database connectionString in please.exe.config
 * `with versioning` uses the version number prepended to the .sql file (e.g. 20130901000000_create-table.sql) to ensure the .sql file is only ran once on the given database
 * `include .\whitelist.txt` specifies a file containing the list of .sql files to run if found in the given .\directory
+
+## run py
+Command for running a single .py file or a batch of .py files in a directory on a given database.
+
+### Usage
+* `please run py file .\script.py`
+* `please run py with versioning in .\directory on DATABASE`
+* `please run py include .\whitelist.txt in .\directory on DATABASE`
+
+### Options
+* `file .\script.py` specifies an individual sql file to run
+* `in .\directory` specifies the directory containing the .py files
+* `on DATABASE` specifies the name of the database connectionString in please.exe.config
+* `with versioning` uses the version number prepended to the .py file (e.g. 20130901000000_create-table.sql) to ensure the .py file is only ran once
+* `include .\whitelist.txt` specifies a file containing the list of .py files to run if found in the given .\directory
+
+## run all
+Command for running a batch of .sql and/or .py files in a directory on a given database.
+
+### Usage
+* `please run all in .\directory on DATABASE`
+* `please run all with versioning in .\directory on DATABASE`
+* `please run all include .\whitelist.txt in .\directory on DATABASE`
+
+### Options
+* `in .\directory` specifies the directory containing the .sql and/or .py files
+* `on DATABASE` specifies the name of the database connectionString in please.exe.config
+* `with versioning` uses the version number prepended to the .sql and/or .py file (e.g. 20130901000000_create-table.sql) to ensure the .sql and/or .py file is only ran once
+* `include .\whitelist.txt` specifies a file containing the list of .sql and/or .py files to run if found in the given .\directory
 
 ## add timestamp
 Command for adding a timestamp to all files in a directory that don't already have them.

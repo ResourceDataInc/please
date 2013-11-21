@@ -117,7 +117,108 @@ namespace Library
                             }
             };
 
-        private static readonly Command<AddTimestamp> Timestamp =
+        static readonly Command<Run> RunPy =
+            new Command<Run>
+            {
+                Name = "run py",
+                Options =
+                    new[]
+                            {
+                                new Option<Run>
+                                    {
+                                        Pattern = "with versioning",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".py"};
+                                                         task.In.WithVersioning = true;
+                                                     }
+                                    },
+                                new Option<Run>
+                                    {
+                                        Pattern = @"on (?<ConnectionName>\w+)",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".py"};
+                                                         task.In.ConnectionName = match.Groups["ConnectionName"].Value;
+                                                     }
+                                    },
+                                new Option<Run>
+                                    {
+                                        Pattern = @"file (?<File>" + Path + FileOrDirectory + ")",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".py"};
+                                                         task.In.File = match.Groups["File"].Value.Trim();
+                                                     }
+                                    },
+                                new Option<Run>
+                                    {
+                                        Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".py"};
+                                                         task.In.Directory = match.Groups["Directory"].Value.Trim();
+                                                     }
+                                    },
+                                new Option<Run>
+                                    {
+                                        Pattern = @"include (?<Whitelist>" + Path + FileOrDirectory + ")",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".py"};
+                                                         task.In.WhitelistFile = match.Groups["Whitelist"].Value.Trim();
+                                                     }
+                                    }
+                            }
+            };
+
+        static readonly Command<Run> RunAll =
+            new Command<Run>
+            {
+                Name = "run all",
+                Options =
+                    new[]
+                            {
+                                new Option<Run>
+                                    {
+                                        Pattern = "with versioning",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql", ".py"};
+                                                         task.In.WithVersioning = true;
+                                                     }
+                                    },
+                                new Option<Run>
+                                    {
+                                        Pattern = @"on (?<ConnectionName>\w+)",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql", ".py"};
+                                                         task.In.ConnectionName = match.Groups["ConnectionName"].Value;
+                                                     }
+                                    },
+                                new Option<Run>
+                                    {
+                                        Pattern = @"in (?<Directory>" + Path + FileOrDirectory + ")",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql", ".py"};
+                                                         task.In.Directory = match.Groups["Directory"].Value.Trim();
+                                                     }
+                                    },
+                                new Option<Run>
+                                    {
+                                        Pattern = @"include (?<Whitelist>" + Path + FileOrDirectory + ")",
+                                        Action = (task, match) =>
+                                                     {
+                                                         task.In.Extensions = new[] {".sql", ".py"};
+                                                         task.In.WhitelistFile = match.Groups["Whitelist"].Value.Trim();
+                                                     }
+                                    }
+                            }
+            };
+
+        static readonly Command<AddTimestamp> Timestamp =
             new Command<AddTimestamp>
                 {
                     Name = "add timestamp",
@@ -132,6 +233,6 @@ namespace Library
                         }
                 };
 
-        public static ICommand[] All = {Bump, RunSql, Timestamp};
+        public static ICommand[] All = {Bump, RunSql, RunPy, RunAll, Timestamp};
     }
 }
