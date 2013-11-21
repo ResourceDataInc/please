@@ -34,7 +34,7 @@ Command for running a single .sql file or a batch of .sql files in a directory o
 * `include .\whitelist.txt` specifies a file containing the list of .sql files to run if found in the given .\directory
 
 ## run py
-Command for running a single .py file or a batch of .py files in a directory on a given database.
+Command for running a single .py file or a batch of .py files in a directory.
 
 ### Usage
 * `please run py file .\script.py`
@@ -44,12 +44,12 @@ Command for running a single .py file or a batch of .py files in a directory on 
 ### Options
 * `file .\script.py` specifies an individual sql file to run
 * `in .\directory` specifies the directory containing the .py files
-* `on DATABASE` specifies the name of the database connectionString in please.exe.config
-* `with versioning` uses the version number prepended to the .py file (e.g. 20130901000000_create-table.sql) to ensure the .py file is only ran once
+* `on DATABASE` specifies the name of the database connectionString in please.exe.config (only applicable if combined with `with versioning`)
+* `with versioning` uses the version number prepended to the .py file (e.g. 20130901000000_create-table.py) to ensure the .py file is only ran once
 * `include .\whitelist.txt` specifies a file containing the list of .py files to run if found in the given .\directory
 
 ## run all
-Command for running a batch of .sql and/or .py files in a directory on a given database.
+Command for running a batch of .sql and/or .py files in a directory.
 
 ### Usage
 * `please run all in .\directory on DATABASE`
@@ -58,7 +58,7 @@ Command for running a batch of .sql and/or .py files in a directory on a given d
 
 ### Options
 * `in .\directory` specifies the directory containing the .sql and/or .py files
-* `on DATABASE` specifies the name of the database connectionString in please.exe.config
+* `on DATABASE` specifies the name of the database connectionString in please.exe.config (only applicable to .sql files or if combined with `with versioning`)
 * `with versioning` uses the version number prepended to the .sql and/or .py file (e.g. 20130901000000_create-table.sql) to ensure the .sql and/or .py file is only ran once
 * `include .\whitelist.txt` specifies a file containing the list of .sql and/or .py files to run if found in the given .\directory
 
