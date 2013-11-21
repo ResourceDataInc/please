@@ -54,8 +54,9 @@
     <Compile Include="Command.cs" />
     <Compile Include="Please.cs" />
     <Compile Include="Sql\Script.cs" />
-    <Compile Include="Sql\RunSqlException.cs" />
+    <Compile Include="Sql\RunException.cs" />
     <Compile Include="Sql\Tasks\CheckForVersionTable.cs" />
+    <Compile Include="Sql\Tasks\RunSql.cs" />
     <Compile Include="Sql\Tasks\InsertInstalledVersion.cs" />
     <Compile Include="Sql\Tasks\Run.cs" />
     <Compile Include="Sql\Tasks\RunProcess.cs" />

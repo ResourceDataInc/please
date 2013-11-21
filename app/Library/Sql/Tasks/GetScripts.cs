@@ -40,7 +40,7 @@ namespace Library.Sql.Tasks
             foreach (var fileName in fileNames)
             {
                 var fileNameWithoutPath = Path.GetFileName(fileName);
-                if (fileNameWithoutPath == null) throw new RunSqlException(String.Format("{0} is not a file.", fileName));
+                if (fileNameWithoutPath == null) throw new RunException(String.Format("{0} is not a file.", fileName));
 
                 var fileQualifies = In.Extensions.Contains(Path.GetExtension(fileNameWithoutPath));
 

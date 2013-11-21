@@ -15,38 +15,54 @@ namespace Library.Sql.Tasks
 
         public class Output
         {
-            public int RowsAffected { get; set; }
+            public bool Success { get; set; }
         }
 
-        public SplitSqlOnGo SplitSqlOnGo { get; set; }
+        public RunSql RunSql { get; set; }
+        public RunProcess RunProcess { get; set; }
 
         public override void Execute()
         {
             foreach (var script in In.Scripts)
             {
                 var fileName = Path.GetFileName(script.FileName);
-                try
+                var fileNameWithoutPath = Path.GetFileName(fileName);
+                if (fileNameWithoutPath == null) throw new RunException(String.Format("{0} is not a file.", fileName));
+
+                var extension = Path.GetExtension(fileNameWithoutPath);
+                if (String.Compare(extension, ".sql", StringComparison.OrdinalIgnoreCase) == 0)
                 {
-                    var sql = File.ReadAllText(script.FileName);
-
-                    SplitSqlOnGo.In.Sql = sql;
-                    SplitSqlOnGo.Execute();
-                    var sqlStrings = SplitSqlOnGo.Out.SqlStrings;
-
-                    using (var connection = Db.Connect(In.ConnectionName))
+                    try
                     {
-                        foreach (var sqlString in sqlStrings)
-                        {
-                            Out.RowsAffected += Db.GetResult(connection, sqlString, null, Config.RunSqlTimeout);
-                        }
+                        RunSql.In.ConnectionName = In.ConnectionName;
+                        RunSql.In.Sql = script;
+                        RunSql.Execute();
                     }
-                    Console.WriteLine("  {0} ran successfully.", fileName);
+                    catch
+                    {
+                        Out.Success = false;
+                        return;
+                    }
                 }
-                catch (Exception e)
+                else if (String.Compare(extension, ".py", StringComparison.OrdinalIgnoreCase) == 0)
                 {
-                    throw new RunSqlException(String.Format("{0} failed.\n  Message: {1}", fileName, e.Message));
+                    RunProcess.In.FileName = "python";
+                    RunProcess.In.Arguments = fileName;
+                    RunProcess.Execute();
+
+                    if (RunProcess.Out.ExitCode != 0)
+                    {
+                        Out.Success = false;
+                        return;
+                    }
+                }
+                else
+                {
+                    throw new RunException(String.Format("Don't know how to run {0}.", fileName));
                 }
             }
+
+            Out.Success = true;
         }
     }
 }
