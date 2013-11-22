@@ -27,7 +27,7 @@ namespace Library.Scripts.Tasks
                 if (In.InstalledVersions.All(installed => installed.Id != versionId))
                 {
                     var missingVersionId = versionId;
-                    Console.WriteLine("{0} not installed - running sql scripts.", missingVersionId);
+                    Console.WriteLine("{0} not installed - running scripts.", missingVersionId);
 
                     var sqlScriptsForMissingVersion = In.Scripts
                         .Where(m => m.VersionId == missingVersionId)
