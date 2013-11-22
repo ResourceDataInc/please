@@ -24,7 +24,7 @@ namespace Tests.Scripts.Tasks
 
             var runScripts = Task.New<RunSql>();
             runScripts.In.ConnectionName = "Test";
-            runScripts.In.Sql = new Script {FileName = @"Scripts\files\insert-version.sql"};
+            runScripts.In.Sql = new Script { FileName = @"Scripts\files\sql\insert-version.sql" };
 
             // Act
             using (var sw = new StringWriter())
@@ -38,6 +38,29 @@ namespace Tests.Scripts.Tasks
             {
                 var count = Db.GetScalar(connection, "select count(1) from db_version;");
                 Assert.That(Convert.ToInt32(count), Is.EqualTo(1));
+            }
+        }
+
+        [Test]
+        public void should_capture_sql_errors()
+        {
+            // Arrange
+            File.Delete(@"Scripts\files\test.db");
+            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+
+            var createVersionTable = Task.New<CreateVersionTable>();
+            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.Execute();
+
+            var runScripts = Task.New<RunSql>();
+            runScripts.In.ConnectionName = "Test";
+            runScripts.In.Sql = new Script { FileName = @"Scripts\files\sql\error.sql" };
+
+            // Act & Assert
+            using (var sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+                Assert.Throws<RunException>(runScripts.Execute);
             }
         }
 

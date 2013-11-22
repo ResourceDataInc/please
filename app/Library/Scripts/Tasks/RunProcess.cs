@@ -4,17 +4,12 @@ using Simpler;
 
 namespace Library.Scripts.Tasks
 {
-    public class RunProcess : InOutTask<RunProcess.Input, RunProcess.Output>
+    public class RunProcess : InTask<RunProcess.Input>
     {
         public class Input
         {
             public string FileName { get; set; }
             public string Arguments { get; set; }
-        }
-
-        public class Output
-        {
-            public int ExitCode { get; set; }
         }
 
         public override void Execute()
@@ -43,7 +38,10 @@ namespace Library.Scripts.Tasks
 
                 process.WaitForExit();
 
-                Out.ExitCode = process.ExitCode;
+                if (process.ExitCode != 0)
+                {
+                    throw new RunException(String.Format("{0} failed with arguments {1}.", In.FileName, In.Arguments));
+                }
             }
         }
     }

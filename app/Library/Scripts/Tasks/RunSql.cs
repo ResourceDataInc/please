@@ -5,17 +5,12 @@ using Simpler.Data;
 
 namespace Library.Scripts.Tasks
 {
-    public class RunSql : InOutTask<RunSql.Input, RunSql.Output>
+    public class RunSql : InTask<RunSql.Input>
     {
         public class Input
         {
             public string ConnectionName { get; set; }
             public Script Sql { get; set; }
-        }
-
-        public class Output
-        {
-            public int RowsAffected { get; set; }
         }
 
         public SplitSqlOnGo SplitSqlOnGo { get; set; }
@@ -35,7 +30,7 @@ namespace Library.Scripts.Tasks
                 {
                     foreach (var sqlString in sqlStrings)
                     {
-                        Out.RowsAffected += Db.GetResult(connection, sqlString, null, Config.RunSqlTimeout);
+                        Db.GetResult(connection, sqlString, null, Config.RunSqlTimeout);
                     }
                 }
                 Console.WriteLine("  {0} ran successfully.", fileName);

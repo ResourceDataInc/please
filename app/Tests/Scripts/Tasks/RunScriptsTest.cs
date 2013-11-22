@@ -16,14 +16,13 @@ namespace Tests.Scripts.Tasks
             var runScripts = Task.New<RunScripts>();
             runScripts.In.ConnectionName = "Test";
             runScripts.In.Scripts = new[] {new Script {FileName = @"whatever.sql"}};
-            runScripts.RunSql = Fake.Task<RunSql>(rs => rs.Out.RowsAffected = 1);
-            runScripts.RunProcess = Fake.Task<RunProcess>(rp => rp.Out.ExitCode = 0);
+            runScripts.RunSql = Fake.Task<RunSql>();
+            runScripts.RunProcess = Fake.Task<RunProcess>();
 
             // Act
             runScripts.Execute();
 
             // Assert
-            Assert.That(runScripts.Out.Success, Is.True);
             Assert.That(runScripts.RunSql.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(runScripts.RunProcess.Stats.ExecuteCount, Is.EqualTo(0));
         }
@@ -35,14 +34,13 @@ namespace Tests.Scripts.Tasks
             var runScripts = Task.New<RunScripts>();
             runScripts.In.ConnectionName = "Test";
             runScripts.In.Scripts = new[] {new Script {FileName = @"whatever.py"}};
-            runScripts.RunSql = Fake.Task<RunSql>(rs => rs.Out.RowsAffected = 1);
-            runScripts.RunProcess = Fake.Task<RunProcess>(rp => rp.Out.ExitCode = 0);
+            runScripts.RunSql = Fake.Task<RunSql>();
+            runScripts.RunProcess = Fake.Task<RunProcess>();
 
             // Act
             runScripts.Execute();
 
             // Assert
-            Assert.That(runScripts.Out.Success, Is.True);
             Assert.That(runScripts.RunSql.Stats.ExecuteCount, Is.EqualTo(0));
             Assert.That(runScripts.RunProcess.Stats.ExecuteCount, Is.EqualTo(1));
         }
@@ -55,14 +53,13 @@ namespace Tests.Scripts.Tasks
             runScripts.In.ConnectionName = "Test";
             runScripts.In.Scripts =
                 new[] { new Script { FileName = @"whatever.sql" }, new Script { FileName = @"whatever.py" } };
-            runScripts.RunSql = Fake.Task<RunSql>(rs => rs.Out.RowsAffected = 1);
-            runScripts.RunProcess = Fake.Task<RunProcess>(rp => rp.Out.ExitCode = 0);
+            runScripts.RunSql = Fake.Task<RunSql>();
+            runScripts.RunProcess = Fake.Task<RunProcess>();
 
             // Act
             runScripts.Execute();
 
             // Assert
-            Assert.That(runScripts.Out.Success, Is.True);
             Assert.That(runScripts.RunSql.Stats.ExecuteCount, Is.EqualTo(1));
             Assert.That(runScripts.RunProcess.Stats.ExecuteCount, Is.EqualTo(1));
         }
@@ -80,7 +77,6 @@ namespace Tests.Scripts.Tasks
 
             // Act & Assert
             Assert.Throws<RunException>(runScripts.Execute);
-            Assert.That(runScripts.Out.Success, Is.False);
         }
 
         [Test]
@@ -91,15 +87,11 @@ namespace Tests.Scripts.Tasks
             runScripts.In.ConnectionName = "Test";
             runScripts.In.Scripts =
                 new[] { new Script { FileName = @"whatever.sql" }, new Script { FileName = @"whatever.py" } };
-            runScripts.RunSql = Fake.Task<RunSql>(rs => { throw new Exception(); });
-            runScripts.RunProcess = Fake.Task<RunProcess>(rp => rp.Out.ExitCode = 0);
+            runScripts.RunSql = Fake.Task<RunSql>(rs => { throw new RunException("test"); });
+            runScripts.RunProcess = Fake.Task<RunProcess>();
 
-            // Act
-            runScripts.Execute();
-
-            // Assert
-            Assert.That(runScripts.Out.Success, Is.False);
-            Assert.That(runScripts.RunSql.Stats.ExecuteCount, Is.EqualTo(1));
+            // Act & Assert
+            Assert.Throws<RunException>(runScripts.Execute);
             Assert.That(runScripts.RunProcess.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
@@ -111,16 +103,12 @@ namespace Tests.Scripts.Tasks
             runScripts.In.ConnectionName = "Test";
             runScripts.In.Scripts =
                 new[] { new Script { FileName = @"whatever.py" }, new Script { FileName = @"whatever.sql" } };
-            runScripts.RunSql = Fake.Task<RunSql>(rs => rs.Out.RowsAffected = 1);
-            runScripts.RunProcess = Fake.Task<RunProcess>(rp => rp.Out.ExitCode = 1);
+            runScripts.RunSql = Fake.Task<RunSql>();
+            runScripts.RunProcess = Fake.Task<RunProcess>(rs => { throw new RunException("test"); });
 
-            // Act
-            runScripts.Execute();
-
-            // Assert
-            Assert.That(runScripts.Out.Success, Is.False);
+            // Act & Assert
+            Assert.Throws<RunException>(runScripts.Execute);
             Assert.That(runScripts.RunSql.Stats.ExecuteCount, Is.EqualTo(0));
-            Assert.That(runScripts.RunProcess.Stats.ExecuteCount, Is.EqualTo(1));
         }
     }
 }

@@ -89,7 +89,10 @@
     <Compile Include="Timestamp\Tasks\AddTimestampTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\files\insert-version.sql">
+    <Content Include="Scripts\files\sql\error.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\files\sql\insert-version.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\files\py\2_error.py">

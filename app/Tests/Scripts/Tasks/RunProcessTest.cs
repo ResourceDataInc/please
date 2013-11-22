@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Library.Scripts;
 using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
@@ -27,8 +28,7 @@ namespace Tests.Scripts.Tasks
             }
 
             // Assert
-            Assert.That(run.Out.ExitCode, Is.EqualTo(0));
-            Assert.That(output, Is.EqualTo("Hello World.\r\n"));
+            Assert.That(output.Contains("Hello World."));
         }
 
         [Test]
@@ -44,12 +44,11 @@ namespace Tests.Scripts.Tasks
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                run.Execute();
+                Assert.Throws<RunException>(run.Execute);
                 output = sw.ToString();
             }
 
             // Assert
-            Assert.That(run.Out.ExitCode, Is.Not.EqualTo(0));
             Assert.That(output.Contains("Error!"));
         }
     }
