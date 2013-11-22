@@ -33,7 +33,7 @@ namespace Library.Scripts.Tasks
                 else if (String.Compare(extension, ".py", StringComparison.OrdinalIgnoreCase) == 0)
                 {
                     RunProcess.In.FileName = "python";
-                    RunProcess.In.Arguments = fileName;
+                    RunProcess.In.Arguments = script.FileName;
                     RunProcess.Execute();
                 }
                 else
