@@ -72,6 +72,7 @@ Command for adding a timestamp to all files in a directory that don't already ha
 * `in .\directory` specifies the directory containing the files
 
 ## Contributing
+* You need to have python installed to run tests.
 * New commands can be added to please by adding a Command to the \app\Library\Commands.cs file and corresponding tests to the app\Tests project.
 * Run `ci\local` to build the projects and run the tests.
 * If you fixed a bug, run `release\bump patch`. If you added a command, run `release\bump minor`.

@@ -22,20 +22,12 @@ namespace Library.Scripts.Tasks
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.FileName = In.FileName;
                 process.StartInfo.Arguments = In.Arguments;
+                process.OutputDataReceived += (sender, args) => Console.WriteLine(args.Data);
+                process.ErrorDataReceived += (sender, args) => Console.WriteLine(args.Data);
+
                 process.Start();
-
-                string message;
-                while ((message = process.StandardOutput.ReadLine()) != null)
-                {
-                    Console.WriteLine(message);
-                }
-
-                string error;
-                while ((error = process.StandardError.ReadLine()) != null)
-                {
-                    Console.WriteLine(error);
-                }
-
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
                 process.WaitForExit();
 
                 if (process.ExitCode != 0)
