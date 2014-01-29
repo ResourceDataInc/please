@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using Library.Sql.Tasks;
+using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
 using Simpler.Data;
-using Version = Library.Sql.Version;
+using Version = Library.Scripts.Version;
 
-namespace Tests.Sql.Tasks
+namespace Tests.Scripts.Tasks
 {
     [TestFixture]
     public class InsertInstalledVersionTest
@@ -15,8 +15,8 @@ namespace Tests.Sql.Tasks
         public void should_insert_version()
         {
             // Arrange
-            File.Delete(@"Sql\files\test.db");
-            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
+            File.Delete(@"Scripts\files\test.db");
+            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";
@@ -37,8 +37,8 @@ namespace Tests.Sql.Tasks
         public void should_insert_version_as_string()
         {
             // Arrange
-            File.Delete(@"Sql\files\test.db");
-            File.Copy(@"Sql\files\empty.db", @"Sql\files\test.db");
+            File.Delete(@"Scripts\files\test.db");
+            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
 
             var createVersionTable = Task.New<CreateVersionTable>();
             createVersionTable.In.ConnectionName = "Test";

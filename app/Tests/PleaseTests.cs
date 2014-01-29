@@ -3,7 +3,7 @@ using System.IO;
 using Library;
 using Library.Releases;
 using Library.Releases.Tasks;
-using Library.Sql.Tasks;
+using Library.Scripts.Tasks;
 using Library.Timestamp.Tasks;
 using NUnit.Framework;
 using Simpler;
@@ -122,28 +122,28 @@ namespace Tests
         [Test]
         public void should_run_sql_with_versioning()
         {
-            var runSql = ShouldExecute<RunSql>("run sql with versioning");
+            var run = ShouldExecute<Run>("run sql with versioning");
 
-            Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
-            Assert.That(runSql.In.WithVersioning, "Expected with versioning to be true.");
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.WithVersioning, "Expected with versioning to be true.");
         }
 
         [Test]
         public void should_run_sql_without_versioning()
         {
-            var runSql = ShouldExecute<RunSql>("run sql");
+            var run = ShouldExecute<Run>("run sql");
 
-            Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
-            Assert.That(!runSql.In.WithVersioning, "Expected with versioning to be false.");
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(!run.In.WithVersioning, "Expected with versioning to be false.");
         }
 
         [Test]
         public void should_run_sql_on_database()
         {
-            var runSql = ShouldExecute<RunSql>("run sql on DEV");
+            var run = ShouldExecute<Run>("run sql on DEV");
 
-            Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
-            Assert.That(runSql.In.ConnectionName, Is.EqualTo("DEV"));
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.ConnectionName, Is.EqualTo("DEV"));
         }
 
         [Test]
@@ -165,10 +165,10 @@ namespace Tests
             foreach (var directory in directories)
             {
                 var commandText = String.Format("run sql in {0} on DEV", directory);
-                var runSql = ShouldExecute<RunSql>(commandText);
+                var run = ShouldExecute<Run>(commandText);
 
-                Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
-                Assert.That(runSql.In.Directory, Is.EqualTo(directory));
+                Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(run.In.Directory, Is.EqualTo(directory));
             }
         }
 
@@ -191,22 +191,145 @@ namespace Tests
             foreach (var directory in directories)
             {
                 var commandText = String.Format("run sql file {0} on DEV", directory);
-                var runSql = ShouldExecute<RunSql>(commandText);
+                var run = ShouldExecute<Run>(commandText);
 
-                Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
-                Assert.That(runSql.In.File, Is.EqualTo(directory));
+                Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(run.In.File, Is.EqualTo(directory));
             }
         }
-
 
         [Test]
         public void should_run_sql_include_whitelist_in_directory()
         {
             const string whitelistFile = @".\whitelist.txt";
-            var runSql = ShouldExecute<RunSql>(@"run sql include " + whitelistFile + @" in .\Directory");
+            var run = ShouldExecute<Run>(@"run sql include " + whitelistFile + @" in .\Directory");
 
-            Assert.That(runSql.Stats.ExecuteCount, Is.EqualTo(1));
-            Assert.That(runSql.In.WhitelistFile, Is.EqualTo(whitelistFile));
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.WhitelistFile, Is.EqualTo(whitelistFile));
+        }
+
+        [Test]
+        public void should_run_py_with_versioning()
+        {
+            var run = ShouldExecute<Run>("run py with versioning on DEV");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.WithVersioning, "Expected with versioning to be true.");
+        }
+
+        [Test]
+        public void should_run_py_without_versioning()
+        {
+            var run = ShouldExecute<Run>("run py");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(!run.In.WithVersioning, "Expected with versioning to be false.");
+        }
+
+        [Test]
+        public void should_run_py_in_directory()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory",
+                        @"Some\Directory",
+                        @".\SomeDirectory",
+                        @"\\SomeDirectory",
+                        @"c:\SomeDirectory",
+                        @"Some Directory",
+                        @".\Some Directory",
+                        @"c:\Some Directory"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("run py in {0}", directory);
+                var run = ShouldExecute<Run>(commandText);
+
+                Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(run.In.Directory, Is.EqualTo(directory));
+            }
+        }
+
+        [Test]
+        public void should_run_py_file()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory\test.py",
+                        @"Some\Directory\test.py",
+                        @".\SomeDirectory\test.py",
+                        @"\\SomeDirectory\test.py",
+                        @"c:\SomeDirectory\test.py",
+                        @"Some Directory\test.py",
+                        @".\Some Directory\test.py",
+                        @"c:\Some Directory\test.py"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("run py file {0}", directory);
+                var run = ShouldExecute<Run>(commandText);
+
+                Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(run.In.File, Is.EqualTo(directory));
+            }
+        }
+
+        [Test]
+        public void should_run_all_with_versioning()
+        {
+            var run = ShouldExecute<Run>("run all with versioning on DEV");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.WithVersioning, "Expected with versioning to be true.");
+        }
+
+        [Test]
+        public void should_run_all_without_versioning()
+        {
+            var run = ShouldExecute<Run>("run all");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(!run.In.WithVersioning, "Expected with versioning to be false.");
+        }
+
+        [Test]
+        public void should_run_all_in_directory()
+        {
+            var directories =
+                new[]
+                    {
+                        @"SomeDirectory",
+                        @"Some\Directory",
+                        @".\SomeDirectory",
+                        @"\\SomeDirectory",
+                        @"c:\SomeDirectory",
+                        @"Some Directory",
+                        @".\Some Directory",
+                        @"c:\Some Directory"
+                    };
+
+            foreach (var directory in directories)
+            {
+                var commandText = String.Format("run all in {0}", directory);
+                var run = ShouldExecute<Run>(commandText);
+
+                Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+                Assert.That(run.In.Directory, Is.EqualTo(directory));
+            }
+        }
+
+        [Test]
+        public void should_run_py_include_whitelist_in_directory()
+        {
+            const string whitelistFile = @".\whitelist.txt";
+            var run = ShouldExecute<Run>(@"run sql include " + whitelistFile + @" in .\Directory");
+
+            Assert.That(run.Stats.ExecuteCount, Is.EqualTo(1));
+            Assert.That(run.In.WhitelistFile, Is.EqualTo(whitelistFile));
         }
 
         [Test]
@@ -240,7 +363,7 @@ namespace Tests
         {
             foreach (var command in Commands.All)
             {
-                command.Task = Fake.Task<RunSql>();
+                command.Task = Fake.Task<Run>();
             }
 
             var please = Task.New<Please>();
@@ -259,7 +382,7 @@ namespace Tests
         {
             foreach (var command in Commands.All)
             {
-                command.Task = Fake.Task<RunSql>();
+                command.Task = Fake.Task<Run>();
             }
 
             var please = Task.New<Please>();

@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using Library.Sql.Tasks;
+using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
 
-namespace Tests.Sql.Tasks
+namespace Tests.Scripts.Tasks
 {
     [TestFixture]
     public class SplitSqlOnGoTest
@@ -13,7 +13,7 @@ namespace Tests.Sql.Tasks
         {
             // Arrange
             var splitScriptOnGo = Task.New<SplitSqlOnGo>();
-            splitScriptOnGo.In.Sql = File.ReadAllText(@"Sql\files\sql\repeatable\create-four-tables.sql");
+            splitScriptOnGo.In.Sql = File.ReadAllText(@"Scripts\files\sql\repeatable\create-four-tables.sql");
 
             // Act
             splitScriptOnGo.Execute();

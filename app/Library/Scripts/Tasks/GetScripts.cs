@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Simpler;
+using System.Linq;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
-    public class GetSqlScripts : InOutTask<GetSqlScripts.Input, GetSqlScripts.Output>
+    public class GetScripts : InOutTask<GetScripts.Input, GetScripts.Output>
     {
         public class Input
         {
             public string Directory { get; set; }
+            public string[] Extensions { get; set; }
             public bool CheckForVersionedFilesOnly { get; set; }
             public string WhitelistFile { get; set; }
         }
 
-        public class Output 
+        public class Output
         {
-            public SqlScript[] SqlScripts { get; set; }
+            public Script[] Scripts { get; set; }
         }
 
         public override void Execute()
         {
             const string versionedPattern = @"^(?<Version>\d+)[_]";
-            var sqlScripts = new List<SqlScript>();
+            var scripts = new List<Script>();
             var fileNames = Directory.GetFiles(In.Directory);
 
             var checkWhitelist = false;
@@ -38,10 +40,9 @@ namespace Library.Sql.Tasks
             foreach (var fileName in fileNames)
             {
                 var fileNameWithoutPath = Path.GetFileName(fileName);
-                if (fileNameWithoutPath == null) throw new RunSqlException(String.Format("{0} is not a file.", fileName));
+                if (fileNameWithoutPath == null) throw new RunException(String.Format("{0} is not a file.", fileName));
 
-                var fileQualifies =
-                    String.Compare(Path.GetExtension(fileNameWithoutPath), ".sql", StringComparison.OrdinalIgnoreCase) == 0;
+                var fileQualifies = In.Extensions.Contains(Path.GetExtension(fileNameWithoutPath));
 
                 if (fileQualifies && checkWhitelist)
                 {
@@ -54,7 +55,7 @@ namespace Library.Sql.Tasks
                 {
                     var match = Regex.Match(fileNameWithoutPath, versionedPattern);
                     var fileIsVersioned = match.Groups.Count == 2;
-                    var script = new SqlScript
+                    var script = new Script
                     {
                         FileName = fileName,
                         IsVersioned = fileIsVersioned,
@@ -64,11 +65,11 @@ namespace Library.Sql.Tasks
                     Check.That(!In.CheckForVersionedFilesOnly || (In.CheckForVersionedFilesOnly && script.IsVersioned),
                                "Expected to find version number at the beginning of file {0}.", fileNameWithoutPath);
 
-                    sqlScripts.Add(script);
+                    scripts.Add(script);
                 }
             }
 
-            Out.SqlScripts = sqlScripts.ToArray();
+            Out.Scripts = scripts.ToArray();
         }
     }
 }

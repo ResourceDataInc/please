@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using Simpler;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
     public class SplitSqlOnGo : InOutTask<SplitSqlOnGo.Input, SplitSqlOnGo.Output>
     {

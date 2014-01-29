@@ -2,7 +2,7 @@
 using System.Linq;
 using Simpler;
 
-namespace Library.Sql.Tasks
+namespace Library.Scripts.Tasks
 {
     public class RunMissingVersions : InTask<RunMissingVersions.Input>
     {
@@ -10,15 +10,15 @@ namespace Library.Sql.Tasks
         {
             public string ConnectionName { get; set; }
             public Version[] InstalledVersions { get; set; }
-            public SqlScript[] SqlScripts { get; set; }
+            public Script[] Scripts { get; set; }
         }
 
-        public RunSqlScripts RunSqlScripts { get; set; }
+        public RunScripts RunScripts { get; set; }
         public InsertInstalledVersion InsertInstalledVersion { get; set; }
 
         public override void Execute()
         {
-            var allVersionIds = In.SqlScripts
+            var allVersionIds = In.Scripts
                 .OrderBy(m => m.VersionId)
                 .Select(m => m.VersionId).Distinct();
 
@@ -27,18 +27,18 @@ namespace Library.Sql.Tasks
                 if (In.InstalledVersions.All(installed => installed.Id != versionId))
                 {
                     var missingVersionId = versionId;
-                    Console.WriteLine("{0} not installed - running sql scripts.", missingVersionId);
+                    Console.WriteLine("{0} not installed - running scripts.", missingVersionId);
 
-                    var sqlScriptsForMissingVersion = In.SqlScripts
+                    var sqlScriptsForMissingVersion = In.Scripts
                         .Where(m => m.VersionId == missingVersionId)
                         .OrderBy(m => m.FileName);
 
                     Console.WriteLine("{0} scripts were found for version {1}.",
                                       sqlScriptsForMissingVersion.Count(),
                                       missingVersionId);
-                    RunSqlScripts.In.ConnectionName = In.ConnectionName;
-                    RunSqlScripts.In.SqlScripts = sqlScriptsForMissingVersion.ToArray();
-                    RunSqlScripts.Execute();
+                    RunScripts.In.ConnectionName = In.ConnectionName;
+                    RunScripts.In.Scripts = sqlScriptsForMissingVersion.ToArray();
+                    RunScripts.Execute();
 
                     InsertInstalledVersion.In.ConnectionName = In.ConnectionName;
                     InsertInstalledVersion.In.Version = new Version {Id = missingVersionId};

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Library.Sql.Tasks;
+using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
-using Version = Library.Sql.Version;
+using Version = Library.Scripts.Version;
 
-namespace Tests.Sql.Tasks
+namespace Tests.Scripts.Tasks
 {
     [TestFixture]
     public class RunMissingVersionsTest
@@ -18,8 +18,8 @@ namespace Tests.Sql.Tasks
             // Arrange
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
-            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts;
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            runMissingVersions.In.Scripts = RunTest.TestScripts;
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>();
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -30,7 +30,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
+            Assert.That(runMissingVersions.RunScripts.Stats.ExecuteCount, Is.GreaterThan(0));
         }
 
         [Test]
@@ -38,9 +38,9 @@ namespace Tests.Sql.Tasks
         {
             // Arrange
             var runMissingVersions = Task.New<RunMissingVersions>();
-            runMissingVersions.In.InstalledVersions = RunSqlTest.TestVersions;
-            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts;
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>();
+            runMissingVersions.In.InstalledVersions = RunTest.TestVersions;
+            runMissingVersions.In.Scripts = RunTest.TestScripts;
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>();
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -51,7 +51,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.EqualTo(0));
+            Assert.That(runMissingVersions.RunScripts.Stats.ExecuteCount, Is.EqualTo(0));
         }
 
         [Test]
@@ -60,10 +60,10 @@ namespace Tests.Sql.Tasks
             // Arrange
             var versions = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
-            runMissingVersions.In.InstalledVersions = RunSqlTest.TestVersions.Where(version => version.Id != "002").ToArray();
-            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts;
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
-                task => versions.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.VersionId)));
+            runMissingVersions.In.InstalledVersions = RunTest.TestVersions.Where(version => version.Id != "002").ToArray();
+            runMissingVersions.In.Scripts = RunTest.TestScripts;
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>(
+                task => versions.AddRange(task.In.Scripts.Select(script => script.VersionId)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -74,7 +74,7 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runMissingVersions.RunSqlScripts.Stats.ExecuteCount, Is.GreaterThan(0));
+            Assert.That(runMissingVersions.RunScripts.Stats.ExecuteCount, Is.GreaterThan(0));
             Assert.That(versions[0], Is.EqualTo("002"));
             Assert.That(versions[1], Is.EqualTo("002"));
         }
@@ -85,10 +85,10 @@ namespace Tests.Sql.Tasks
             // Arrange
             var versions = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
-            runMissingVersions.In.InstalledVersions = RunSqlTest.TestVersions.Where(version => version.Id != "002").ToArray();
-            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts;
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
-                task => versions.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.VersionId)));
+            runMissingVersions.In.InstalledVersions = RunTest.TestVersions.Where(version => version.Id != "002").ToArray();
+            runMissingVersions.In.Scripts = RunTest.TestScripts;
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>(
+                task => versions.AddRange(task.In.Scripts.Select(script => script.VersionId)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -109,9 +109,9 @@ namespace Tests.Sql.Tasks
             var runOrder = new List<string>();
             var runMissingVersions = Task.New<RunMissingVersions>();
             runMissingVersions.In.InstalledVersions = new Version[0];
-            runMissingVersions.In.SqlScripts = RunSqlTest.TestSqlScripts.Reverse().ToArray();
-            runMissingVersions.RunSqlScripts = Fake.Task<RunSqlScripts>(
-                task => runOrder.AddRange(task.In.SqlScripts.Select(sqlScript => sqlScript.FileName)));
+            runMissingVersions.In.Scripts = RunTest.TestScripts.Reverse().ToArray();
+            runMissingVersions.RunScripts = Fake.Task<RunScripts>(
+                task => runOrder.AddRange(task.In.Scripts.Select(script => script.FileName)));
             runMissingVersions.InsertInstalledVersion = Fake.Task<InsertInstalledVersion>();
 
             // Act
@@ -122,10 +122,10 @@ namespace Tests.Sql.Tasks
             }
 
             // Assert
-            Assert.That(runOrder[0], Is.EqualTo(RunSqlTest.TestSqlScripts[0].FileName));
-            Assert.That(runOrder[1], Is.EqualTo(RunSqlTest.TestSqlScripts[1].FileName));
-            Assert.That(runOrder[2], Is.EqualTo(RunSqlTest.TestSqlScripts[2].FileName));
-            Assert.That(runOrder[3], Is.EqualTo(RunSqlTest.TestSqlScripts[3].FileName));
+            Assert.That(runOrder[0], Is.EqualTo(RunTest.TestScripts[0].FileName));
+            Assert.That(runOrder[1], Is.EqualTo(RunTest.TestScripts[1].FileName));
+            Assert.That(runOrder[2], Is.EqualTo(RunTest.TestScripts[2].FileName));
+            Assert.That(runOrder[3], Is.EqualTo(RunTest.TestScripts[3].FileName));
         }
     }
 }
