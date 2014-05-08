@@ -22,9 +22,7 @@
     "nupkgPattern": "Please.?.?.?.nupkg",
     "tools": [
       "app/Please/bin/Release/please.exe",
-      "app/Please/bin/Release/Library.dll",
-      "app/Please/bin/Release/Simpler.dll",
-      "app/Please/bin/Release/Castle.Core.dll"
+      "app/Please/bin/Release/Library.dll"
     ],
     "output": {
       "prep": "output/release/prep",
