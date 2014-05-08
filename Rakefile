@@ -51,7 +51,7 @@ namespace :clean do
   desc "Clean release output"
   task :release do
     clean(Config.release.output.prep)
-    clean(release_lib);
+    clean(release_lib)
     clean(Config.release.output.pack)
   end
 end
