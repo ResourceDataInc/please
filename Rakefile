@@ -69,7 +69,7 @@ namespace :release do
   desc "Push NuGet package"
   task :push do
     puts "Pushing #{release_nupkg}"
-    # nuget("push #{release_nupkg}")
+    nuget("push #{release_nupkg}")
   end
 end
 
