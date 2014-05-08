@@ -20,7 +20,7 @@
   "release": {
     "nuspec": "app/Please/Please.nuspec",
     "nupkgPattern": "Please.?.?.?.nupkg",
-    "files": [
+    "tools": [
       "app/Please/bin/Release/please.exe",
       "app/Please/bin/Release/Library.dll",
       "app/Please/bin/Release/Simpler.dll",

@@ -52,6 +52,7 @@ namespace :clean do
   task :release do
     clean Config.release.output.prep
     clean release_lib
+    clean release_tools
     clean Config.release.output.pack
   end
 end
@@ -60,9 +61,15 @@ namespace :release do
   desc "Pack NuGet package"
   task :pack => ["build:release", "clean:release"] do
     FileUtils.cp Config.release.nuspec, release_nuspec
-    Config.release.files.each do |file|
-      FileUtils.cp file, release_lib
-    end
+
+    Config.release.lib.each do |lib|
+      FileUtils.cp lib, release_lib
+    end unless Config.send(:actual_key, "lib", Config.release.raw_config).nil?
+
+    Config.release.tools.each do |tool|
+      FileUtils.cp tool, release_tools
+    end unless Config.send(:actual_key, "tools", Config.release.raw_config).nil?
+
     nuget "pack #{release_nuspec} -OutputDirectory #{Config.release.output.pack}"
   end
 
@@ -103,6 +110,10 @@ end
 
 def release_lib
   File.join Config.release.output.prep, "lib"
+end
+
+def release_tools
+  File.join Config.release.output.prep, "tools"
 end
 
 def release_nuspec
