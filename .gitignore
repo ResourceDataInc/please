@@ -12,7 +12,7 @@ _ReSharper.*
 *.DotSettings.user
 *.dmp
 *.log
-!.gitignore
 *.vs10x
 *.Publish.xml
-
+Gemfile.lock
+output/

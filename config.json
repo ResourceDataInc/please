@@ -1,0 +1,47 @@
+{
+  "build": {
+    "solution": "app/Please.sln"
+  },
+
+  "test": {
+    "dll": "app/Tests/bin/Debug/Tests.dll",
+    "output": "output/test",
+    "results": "output/test/results.xml"
+  },
+
+  "bump": {
+    "files": [
+      "app/Library/Properties/AssemblyInfo.cs",
+      "app/Please/Properties/AssemblyInfo.cs",
+      "app/Tests/Properties/AssemblyInfo.cs"
+    ]
+  },
+
+  "release": {
+    "nuspec": "app/Please/Please.nuspec",
+    "nupkgPattern": "Please.?.?.?.nupkg",
+    "tools": [
+      "app/Please/bin/Release/please.exe",
+      "app/Please/bin/Release/Library.dll"
+    ],
+    "output": {
+      "prep": "output/release/prep",
+      "pack": "output/release/pack"
+    }
+  },
+
+  "packages": {
+    "configs": [
+      "app/Library/packages.config",
+      "app/Please/packages.config",
+      "app/Tests/packages.config",
+      "packages/packages.config"
+    ]
+  },
+
+  "tools": {
+    "nuget": "packages/NuGet.CommandLine.2.8.1/tools/NuGet.exe",
+    "nunit": "packages/NUnit.Runners.2.6.3/tools/nunit-console.exe",
+    "please": "packages/please.exe"
+  }
+}
