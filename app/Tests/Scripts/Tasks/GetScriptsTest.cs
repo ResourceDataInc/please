@@ -12,16 +12,15 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetScripts>();
-            getSqlScripts.In.Directory = @"Scripts\files\sql\versioned";
+            getSqlScripts.In.Directory = Config.Scripts.Files.Sql.VersionedFiles;
             getSqlScripts.In.Extensions = new[] { ".sql" };
 
             // Act
             getSqlScripts.Execute();
 
             // Assert
-            const string expectedFileName = @"Scripts\files\sql\versioned\000001_create-testing-table.sql";
             Assert.That(getSqlScripts.Out.Scripts.Length, Is.EqualTo(4));
-            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(expectedFileName));
+            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(Config.Scripts.Files.Sql.Versioned.First));
         }
 
         [Test]
@@ -29,16 +28,15 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetScripts>();
-            getSqlScripts.In.Directory = @"Scripts\files\py";
+            getSqlScripts.In.Directory = Config.Scripts.Files.PyFiles;
             getSqlScripts.In.Extensions = new[] { ".py" };
 
             // Act
             getSqlScripts.Execute();
 
             // Assert
-            const string expectedFileName = @"Scripts\files\py\1_hello.py";
             Assert.That(getSqlScripts.Out.Scripts.Length, Is.EqualTo(2));
-            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(expectedFileName));
+            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(Config.Scripts.Files.Py.Hello));
         }
 
         [Test]
@@ -46,9 +44,9 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetScripts>();
-            getSqlScripts.In.Directory = @"Scripts\files\sql\versioned";
+            getSqlScripts.In.Directory = Config.Scripts.Files.Sql.VersionedFiles;
             getSqlScripts.In.Extensions = new[] { ".sql" };
-            getSqlScripts.In.WhitelistFile = @"Scripts\files\sql\versioned\whitelist.txt";
+            getSqlScripts.In.WhitelistFile = Config.Scripts.Files.Sql.Versioned.Whitelist;
 
 
             // Act
@@ -56,8 +54,8 @@ namespace Tests.Scripts.Tasks
 
             // Assert
             Assert.That(getSqlScripts.Out.Scripts.Length, Is.EqualTo(2));
-            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(@"Scripts\files\sql\versioned\000002_001.sql"));
-            Assert.That(getSqlScripts.Out.Scripts[1].FileName, Is.EqualTo(@"Scripts\files\sql\versioned\000002_002.sql"));
+            Assert.That(getSqlScripts.Out.Scripts[0].FileName, Is.EqualTo(Config.Scripts.Files.Sql.Versioned.Second));
+            Assert.That(getSqlScripts.Out.Scripts[1].FileName, Is.EqualTo(Config.Scripts.Files.Sql.Versioned.Third));
         }
 
         [Test]
@@ -65,7 +63,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetScripts>();
-            getSqlScripts.In.Directory = @"Scripts\files\sql\versioned";
+            getSqlScripts.In.Directory = Config.Scripts.Files.Sql.VersionedFiles;
             getSqlScripts.In.Extensions = new[] { ".sql" };
 
             // Act
@@ -79,11 +77,11 @@ namespace Tests.Scripts.Tasks
         }
 
         [Test]
-        public void should_mark_unversioned_files()
+        public void should_not_mark_unversioned_files()
         {
             // Arrange
             var getSqlScripts = Task.New<GetScripts>();
-            getSqlScripts.In.Directory = @"Scripts\files\sql\repeatable";
+            getSqlScripts.In.Directory = Config.Scripts.Files.Sql.GoFiles;
             getSqlScripts.In.Extensions = new[] { ".sql" };
 
             // Act
@@ -99,7 +97,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var getSqlScripts = Task.New<GetScripts>();
-            getSqlScripts.In.Directory = @"Scripts\files\sql\repeatable";
+            getSqlScripts.In.Directory = Config.Scripts.Files.Sql.GoFiles;
             getSqlScripts.In.CheckForVersionedFilesOnly = true;
             getSqlScripts.In.Extensions = new[] { ".sql" };
 

@@ -13,7 +13,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var splitScriptOnGo = Task.New<SplitSqlOnGo>();
-            splitScriptOnGo.In.Sql = File.ReadAllText(@"Scripts\files\sql\repeatable\create-four-tables.sql");
+            splitScriptOnGo.In.Sql = File.ReadAllText(Config.Scripts.Files.Sql.Go.CreateFourTables);
 
             // Act
             splitScriptOnGo.Execute();

@@ -7,9 +7,9 @@ using Simpler;
 
 namespace Tests.Timestamp.Tasks
 {
-    class AddTimestampTest
+    [TestFixture]
+    public class AddTimestampTest
     {
-        const string testDirectory = @"Timestamp\files\test";
         const string timestampPattern = "^\\d{14}_";
 
         public enum TimestampState
@@ -21,11 +21,13 @@ namespace Tests.Timestamp.Tasks
 
         public void RefreshTestDirectory(TimestampState state)
         {
-            if (Directory.Exists(testDirectory))
-                Directory.Delete(testDirectory, true);
-            Directory.CreateDirectory(testDirectory);
+            if (Directory.Exists(Config.Timestamp.Files.After))
+            {
+                Directory.Delete(Config.Timestamp.Files.After, true);
+            }
+            Directory.CreateDirectory(Config.Timestamp.Files.After);
             
-            foreach (var file in Directory.GetFiles(@"Timestamp\files\"))
+            foreach (var file in Directory.GetFiles(Config.Timestamp.Files.Before))
             {
                 string filename = Path.GetFileName(file);
 
@@ -34,13 +36,13 @@ namespace Tests.Timestamp.Tasks
                 if (!Regex.IsMatch(filename, timestampPattern) && state == TimestampState.Timestamped)
                     continue;
 
-                File.Copy(file, testDirectory + @"\" + filename);
+                File.Copy(file, Path.Combine(Config.Timestamp.Files.After, filename));
             }
         }
 
         public bool FileIsTimestamped(string filename)
         {
-            return Regex.IsMatch(filename, timestampPattern);
+            return Regex.IsMatch(filename, timestampPattern, RegexOptions.None);
         }
 
         [Test]
@@ -49,22 +51,23 @@ namespace Tests.Timestamp.Tasks
             RefreshTestDirectory(TimestampState.Untimestamped);
 
             var addTimestamp = Task.New<AddTimestamp>();
-            addTimestamp.In.Directory = testDirectory;
+            addTimestamp.In.Directory = Config.Timestamp.Files.After;
             addTimestamp.Execute();
 
             bool allTimestamped = true;
 
-            foreach (var file in Directory.GetFiles(testDirectory))
+            foreach (var file in Directory.GetFiles(Config.Timestamp.Files.After))
             {
-                if (!FileIsTimestamped(Path.GetFileName(file)))
+                var fileName = Path.GetFileName(file);
+                if (!FileIsTimestamped(fileName))
                 {
                     allTimestamped = false;
                     break;
                 }
             }
 
-            Assert.True(allTimestamped);
-            Assert.That(Directory.GetFiles(testDirectory).Count(), Is.EqualTo(2));
+            Assert.That(allTimestamped, Is.True);
+            Assert.That(Directory.GetFiles(Config.Timestamp.Files.After).Length, Is.EqualTo(2));
         }
 
         [Test]
@@ -72,13 +75,13 @@ namespace Tests.Timestamp.Tasks
         {
             RefreshTestDirectory(TimestampState.Timestamped);
 
-            var originalFiles = Directory.GetFiles(testDirectory);
+            var originalFiles = Directory.GetFiles(Config.Timestamp.Files.After);
 
             var addTimestamp = Task.New<AddTimestamp>();
-            addTimestamp.In.Directory = testDirectory;
+            addTimestamp.In.Directory = Config.Timestamp.Files.After;
             addTimestamp.Execute();
 
-            var updatedFiles = Directory.GetFiles(testDirectory);
+            var updatedFiles = Directory.GetFiles(Config.Timestamp.Files.After);
 
             bool filenamesMatch = true;
 

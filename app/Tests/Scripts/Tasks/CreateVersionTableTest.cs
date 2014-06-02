@@ -14,17 +14,16 @@ namespace Tests.Scripts.Tasks
         public void should_create_version_table()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var createVersionTable = Task.New<CreateVersionTable>();
-            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.In.ConnectionName = Database.Name;
 
             // Act
             createVersionTable.Execute();
 
             // Assert
-            using (var connection = Db.Connect("Test"))
+            using (var connection = Db.Connect(Database.Name))
             {
                 var count = Db.GetScalar(connection, "select count(1) from sqlite_master where type = 'table';");
                 Assert.That(Convert.ToInt32(count), Is.EqualTo(1));

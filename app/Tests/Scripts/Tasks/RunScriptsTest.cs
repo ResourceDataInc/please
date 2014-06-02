@@ -14,7 +14,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var runScripts = Task.New<RunScripts>();
-            runScripts.In.ConnectionName = "Test";
+            runScripts.In.ConnectionName = Database.Name;
             runScripts.In.Scripts = new[] {new Script {FileName = @"whatever.sql"}};
             runScripts.RunSql = Fake.Task<RunSql>();
             runScripts.RunProcess = Fake.Task<RunProcess>();
@@ -32,7 +32,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var runScripts = Task.New<RunScripts>();
-            runScripts.In.ConnectionName = "Test";
+            runScripts.In.ConnectionName = Database.Name;
             runScripts.In.Scripts = new[] {new Script {FileName = @"whatever.py"}};
             runScripts.RunSql = Fake.Task<RunSql>();
             runScripts.RunProcess = Fake.Task<RunProcess>();
@@ -50,7 +50,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var runScripts = Task.New<RunScripts>();
-            runScripts.In.ConnectionName = "Test";
+            runScripts.In.ConnectionName = Database.Name;
             runScripts.In.Scripts =
                 new[] { new Script { FileName = @"whatever.sql" }, new Script { FileName = @"whatever.py" } };
             runScripts.RunSql = Fake.Task<RunSql>();
@@ -69,7 +69,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var runScripts = Task.New<RunScripts>();
-            runScripts.In.ConnectionName = "Test";
+            runScripts.In.ConnectionName = Database.Name;
             runScripts.In.Scripts =
                 new[] { new Script { FileName = @"whatever.rb" } };
             runScripts.RunSql = Fake.Task<RunSql>();
@@ -84,7 +84,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var runScripts = Task.New<RunScripts>();
-            runScripts.In.ConnectionName = "Test";
+            runScripts.In.ConnectionName = Database.Name;
             runScripts.In.Scripts =
                 new[] { new Script { FileName = @"whatever.sql" }, new Script { FileName = @"whatever.py" } };
             runScripts.RunSql = Fake.Task<RunSql>(rs => { throw new RunException("test"); });
@@ -100,7 +100,7 @@ namespace Tests.Scripts.Tasks
         {
             // Arrange
             var runScripts = Task.New<RunScripts>();
-            runScripts.In.ConnectionName = "Test";
+            runScripts.In.ConnectionName = Database.Name;
             runScripts.In.Scripts =
                 new[] { new Script { FileName = @"whatever.py" }, new Script { FileName = @"whatever.sql" } };
             runScripts.RunSql = Fake.Task<RunSql>();

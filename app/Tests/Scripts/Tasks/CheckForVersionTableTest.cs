@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Library.Scripts.Tasks;
+﻿using Library.Scripts.Tasks;
 using NUnit.Framework;
 using Simpler;
 
@@ -12,15 +11,14 @@ namespace Tests.Scripts.Tasks
         public void should_find_version_table_if_it_exists()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var createVersionTable = Task.New<CreateVersionTable>();
-            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.In.ConnectionName = Database.Name;
             createVersionTable.Execute();
 
             var checkForVersionTable = Task.New<CheckForVersionTable>();
-            checkForVersionTable.In.ConnectionName = "Test";
+            checkForVersionTable.In.ConnectionName = Database.Name;
 
             // Act
             checkForVersionTable.Execute();
@@ -33,11 +31,10 @@ namespace Tests.Scripts.Tasks
         public void should_not_find_version_table_if_it_does_not_exist()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var checkForVersionTable = Task.New<CheckForVersionTable>();
-            checkForVersionTable.In.ConnectionName = "Test";
+            checkForVersionTable.In.ConnectionName = Database.Name;
 
             // Act
             checkForVersionTable.Execute();

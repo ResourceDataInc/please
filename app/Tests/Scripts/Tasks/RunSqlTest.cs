@@ -15,16 +15,15 @@ namespace Tests.Scripts.Tasks
         public void should_run_sql()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var createVersionTable = Task.New<CreateVersionTable>();
-            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.In.ConnectionName = Database.Name;
             createVersionTable.Execute();
 
             var runScripts = Task.New<RunSql>();
-            runScripts.In.ConnectionName = "Test";
-            runScripts.In.Sql = new Script { FileName = @"Scripts\files\sql\insert-version.sql" };
+            runScripts.In.ConnectionName = Database.Name;
+            runScripts.In.Sql = new Script { FileName = Config.Scripts.Files.Sql.InsertVersion };
 
             // Act
             using (var sw = new StringWriter())
@@ -34,7 +33,7 @@ namespace Tests.Scripts.Tasks
             }
 
             // Assert
-            using (var connection = Db.Connect("Test"))
+            using (var connection = Db.Connect(Database.Name))
             {
                 var count = Db.GetScalar(connection, "select count(1) from db_version;");
                 Assert.That(Convert.ToInt32(count), Is.EqualTo(1));
@@ -45,16 +44,15 @@ namespace Tests.Scripts.Tasks
         public void should_capture_sql_errors()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var createVersionTable = Task.New<CreateVersionTable>();
-            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.In.ConnectionName = Database.Name;
             createVersionTable.Execute();
 
             var runScripts = Task.New<RunSql>();
-            runScripts.In.ConnectionName = "Test";
-            runScripts.In.Sql = new Script { FileName = @"Scripts\files\sql\error.sql" };
+            runScripts.In.ConnectionName = Database.Name;
+            runScripts.In.Sql = new Script { FileName = Config.Scripts.Files.Sql.Error };
 
             // Act & Assert
             using (var sw = new StringWriter())
@@ -68,12 +66,11 @@ namespace Tests.Scripts.Tasks
         public void should_split_sql_if_it_contains_GO_keyword()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var runScripts = Task.New<RunSql>();
-            runScripts.In.ConnectionName = "Test";
-            runScripts.In.Sql = new Script{FileName = @"Scripts\files\sql\repeatable\create-four-tables.sql"};
+            runScripts.In.ConnectionName = Database.Name;
+            runScripts.In.Sql = new Script{ FileName = Config.Scripts.Files.Sql.Go.CreateFourTables };
 
             // Act
             using (var sw = new StringWriter())
@@ -83,7 +80,7 @@ namespace Tests.Scripts.Tasks
             }
 
             // Assert
-            using (var connection = Db.Connect("Test"))
+            using (var connection = Db.Connect(Database.Name))
             {
                 var count1 = Db.GetScalar(connection, "select count(1) from sqlite_master where name = 'table1';");
                 Assert.That(Convert.ToInt32(count1), Is.EqualTo(1));

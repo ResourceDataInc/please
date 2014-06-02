@@ -18,12 +18,8 @@ namespace Library.Scripts.Tasks
 
         public override void Execute()
         {
-            var sql = In.Sql;
-            var lastGo = new Regex("^GO$", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            sql = lastGo.Replace(sql, "");
-
-            var inlineGo = new Regex("^GO", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var sqlStrings = inlineGo.Split(sql);
+            var goWord = new Regex("^GO(\\n|\\r|\\r\\n|$)", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            var sqlStrings = goWord.Split(In.Sql);
 
             Out.SqlStrings = sqlStrings.Select(s => s.Trim()).Where(s => s.Length > 0).ToArray();
         }
