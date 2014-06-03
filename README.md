@@ -22,8 +22,6 @@ Command for bumping version numbers in files (usually for releasing a NuGet pack
 * `please bump minor version in .\release\template\TheApp.nuspec`
 * `please bump patch version in .\release\staging.bat`
 
-See release\bump.bat for an example.
-
 #### Options
 
 * `major version` will cause the major version to be bumped
@@ -98,9 +96,4 @@ Command for adding a timestamp to all files in a directory that don't already ha
 
 ## Contributing
 
-* You need to have python installed to run tests.
-* New commands can be added to *please* by adding a `Command` to the `\app\Library\Commands.cs` file and corresponding tests to the `app\Tests` project.
-* Run `ci\local` to build the projects and run the tests.
-* If you fixed a bug, run `release\bump patch`. If you added a command, run `release\bump minor`.
-* Run `build\release` to create a new `please.exe` in `build\output`.
-* Submit changes using Pull Requests.
+See [Contributing](CONTRIBUTING.md).
