@@ -16,7 +16,7 @@ namespace Tests.Scripts.Tasks
             // Arrange
             var run = Task.New<RunProcess>();
             run.In.FileName = "python";
-            run.In.Arguments = @"Scripts\files\py\1_hello.py";
+            run.In.Arguments = Config.Scripts.Files.Py.Hello;
 
             // Act
             string output;
@@ -37,7 +37,7 @@ namespace Tests.Scripts.Tasks
             // Arrange
             var run = Task.New<RunProcess>();
             run.In.FileName = "python";
-            run.In.Arguments = @"Scripts\files\py\2_error.py";
+            run.In.Arguments = Config.Scripts.Files.Py.Error;
 
             // Act
             string output;

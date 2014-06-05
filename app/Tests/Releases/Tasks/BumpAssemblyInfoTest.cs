@@ -9,27 +9,21 @@ namespace Tests.Releases.Tasks
     [TestFixture]
     public class BumpAssemblyInfoTest
     {
-        const string BeforeFile = @".\Releases\files\AssemblyInfo_Before.cs";
-        const string AfterFile = @".\Releases\files\AssemblyInfo_After.cs";
-        const string MajorFile = @".\Releases\files\AssemblyInfo_MajorBumped.cs";
-        const string MinorFile = @".\Releases\files\AssemblyInfo_MinorBumped.cs";
-        const string PatchFile = @".\Releases\files\AssemblyInfo_PatchBumped.cs";
-
         static void TestBump(BumpType bumpType, string fileContainingExpectedContents)
         {
             // Arrange
-            File.Delete(AfterFile);
-            File.Copy(BeforeFile, AfterFile);
+            File.Delete(Config.Releases.Files.AssemblyInfo.After);
+            File.Copy(Config.Releases.Files.AssemblyInfo.Before, Config.Releases.Files.AssemblyInfo.After);
 
             var bump = Task.New<BumpAssemblyInfo>();
-            bump.In.FileName = AfterFile;
+            bump.In.FileName = Config.Releases.Files.AssemblyInfo.After;
             bump.In.BumpType = bumpType;
 
             // Act
             bump.Execute();
 
             // Assert
-            var afterContents = File.ReadAllText(AfterFile);
+            var afterContents = File.ReadAllText(Config.Releases.Files.AssemblyInfo.After);
             var expectedContents = File.ReadAllText(fileContainingExpectedContents);
             Assert.That(afterContents, Is.EqualTo(expectedContents));
         }
@@ -37,19 +31,19 @@ namespace Tests.Releases.Tasks
         [Test]
         public void should_bump_major()
         {
-            TestBump(BumpType.Major, MajorFile);
+            TestBump(BumpType.Major, Config.Releases.Files.AssemblyInfo.MajorBumped);
         }
 
         [Test]
         public void should_bump_minor()
         {
-            TestBump(BumpType.Minor, MinorFile);
+            TestBump(BumpType.Minor, Config.Releases.Files.AssemblyInfo.MinorBumped);
         }
 
         [Test]
         public void should_bump_patch()
         {
-            TestBump(BumpType.Patch, PatchFile);
+            TestBump(BumpType.Patch, Config.Releases.Files.AssemblyInfo.PatchBumped);
         }
     }
 }

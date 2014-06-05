@@ -14,16 +14,15 @@ namespace Tests.Scripts.Tasks
         public void should_fetch_installed_versions()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var createVersionTable = Task.New<CreateVersionTable>();
-            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.In.ConnectionName = Database.Name;
             createVersionTable.Execute();
 
             var runScripts = Task.New<RunScripts>();
-            runScripts.In.ConnectionName = "Test";
-            runScripts.In.Scripts = new[] {new Script {FileName = @"Scripts\files\sql\insert-version.sql"}};
+            runScripts.In.ConnectionName = Database.Name;
+            runScripts.In.Scripts = new[] {new Script {FileName = Config.Scripts.Files.Sql.InsertVersion}};
             using (var sw = new StringWriter())
             {
                 Console.SetOut(sw);
@@ -31,7 +30,7 @@ namespace Tests.Scripts.Tasks
             }
 
             var fetchInstalledVersions = Task.New<FetchInstalledVersions>();
-            fetchInstalledVersions.In.ConnectionName = "Test";
+            fetchInstalledVersions.In.ConnectionName = Database.Name;
 
             // Act
             fetchInstalledVersions.Execute();

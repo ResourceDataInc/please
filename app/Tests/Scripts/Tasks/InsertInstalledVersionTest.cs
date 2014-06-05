@@ -15,15 +15,14 @@ namespace Tests.Scripts.Tasks
         public void should_insert_version()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var createVersionTable = Task.New<CreateVersionTable>();
-            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.In.ConnectionName = Database.Name;
             createVersionTable.Execute();
 
             var insertInstalledVersion = Task.New<InsertInstalledVersion>();
-            insertInstalledVersion.In.ConnectionName = "Test";
+            insertInstalledVersion.In.ConnectionName = Database.Name;
             insertInstalledVersion.In.Version = new Version { Id = "999" };
 
             // Act
@@ -37,22 +36,21 @@ namespace Tests.Scripts.Tasks
         public void should_insert_version_as_string()
         {
             // Arrange
-            File.Delete(@"Scripts\files\test.db");
-            File.Copy(@"Scripts\files\empty.db", @"Scripts\files\test.db");
+            Database.Restore();
 
             var createVersionTable = Task.New<CreateVersionTable>();
-            createVersionTable.In.ConnectionName = "Test";
+            createVersionTable.In.ConnectionName = Database.Name;
             createVersionTable.Execute();
 
             var insertInstalledVersion = Task.New<InsertInstalledVersion>();
-            insertInstalledVersion.In.ConnectionName = "Test";
+            insertInstalledVersion.In.ConnectionName = Database.Name;
             insertInstalledVersion.In.Version = new Version { Id = "01" };
 
             // Act
             insertInstalledVersion.Execute();
 
             // Assert
-            using (var connection = Db.Connect("Test"))
+            using (var connection = Db.Connect(Database.Name))
             {
                 var count = Db.GetScalar(connection, "select version from db_version where version = '01';");
                 Assert.That(Convert.ToInt32(count), Is.EqualTo(1));

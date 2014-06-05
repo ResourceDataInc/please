@@ -23,13 +23,12 @@ namespace Library.Timestamp.Tasks
 
             foreach (var file in files)
             {
-                if (file.IsTimestamped)
-                    continue;
+                if (file.IsTimestamped) continue;
 
                 string fileName = file.FileName;
                 string directory = file.FileDirectory;
 
-                File.Move(directory + fileName, directory + timestamp + fileName);
+                File.Move(Path.Combine(directory, fileName), Path.Combine(directory, String.Concat(timestamp, fileName)));
             }
         }
     }

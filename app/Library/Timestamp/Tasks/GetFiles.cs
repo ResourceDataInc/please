@@ -22,26 +22,26 @@ namespace Library.Timestamp.Tasks
 
         public override void Execute()
         {    
-            var files = new List<TimestampFile>();
-            var fileNames = Directory.GetFiles(In.Directory);
+            var list = new List<TimestampFile>();
+            var files = Directory.GetFiles(In.Directory);
 
-            foreach (var fileName in fileNames)
+            foreach (var file in files)
             {
-                string fileNameWithoutPath = Path.GetFileName(fileName);
-                var pathWithoutFileName = Path.GetDirectoryName(fileName) + "\\";
+                var fileName = Path.GetFileName(file);
+                var directoryName = Path.GetDirectoryName(file);
+                var isTimestamped = Regex.IsMatch(fileName, timestampPattern, RegexOptions.None);
 
-                TimestampFile file = new TimestampFile
+                var timestampFile = new TimestampFile
                 {
-                    FileName = fileNameWithoutPath,
-                    FileDirectory = pathWithoutFileName
+                    FileName = fileName,
+                    FileDirectory = directoryName,
+                    IsTimestamped = isTimestamped
                 };
 
-                file.IsTimestamped = Regex.IsMatch(fileNameWithoutPath, timestampPattern, RegexOptions.None);
-
-                files.Add(file);
+                list.Add(timestampFile);
             }
 
-            Out.Files = files.ToArray();
+            Out.Files = list.ToArray();
         }
     }
 }
