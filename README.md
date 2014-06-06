@@ -1,5 +1,7 @@
 # please
 
+[![Build Status](https://travis-ci.org/ResourceDataInc/please.svg?branch=master)](https://travis-ci.org/ResourceDataInc/please)
+
 *Please* is a set of commands useful for maintaining software projects.
 
 For example, *please* can be used manage change to databases. Let's say you need to add a column to a table in your Staging database. First, you would create a .sql script that contained the alter table statement and save it to a  directory maybe named `.\migrations`. Next, you would run `please add timestamp in .\migrations` which  prepends a timestamp to the name of the .sql file. Finally, you run `please run sql in .\migrations on Staging` to "migrate" the Staging database and *please* will run any .sql scripts that have not been ran before in the Staging database (in this case your alter table statement). *Please* automatically keeps track of which .sql scripts have ran in the database based on the timestamp values. *Please* also supports running .py files and/or a mix of .sql and .py files as migrations. This gives you the full power of python as a migration which could be used to do something like run a set of arcpy commands to automate an ArcGIS Server task.
