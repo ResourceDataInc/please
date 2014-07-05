@@ -21,8 +21,7 @@
     "nuspec": "app/Please/Please.nuspec",
     "nupkgPattern": "Please.?.?.?.nupkg",
     "tools": [
-      "app/Please/bin/Release/please.exe",
-      "app/Please/bin/Release/Library.dll"
+      "app/Please/bin/Release/please.exe"
     ],
     "output": {
       "prep": "output/release/prep",
