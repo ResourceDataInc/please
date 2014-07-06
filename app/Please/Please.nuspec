@@ -13,9 +13,5 @@
     <summary>Please is a set of commands useful for maintaining software projects.</summary>
     <releaseNotes>See the README for an overview of functionality.</releaseNotes>
     <language>en-US</language>
-    <dependencies>
-      <dependency id="Castle.Core" version="2.5.2" />
-      <dependency id="simpler" version="2.3.0" />
-    </dependencies>
   </metadata>
 </package>
