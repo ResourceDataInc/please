@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>Please</id>
-    <version>0.7.0</version>
+    <version>0.7.1</version>
     <title>Please</title>
     <authors>Resource Data, Inc.</authors>
     <owners>Resource Data, Inc</owners>
@@ -13,9 +13,5 @@
     <summary>Please is a set of commands useful for maintaining software projects.</summary>
     <releaseNotes>See the README for an overview of functionality.</releaseNotes>
     <language>en-US</language>
-    <dependencies>
-      <dependency id="Castle.Core" version="2.5.2" />
-      <dependency id="simpler" version="2.3.0" />
-    </dependencies>
   </metadata>
 </package>
